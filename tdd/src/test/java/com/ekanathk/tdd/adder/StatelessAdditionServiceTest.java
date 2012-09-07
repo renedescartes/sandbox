@@ -1,10 +1,11 @@
 package com.ekanathk.tdd.adder;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.ekanathk.tdd.adder.vendor.AddCallBack;
 import com.ekanathk.tdd.adder.vendor.Adder;
-import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
 
 public class StatelessAdditionServiceTest {
 
@@ -20,7 +21,7 @@ public class StatelessAdditionServiceTest {
         assertEquals(5, service.add(2, 3));
     }
 
-    @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Vendor addition")
+    @Test(expected = RuntimeException.class)
     public void testSimpleAdditionNoResponseFromVendor() {
         StatelessAdditionService service = new StatelessAdditionService(new Adder() {
             @Override
