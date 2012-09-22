@@ -1,10 +1,10 @@
-package com.ekanathk.tdd.queens;
+package com.ekanathk.tdd.algos;
 
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.ekanathk.tdd.queens.QueenPlacement.*;
+import static com.ekanathk.tdd.algos.QueenPlacement.*;
 import static junit.framework.Assert.assertEquals;
 
 /**

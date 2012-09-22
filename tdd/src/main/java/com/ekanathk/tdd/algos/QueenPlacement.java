@@ -1,4 +1,4 @@
-package com.ekanathk.tdd.queens;
+package com.ekanathk.tdd.algos;
 
 import java.util.ArrayList;
 import java.util.HashSet;
