@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <name>TDD basics</name>
 
+    <description>My TDD project</description>
     <build>
         <plugins>
             <plugin>
