@@ -15,6 +15,8 @@ public class RootTest {
     @DataProvider(name = "numbers")
     public Object[][] createData1() {
         return new Object[][] {
+                {0.001, Math.sqrt(0.001)},
+                {0.0025, 0.05},
                 {64, 8},
                 {1, 1},
                 {0, 0},

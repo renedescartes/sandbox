@@ -15,13 +15,24 @@ public class Root {
         if(n < 0) {
             throw new IllegalArgumentException("Please pass a non-negative number");
         }
-        return squareRoot(0, Math.max(2, n/2), n);
+        return squareRoot(0, upperLimit(n), n);
     }
 
-    public static double squareRoot(double start, double end, double n) {
-        logger.info("Start " + start + " end " + end  + " n " + n);
+
+    protected static double upperLimit(double n) {
+        if(n <=1) {
+            return 1;
+        }
+        if(n <=4) {
+            return 2;
+        }
+        return n/2;
+    }
+
+    protected static double squareRoot(double start, double end, double n) {
         double d1 = Math.abs(n - (start * start));
         double d2 = Math.abs((end * end) - n);
+        logger.info("Start " + start + " end " + end  + " d1 " + d1 + " d2 " + d2 + " n " + n);
         if(d1 < ERROR) {
             return start;
         }
@@ -29,7 +40,7 @@ public class Root {
             return end;
         }
         double middle = (start + end) / 2;
-        return ((d1 < d2) && (n > 1)) ?
+        return ((d1 < d2)) ?
                 squareRoot(start, middle, n) :
                 squareRoot(middle, end, n);
     }
