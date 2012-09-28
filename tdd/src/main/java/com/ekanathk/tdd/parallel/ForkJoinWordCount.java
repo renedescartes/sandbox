@@ -91,7 +91,7 @@ public class ForkJoinWordCount extends RecursiveTask<Map<String, Long>> {
         }
     }
 
-    /** Fork multiple jobs one per file*/
+    /** Fork several jobs one per file*/
     @Override
     protected Map<String, Long> compute() {
         List<ForkJoinTask<Map<String,Long>>> tasks = new ArrayList<>();
