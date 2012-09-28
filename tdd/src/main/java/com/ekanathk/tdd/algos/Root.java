@@ -15,7 +15,7 @@ public class Root {
         if(n < 0) {
             throw new IllegalArgumentException("Please pass a non-negative number");
         }
-        return squareRoot(0, n/2 + 1, n);
+        return squareRoot(0, Math.max(2, n/2), n);
     }
 
     public static double squareRoot(double start, double end, double n) {
