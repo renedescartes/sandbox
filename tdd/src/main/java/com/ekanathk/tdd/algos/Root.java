@@ -1,5 +1,7 @@
 package com.ekanathk.tdd.algos;
 
+import java.util.logging.Logger;
+
 /**
  * User: kannan
  * Date: 28/09/12
@@ -7,17 +9,19 @@ package com.ekanathk.tdd.algos;
 public class Root {
 
     public static double ERROR = 0.00001;
+    private static final Logger logger = Logger.getLogger(Root.class.getName());
 
     public static double squareRoot(double n) {
         if(n < 0) {
             throw new IllegalArgumentException("Please pass a non-negative number");
         }
-        return squareRoot(0, n/2, n);
+        return squareRoot(0, n/2 + 1, n);
     }
 
     public static double squareRoot(double start, double end, double n) {
-        double d1 = n - (start * start);
-        double d2 = (end * end) - n;
+        logger.info("Start " + start + " end " + end  + " n " + n);
+        double d1 = Math.abs(n - (start * start));
+        double d2 = Math.abs((end * end) - n);
         if(d1 < ERROR) {
             return start;
         }
