@@ -1,5 +1,11 @@
 package com.ekanathk.tdd.euler;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +16,15 @@ import java.util.TreeSet;
  * Date: 29/09/12
  */
 public class Utility {
+
+    public static List<String> readFile(String classpathResourceName) {
+        try {
+            URL resource = Thread.currentThread().getContextClassLoader().getResource(classpathResourceName);
+            return Files.readAllLines(Paths.get(resource.toURI()), Charset.defaultCharset());
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static Integer[] properDivisors(int n) {
         if(n == 0) {
