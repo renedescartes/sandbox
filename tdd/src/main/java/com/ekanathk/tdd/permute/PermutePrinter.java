@@ -1,6 +1,9 @@
 package com.ekanathk.tdd.permute;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,9 +14,11 @@ import java.util.Arrays;
  */
 public class PermutePrinter {
 
-    public static <T> void permute(T[] array, int n) {
+    Collection<String> permutes = new ArrayList<>();
+
+    public <T> void permute(T[] array, int n) {
         if(n == 1) {
-            System.out.println(Arrays.toString(array));
+            permutes.add(Arrays.toString(array));
             return;
         }
         for(int i = 0; i < n; i++) {
@@ -30,6 +35,9 @@ public class PermutePrinter {
     }
 
     public static void main(String[] args) {
-        permute(new Integer[]{1, 2, 3}, 3);
+        PermutePrinter p = new PermutePrinter();
+        p.permute(new Character[]{'R', 'R',
+                'D', 'D'}, 4);
+        System.out.println(p.permutes);
     }
 }
