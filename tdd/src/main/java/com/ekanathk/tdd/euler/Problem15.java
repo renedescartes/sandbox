@@ -60,6 +60,7 @@ public class Problem15 {
 
     @Test
     public void testSimple() {
+        System.out.println(sumOfDigits(factorial(100).toString()));
         BigInteger b = new BigInteger("2");
         String answer = b.pow(1000).toString();
         System.out.println(answer.length());
