@@ -50,13 +50,20 @@ public class Problem15 {
         return f;
     }
 
-
+    protected static long sumOfDigits(String d) {
+        long sum = 0;
+        for(int i = 0; i < d.length(); i++) {
+            sum += Integer.parseInt("" + d.charAt(i));
+        }
+        return sum;
+    }
 
     @Test
     public void testSimple() {
         BigInteger b = new BigInteger("2");
         String answer = b.pow(1000).toString();
-        System.out.println(answer);
+        System.out.println(answer.length());
+        System.out.println(sumOfDigits(answer));
         assertEquals(24L, factorial(4).longValue());
         assertEquals(2L, factorial(2).longValue());
         assertEquals(6L, factorial(3).longValue());
