@@ -42,6 +42,9 @@ public class Problem24 {
 
     @Test
     public void testSimple() {
-        System.out.println(getPermutation(Arrays.asList(1, 2, 3, 4, 5), 67));
+        System.out.println(getPermutation(Arrays.asList(1, 2, 3, 4, 5), 2));
+        for(int i = 1; i <= 120; i++) {
+//            System.out.println(getPermutation(Arrays.asList(1, 2, 3, 4, 5), i));
+        }
     }
 }
