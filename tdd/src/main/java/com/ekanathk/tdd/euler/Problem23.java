@@ -20,8 +20,9 @@ public class Problem23 {
     private static Map<Integer, Boolean> cache = new HashMap<>();
     public static int computeSum() {
         int sum = 0;
-        for(int i = 24; i <= 28123; i++) {
-            if(isSumOfTwoAbundantNumbers(i)) {
+        for(int i = 1; i <= 28123; i++) {
+            if(!isSumOfTwoAbundantNumbers(i)) {
+                logger.info("Number [" + i + "] cannot be expressed as sum of two abundant numbers");
                 sum += i;
             }
         }
@@ -36,7 +37,7 @@ public class Problem23 {
     protected static boolean isSumOfTwoAbundantNumbers(int n) {
         for(int i = 1; i < (n/2) + 1; i++) {
             if(isAbundantNumber(i) && isAbundantNumber(n-i)) {
-                logger.info("Number [" + n + "] is abundant sum of [" + i + "] and [" + (n-i) + "]");
+                logger.fine("Number [" + n + "] is abundant sum of [" + i + "] and [" + (n-i) + "]");
                 return true;
             }
         }
