@@ -20,7 +20,7 @@ public class Problem23 {
     private static Map<Integer, Boolean> cache = new HashMap<>();
     public static int computeSum() {
         int sum = 0;
-        for(int i = 24; i < 28123; i++) {
+        for(int i = 24; i <= 28123; i++) {
             if(isSumOfTwoAbundantNumbers(i)) {
                 sum += i;
             }
