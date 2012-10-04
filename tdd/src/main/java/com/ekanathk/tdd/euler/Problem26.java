@@ -17,16 +17,23 @@ public class Problem26 {
 
     private static final Logger logger = Logger.getLogger(Problem26.class.getName());
 
+    public static int getRepetitionLength(int denominator) {
+        String quotient = getDivision(denominator);
+        int start = quotient.indexOf("(");
+        int end = quotient.indexOf(")");
+        return start == -1 ? 0 : (end - start - 1);
+    }
+
     public static String getDivision(int denominator) {
         List<Integer> quotients = new ArrayList<>();
         List<Integer> remainders = new ArrayList<>();
         int remainder = 1, quotient = 1, repetitionStartPoint = -1;
-        while(remainder != 0 && repetitionStartPoint == -1) {
+        while(remainder != 0) {
             logger.info("Quotient " + quotient + " Remainder " + remainder + " QuotientArray " + quotients + " Remainders " + remainders);
             remainder = (quotient * 10) % denominator;
             quotient = (quotient * 10) / denominator;
-            if(remainder != 0 && isRepeatFound(quotients, remainders, quotient, remainder) != -1) {
-                repetitionStartPoint = isRepeatFound(quotients, remainders, quotient, remainder);
+            if((repetitionStartPoint = isRepeatFound(quotients, remainders, quotient, remainder)) != -1) {
+                remainder = 0;
             } else {
                 quotients.add(quotient);
                 remainders.add(remainder);
@@ -39,6 +46,9 @@ public class Problem26 {
     }
 
     private static int isRepeatFound(List<Integer> quotients, List<Integer> remainders, int quotient, int remainder) {
+        if(remainder == 0) {
+            return -1;
+        }
         for(int i = 0; i < quotients.size(); i++) {
             if(quotients.get(i).equals(quotient) && remainders.get(i).equals(remainder)) {
                 return i;
@@ -73,21 +83,22 @@ public class Problem26 {
     @DataProvider(name = "quotient-string")
     private Object[][] quotientData() {
         return new Object[][] {
-                {2, "0.5"},
-                {3, "0.(3)"},
-                {4, "0.25"},
-                {5, "0.2"},
-                {6, "0.1(6)"},
-                {7, "0.(142857)"},
-                {8, "0.125"},
-                {9, "0.(1)"},
-                {10, "0.1"}
+                {2, "0.5", 0},
+                {3, "0.(3)", 1},
+                {4, "0.25", 0},
+                {5, "0.2", 0},
+                {6, "0.1(6)", 1},
+                {7, "0.(142857)", 6},
+                {8, "0.125", 0},
+                {9, "0.(1)", 1},
+                {10, "0.1", 0}
         };
     }
 
     @Test(dataProvider = "quotient-string")
-    public void testSimple(int denominator, String output) {
-        assertEquals(output, getDivision(denominator));
+    public void testSimple(int denominator, String output, int repetitionLength) {
+        assertEquals(getDivision(denominator), output);
+        assertEquals(getRepetitionLength(denominator), repetitionLength);
     }
 
 
