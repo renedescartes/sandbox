@@ -29,7 +29,7 @@ public class Problem26 {
         List<Integer> remainders = new ArrayList<>();
         int remainder = 1, quotient = 1, repetitionStartPoint = -1;
         while(remainder != 0) {
-            logger.info("Quotient " + quotient + " Remainder " + remainder + " QuotientArray " + quotients + " Remainders " + remainders);
+            logger.fine("Quotient " + quotient + " Remainder " + remainder + " QuotientArray " + quotients + " Remainders " + remainders);
             remainder = (quotient * 10) % denominator;
             quotient = (quotient * 10) / denominator;
             if((repetitionStartPoint = isRepeatFound(quotients, remainders, quotient, remainder)) != -1) {
@@ -41,7 +41,7 @@ public class Problem26 {
             }
         }
         String answer = "0." + prettyFormat(quotients, repetitionStartPoint);
-        logger.info("The quotient is " + answer);
+        logger.fine("The quotient is " + answer);
         return answer;
     }
 
@@ -99,6 +99,21 @@ public class Problem26 {
     public void testSimple(int denominator, String output, int repetitionLength) {
         assertEquals(getDivision(denominator), output);
         assertEquals(getRepetitionLength(denominator), repetitionLength);
+    }
+
+    @Test
+    public void testAnswer() {
+        int longestCycle = -1; int d = -1;
+        for(int i = 2; i < 1000; i++) {
+            int cycleLength = getRepetitionLength(i);
+            logger.info("number = " + i + " cycleLength = " + cycleLength + " longestCycle = " + longestCycle);
+            if(cycleLength > longestCycle) {
+                longestCycle = cycleLength;
+                d = i;
+            }
+        }
+        System.out.println("The answer is " + d);
+        System.out.println("The answer is " + getDivision(982));
     }
 
 
