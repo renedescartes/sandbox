@@ -25,11 +25,8 @@ public class Problem26 {
             logger.info("Quotient " + quotient + " Remainder " + remainder + " QuotientArray " + quotients + " Remainders " + remainders);
             remainder = (quotient * 10) % denominator;
             quotient = (quotient * 10) / denominator;
-            if(remainder != 0) {
-                int f1 = findFirstOccurenceOf(remainders, remainder), f2 = findFirstOccurenceOf(quotients, quotient);
-                if(f1 == f2 && f1 >=0) {
-                    repetitionStartPoint = findFirstOccurenceOf(remainders, remainder) + 1;
-                }
+            if(remainder != 0 && isRepeatFound(quotients, remainders, quotient, remainder) != -1) {
+                repetitionStartPoint = isRepeatFound(quotients, remainders, quotient, remainder);
             } else {
                 quotients.add(quotient);
                 remainders.add(remainder);
@@ -39,6 +36,15 @@ public class Problem26 {
         String answer = "0." + prettyFormat(quotients, repetitionStartPoint);
         logger.info("The quotient is " + answer);
         return answer;
+    }
+
+    private static int isRepeatFound(List<Integer> quotients, List<Integer> remainders, int quotient, int remainder) {
+        for(int i = 0; i < quotients.size(); i++) {
+            if(quotients.get(i).equals(quotient) && remainders.get(i).equals(remainder)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static String prettyFormat(List<Integer> elements, int repetitionPoint) {
@@ -84,8 +90,5 @@ public class Problem26 {
         assertEquals(output, getDivision(denominator));
     }
 
-    @Test
-    public void testComplex() {
-        assertEquals("0.(3)", getDivision(3));
-    }
+
 }
