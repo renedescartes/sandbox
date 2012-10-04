@@ -113,7 +113,7 @@ public class Problem26 {
             }
         }
         System.out.println("The answer is " + d);
-        System.out.println("The answer is " + getDivision(982));
+        System.out.println("The answer is " + getDivision(983));
     }
 
 
