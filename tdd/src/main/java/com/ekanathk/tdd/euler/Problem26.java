@@ -25,8 +25,11 @@ public class Problem26 {
             logger.info("Quotient " + quotient + " Remainder " + remainder + " QuotientArray " + quotients + " Remainders " + remainders);
             remainder = (quotient * 10) % denominator;
             quotient = (quotient * 10) / denominator;
-            if(remainder != 0 && remainders.contains(remainder)) {
-                repetitionStartPoint = findFirstOccurenceOf(remainders, remainder);
+            if(remainder != 0) {
+                int f1 = findFirstOccurenceOf(remainders, remainder), f2 = findFirstOccurenceOf(quotients, quotient);
+                if(f1 == f2 && f1 >=0) {
+                    repetitionStartPoint = findFirstOccurenceOf(remainders, remainder) + 1;
+                }
             } else {
                 quotients.add(quotient);
                 remainders.add(remainder);
@@ -83,6 +86,6 @@ public class Problem26 {
 
     @Test
     public void testComplex() {
-        assertEquals("0.1(6)", getDivision(6));
+        assertEquals("0.(3)", getDivision(3));
     }
 }
