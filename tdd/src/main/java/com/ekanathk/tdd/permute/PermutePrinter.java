@@ -1,6 +1,9 @@
 package com.ekanathk.tdd.permute;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,7 +36,7 @@ public class PermutePrinter {
 
     public static void main(String[] args) {
         PermutePrinter p = new PermutePrinter();
-        p.permute(new Integer[]{1, 2, 3, 4, 5}, 5);
+        p.permute(new Integer[]{0, 1, 2, 3, 4}, 5);
         Collections.sort(p.permutes);
         for (String permute : p.permutes) {
             System.out.println(permute);
