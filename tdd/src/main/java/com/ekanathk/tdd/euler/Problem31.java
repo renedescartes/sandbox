@@ -70,6 +70,8 @@ public class Problem31 {
     public void testSimple() {
         Problem31 pbm = new Problem31();
         List<Map<Integer, Integer>> solutionsForNum = pbm.computeNumbers(Arrays.asList(200, 100, 50, 20, 10, 5, 2, 1), 200);
-        System.out.println(prettyPrint(solutionsForNum));
+        //List<Map<Integer, Integer>> solutionsForNum = pbm.computeNumbers(Arrays.asList(10, 5, 2, 1), 10);
+        //System.out.println(prettyPrint(solutionsForNum));
+        System.out.println(solutionsForNum.size());//73682
     }
 }
