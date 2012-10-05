@@ -15,6 +15,7 @@ import static org.testng.Assert.assertEquals;
  */
 public class Problem33 {
 
+    /** Find gcd of two numbers*/
     private static int gcd(int a, int b) {
         if(a > b) {
             return gcd(b, a);
@@ -25,6 +26,7 @@ public class Problem33 {
         return gcd(b % a, a);
     }
 
+    /** Cut common factors example 4/8 will become 1/2*/
     private static Fraction reduce(Fraction f) {
         Fraction reduced = f;
         int gcd;
@@ -34,6 +36,7 @@ public class Problem33 {
         return reduced;
     }
 
+    /** Incorrectly reduce example 43/83 will become 4/8*/
     private static Fraction incorrectReduce(Fraction f) {
         List<Character> nList = charList("" + f.numerator), dList = charList("" + f.denominator);
         ListIterator<Character> it = nList.listIterator();
@@ -47,6 +50,7 @@ public class Problem33 {
         return new Fraction(join(nList), join(dList));
     }
 
+    /** Join a list of char ints into a big integer*/
     private static int join(List<Character> l) {
         if (l.isEmpty()) {
             return 1;
@@ -58,10 +62,7 @@ public class Problem33 {
         return Integer.parseInt(b.toString());
     }
 
-    public static boolean reducibleButNotSame(Fraction f1, Fraction f2) {
-        return !f1.equals(f2) && reduce(f1).equals(reduce(f2));
-    }
-
+    /** Separate a number into a list of digits*/
     private static List<Character> charList(String s) {
         char[] array = s.toCharArray();
         List<Character> l = new ArrayList<>();
@@ -71,6 +72,7 @@ public class Problem33 {
         return l;
     }
 
+    /** Iterate and find the fractions*/
     protected static List<Fraction> getFractions(int number) {
         List<Fraction> fractions = new ArrayList<>();
         for(int n = 1; n < number; n++) {
