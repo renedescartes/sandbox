@@ -3,6 +3,7 @@ package com.ekanathk.tdd.euler;
 import org.testng.annotations.Test;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * User: kannan
@@ -11,6 +12,7 @@ import java.util.*;
 public class Problem31 {
 
     private List<Map<Integer, Integer>> solutions = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(Problem31.class.getName());
 
     public List<Map<Integer, Integer>> computeNumbers(List<Integer> availableWeights, int requiredSum) {
         compute(availableWeights, new TreeMap<Integer, Integer>(), 0, requiredSum);
@@ -18,6 +20,7 @@ public class Problem31 {
     }
 
     protected void compute(List<Integer> availableWeights, Map<Integer, Integer> chosenWeights, int level, int requiredSum) {
+        logger.fine("chosen " + prettyPrint(Arrays.asList(chosenWeights)) + " level " + level);
         if(calculateWeight(chosenWeights) == requiredSum) {
             solutions.add(new TreeMap<>(chosenWeights));
             return;
@@ -26,7 +29,7 @@ public class Problem31 {
             return;
         }
         //One branch where this weight was not added
-        //compute(availableWeights, new TreeMap<>(chosenWeights), level + 1, requiredSum);
+        compute(availableWeights, new TreeMap<>(chosenWeights), level + 1, requiredSum);
         //now try adding weights to this
         while(calculateWeight(addWeight(chosenWeights, availableWeights.get(level))) <= requiredSum) {
             compute(availableWeights, new TreeMap<>(chosenWeights), level + 1, requiredSum);
@@ -54,7 +57,9 @@ public class Problem31 {
             for (Map.Entry<Integer, Integer> entry : solution.entrySet()) {
                 b.append(entry.getKey()).append("p * ").append(entry.getValue()).append("\t + ");
             }
-            b.delete(b.length() -2, b.length());
+            if(!solution.entrySet().isEmpty()) {
+                b.delete(b.length() -2, b.length());
+            }
             b.append("\n");
 
         }
@@ -64,6 +69,7 @@ public class Problem31 {
     @Test
     public void testSimple() {
         Problem31 pbm = new Problem31();
-        System.out.println(prettyPrint(pbm.computeNumbers(Arrays.asList(200, 100, 50, 20, 10, 5, 2, 1), 500)));
+        List<Map<Integer, Integer>> solutionsForNum = pbm.computeNumbers(Arrays.asList(200, 100, 50, 20, 10, 5, 2, 1), 200);
+        System.out.println(prettyPrint(solutionsForNum));
     }
 }
