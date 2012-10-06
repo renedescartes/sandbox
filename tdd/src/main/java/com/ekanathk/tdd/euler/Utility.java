@@ -53,6 +53,7 @@ public class Utility {
     }
 
     public static boolean isPrime(long n) {
+        if(n < 0) return false;
         for(long i = 2; i <= Math.sqrt(n); i++) {
             if(n % i == 0) {
                 return false;
