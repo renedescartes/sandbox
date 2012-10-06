@@ -3,7 +3,6 @@ package com.ekanathk.tdd.euler;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -95,7 +94,13 @@ public class Problem33 {
 
         assertEquals(new Fraction(1, 2), reduce(new Fraction(16, 32)));
         assertEquals(new Fraction(1, 3), incorrectReduce(new Fraction(14, 34)));
-        System.out.println(getFractions(100));
+        List<Fraction> fractions = getFractions(100);
+        int num = 1, den = 1;
+        for (Fraction fraction : fractions) {
+            num *= fraction.numerator;
+            den *= fraction.denominator;
+        }
+        System.out.println(reduce(new Fraction(num, den)).denominator);
     }
 }
 
@@ -133,5 +138,6 @@ class Fraction {
                 " / " + denominator +
                 '}';
     }
+
 
 }
