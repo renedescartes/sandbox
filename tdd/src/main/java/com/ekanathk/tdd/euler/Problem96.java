@@ -53,7 +53,7 @@ public class Problem96 {
     private Sudoku answer = null;
     private static final Logger logger = Logger.getLogger(Problem96.class.getName());
     public Sudoku solve(Sudoku input) {
-        logger.fine(input.toString());
+        logger.info(input.toString());
         if(answer != null) {
             return answer;
         }
@@ -61,6 +61,9 @@ public class Problem96 {
             for(int j = 0; j < 9; j++) {
                 if(input.getAt(i, j) == 0) {
                     Set<Integer> options = input.findOptions(i, j);
+                    if(options.isEmpty()) {
+                        return null;
+                    }
                     for(Integer option : options) {
                         solve(input.copy().place(i, j, option));
                     }
