@@ -78,10 +78,6 @@ class Sudoku {
 
     private static List<Integer> options = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    Sudoku() {
-        this(new int[9][9]);
-    }
-
     Sudoku(int[][] array) {
         this.array = array;
     }
@@ -155,14 +151,4 @@ class Sudoku {
         return b.toString();
     }
 
-    public boolean isSolved() {
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if(array[i][j] == 0) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }
