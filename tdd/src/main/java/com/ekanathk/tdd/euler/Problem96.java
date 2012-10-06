@@ -1,6 +1,5 @@
 package com.ekanathk.tdd.euler;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.*;
@@ -13,24 +12,6 @@ import static org.testng.Assert.assertEquals;
  * Date: 06/10/12
  */
 public class Problem96 {
-
-    @DataProvider(name = "pools")
-    private Object[][] pools() {
-        return new Object[][] {
-                {0, 0, 0},
-                {0, 2, 0},
-                {0, 7, 2},
-                {1, 7, 2},
-                {2, 0, 0},
-                {3, 0, 3},
-                {6, 5, 7}
-        };
-    }
-
-    @Test(dataProvider = "pools")
-    public void testSimple(int i, int j, int pool) {
-        assertEquals(Sudoku.poolNumber(i, j), pool);
-    }
 
     @Test
     public void testSolve() {
@@ -45,16 +26,57 @@ public class Problem96 {
                 {8,0,0,2,0,3,0,0,9},
                 {0,0,5,0,1,0,3,0,0},
         });
-        Problem96 p = new Problem96();
-        p.solve(s, 0, 0);
-        System.out.println(p.answer);
+//        Problem96 p = new Problem96();
+//        p.solve(s, 0, 0);
+//        System.out.println(p.answer);
+        assertEquals(solveProblem("sudoku.txt"), 230);
     }
 
     private Sudoku answer = null;
     private static final Logger logger = Logger.getLogger(Problem96.class.getName());
 
+    public static long solveProblem(String resource) {
+        List<Sudoku> sudokus = readPuzzles(resource);
+        long sum = 0;
+        for(Sudoku s: sudokus) {
+            Sudoku solvedSudoku = solve(s);
+            logger.info(solvedSudoku.toString());
+            sum += solvedSudoku.sumOfThree();
+        }
+        return sum;
+    }
+
+    public static List<Sudoku> readPuzzles(String resource) {
+        List<Sudoku> puzzles = new ArrayList<>();
+        List<String> inputs = Utility.readFile(resource);
+
+        for (int i = 0; i < inputs.size(); i = i + 10) {
+            String input = inputs.get(i);
+            if(input.startsWith("Grid")) {
+                puzzles.add(readPuzzle(inputs.subList(i+1, i + 10)));
+            }
+        }
+        return puzzles;
+    }
+
+    public static Sudoku readPuzzle(List<String> lines) {
+        int[][] array = new int[9][9];
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9;j++) {
+                array[i][j] = lines.get(i).charAt(j) - '0';
+            }
+        }
+        return new Sudoku(array);
+    }
+
+    public static Sudoku solve(Sudoku input) {
+        Problem96 p = new Problem96();
+        p.solve(input, 0, 0);
+        return p.answer;
+    }
+
     public void solve(Sudoku input, int x, int y) {
-        logger.info(input.toString());
+        logger.fine(input.toString());
         if(answer != null) {
             return;
         }
@@ -136,6 +158,10 @@ class Sudoku {
     public Sudoku place(int i, int j, int number) {
         array[i][j] = number;
         return this;
+    }
+
+    public long sumOfThree() {
+        return array[0][0] + array[0][1] + array[0][2];
     }
 
     @Override
