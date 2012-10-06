@@ -29,7 +29,7 @@ public class Problem96 {
 //        Problem96 p = new Problem96();
 //        p.solve(s, 0, 0);
 //        System.out.println(p.answer);
-        assertEquals(solveProblem("sudoku.txt"), 230);
+        assertEquals(solveProblem("sudoku.txt"), 24702);
     }
 
     private Sudoku answer = null;
@@ -40,7 +40,7 @@ public class Problem96 {
         long sum = 0;
         for(Sudoku s: sudokus) {
             Sudoku solvedSudoku = solve(s);
-            logger.info(solvedSudoku.toString());
+            logger.info("" + solvedSudoku.sumOfThree());
             sum += solvedSudoku.sumOfThree();
         }
         return sum;
@@ -161,7 +161,7 @@ class Sudoku {
     }
 
     public long sumOfThree() {
-        return array[0][0] + array[0][1] + array[0][2];
+        return Long.parseLong("" + array[0][0] + array[0][1] + array[0][2]);
     }
 
     @Override
