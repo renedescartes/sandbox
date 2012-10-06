@@ -46,34 +46,30 @@ public class Problem96 {
                 {0,0,5,0,1,0,3,0,0},
         });
         Problem96 p = new Problem96();
-        s = p.solve(s);
-        System.out.println(s);
+        p.solve(s, 0, 0);
+        System.out.println(p.answer);
     }
 
     private Sudoku answer = null;
     private static final Logger logger = Logger.getLogger(Problem96.class.getName());
-    public Sudoku solve(Sudoku input) {
+
+    public void solve(Sudoku input, int x, int y) {
         logger.info(input.toString());
         if(answer != null) {
-            return answer;
+            return;
         }
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if(input.getAt(i, j) == 0) {
-                    Set<Integer> options = input.findOptions(i, j);
-                    if(options.isEmpty()) {
-                        return null;
-                    }
-                    for(Integer option : options) {
-                        solve(input.copy().place(i, j, option));
-                    }
-                }
+        if(x == 9) {
+            answer = input.copy();
+            return;
+        }
+        if(input.getAt(x, y) != 0){
+            solve(input.copy(), y==8 ? x+1: x, y==8? 0 : y+1);
+        } else {
+            Set<Integer> options = input.findOptions(x, y);
+            for (Integer option : options) {
+                solve(input.copy().place(x, y, option), y==8 ? x+1: x, y==8? 0 : y+1);
             }
         }
-        if(input.isSolved()) {
-            answer = input;
-        }
-        return answer;
     }
 }
 
@@ -91,11 +87,19 @@ class Sudoku {
     }
 
     public Sudoku copy() {
-        return new Sudoku(array);
+        int[][] newArray = new int[9][9];
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                newArray[i][j] = array[i][j];
+            }
+        }
+        return new Sudoku(newArray);
     }
 
     public Set<Integer> findOptions(int i, int j) {
-        if(array[i][j] != 0) {throw new IllegalArgumentException("Attempting to findOptions an already solved piece");}
+        if(array[i][j] != 0) {
+            throw new IllegalArgumentException("Attempting to findOptions an already solved piece");
+        }
         Set<Integer> placements = new HashSet<>(options);
         //remove all elements in the first row
         removeRowElements(array[i], placements);
