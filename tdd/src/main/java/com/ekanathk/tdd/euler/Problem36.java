@@ -64,6 +64,7 @@ public class Problem36 {
 
     @Test
     public void testComplex() {
+        /** Run the code*/
         assertEquals(sumOfPalindromeNumbers(1000000L), 872187);
     }
 }
