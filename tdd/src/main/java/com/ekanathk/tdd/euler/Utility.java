@@ -6,7 +6,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -52,4 +51,15 @@ public class Utility {
         }
         return sum;
     }
+
+    public static boolean isPrime(long n) {
+        for(long i = 2; i <= Math.sqrt(n); i++) {
+            if(n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
