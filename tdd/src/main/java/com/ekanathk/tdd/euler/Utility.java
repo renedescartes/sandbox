@@ -52,6 +52,14 @@ public class Utility {
         return sum;
     }
 
+    public static Long summation(Long[] array) {
+        Long sum = 0L;
+        for (int i = 0; i < array.length; i++) {
+            sum = sum + array[i];
+        }
+        return sum;
+    }
+
     public static boolean isPrime(long n) {
         if(n < 0) return false;
         for(long i = 2; i <= Math.sqrt(n); i++) {
