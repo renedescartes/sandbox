@@ -6,6 +6,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -50,6 +51,15 @@ public class Utility {
             sum = sum + array[i];
         }
         return sum;
+    }
+
+    public static Integer[] digits(Long number) {
+        String s = number.toString();
+        List<Integer> digits = new ArrayList<>();
+        for(int i = 0; i < s.length(); i++) {
+            digits.add(s.charAt(i) - '0');
+        }
+        return digits.toArray(new Integer[digits.size()]);
     }
 
     public static Long summation(Long[] array) {
