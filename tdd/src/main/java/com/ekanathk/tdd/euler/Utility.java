@@ -81,4 +81,28 @@ public class Utility {
     }
 
 
+    public static <T> List<List<T>> permutes(List<T> array) {
+        List<List<T>> permutations = new ArrayList<>();
+        permutes(array, array.size(), permutations);
+        return permutations;
+    }
+
+    public static <T> void permutes(List<T> array, int n, List<List<T>> permutations) {
+        if(n == 1) {
+            permutations.add(new ArrayList<>(array));
+            return;
+        }
+        for(int i = 0; i < n; i++) {
+            swap(array, i, n-1);
+            permutes(array, n - 1, permutations);
+            swap(array, i, n-1);
+        }
+    }
+
+    private static <T> void swap(List<T> array, int i, int j) {
+        T buffer = array.get(i);
+        array.set(i, array.get(j));
+        array.set(j, buffer);
+    }
+
 }

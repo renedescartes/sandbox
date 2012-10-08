@@ -1,5 +1,7 @@
 package com.ekanathk.tdd.permute;
 
+import com.ekanathk.tdd.euler.Utility;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,8 +40,9 @@ public class PermutePrinter {
         PermutePrinter p = new PermutePrinter();
         p.permute(new Integer[]{0, 1, 2, 3, 4}, 5);
         Collections.sort(p.permutes);
-        for (String permute : p.permutes) {
-            System.out.println(permute);
-        }
+//        for (String permute : p.permutes) {
+//            System.out.println(permute);
+//        }
+        System.out.println(Utility.permutes(Arrays.asList(1, 2, 3, 4, 5)));
     }
 }
