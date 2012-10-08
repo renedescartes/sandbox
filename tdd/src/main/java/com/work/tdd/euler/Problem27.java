@@ -9,7 +9,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 06/10/12
  */
 public class Problem27 {

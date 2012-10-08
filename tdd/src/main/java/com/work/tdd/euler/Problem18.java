@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 29/09/12
  */
 public class Problem18 {

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 29/09/12
  */
 public class Problem22 {

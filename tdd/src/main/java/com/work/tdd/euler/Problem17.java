@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 29/09/12
  */
 public class Problem17 {

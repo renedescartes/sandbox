@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import static com.work.tdd.euler.Utility.*;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 29/09/12
  */
 public class Problem21 {

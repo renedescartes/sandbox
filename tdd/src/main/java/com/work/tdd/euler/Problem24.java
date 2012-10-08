@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 30/09/12
  */
 public class Problem24 {

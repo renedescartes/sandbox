@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 30/09/12
  */
 public class Problem25 {

@@ -10,7 +10,7 @@ import static org.testng.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
- * User: EkanathK
+ * User: renedescartes
  * Date: 28/09/12
  * Time: 23:21
  * To change this template use File | Settings | File Templates.

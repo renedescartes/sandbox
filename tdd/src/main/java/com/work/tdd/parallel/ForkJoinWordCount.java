@@ -17,7 +17,7 @@ import static java.nio.file.Files.readAllLines;
 
 /**
  * Created with IntelliJ IDEA.
- * User: EkanathK
+ * User: renedescartes
  * Date: 28/09/12
  */
 class WordCountTask extends RecursiveTask<Map<String, Long>>{

@@ -10,7 +10,7 @@ import static com.work.tdd.euler.Utility.properDivisors;
 import static com.work.tdd.euler.Utility.summation;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 29/09/12
  */
 public class Problem23 {

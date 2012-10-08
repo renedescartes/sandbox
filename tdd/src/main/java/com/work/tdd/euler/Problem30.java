@@ -10,7 +10,7 @@ import static com.work.tdd.euler.Utility.summation;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 07/10/12
  */
 public class Problem30 {

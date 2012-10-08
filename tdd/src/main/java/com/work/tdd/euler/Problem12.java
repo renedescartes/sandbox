@@ -7,7 +7,7 @@ import static org.testng.Assert.assertEquals;
 
 /**
  * Created with IntelliJ IDEA.
- * User: EkanathK
+ * User: renedescartes
  * Date: 29/09/12
  * Time: 14:36
  * To change this template use File | Settings | File Templates.
