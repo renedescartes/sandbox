@@ -107,10 +107,17 @@ public class Utility {
         }
     }
 
-    private static <T> void swap(List<T> array, int i, int j) {
+    public static <T> void swap(List<T> array, int i, int j) {
         T buffer = array.get(i);
         array.set(i, array.get(j));
         array.set(j, buffer);
     }
 
+    public static long factorial(long n) {
+        long product = 1;
+        for(long i = 2; i <= n; i++) {
+            product *= i;
+        }
+        return product;
+    }
 }
