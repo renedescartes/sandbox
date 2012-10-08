@@ -1,12 +1,12 @@
 package com.ekanathk.tdd.euler;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import java.util.*;
 import java.util.logging.Logger;
 
-import static com.ekanathk.tdd.euler.Utility.digits;
-import static java.util.Arrays.asList;
+import static com.ekanathk.tdd.euler.Utility.sortListOfLists;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -17,37 +17,42 @@ public class Problem32 {
 
     private static final Logger logger = Logger.getLogger(Problem32.class.getName());
 
-    private static boolean isFull(Long a, Long b, Long product) {
-        List<Integer> digits = new ArrayList<>();
-        digits.addAll(asList(digits(a)));
-        digits.addAll(asList(digits(b)));
-        digits.addAll(asList(digits(product)));
-        Set<Integer> digitSet = new HashSet<>(digits);
-        return digits.size() == 9 && digitSet.size() == 9 && !digitSet.contains(new Integer(0));
-    }
 
-    public static Long[] listOfProducts() {
-        Collection<Long> numbers = new HashSet<>();
-        for(long a = 1; a < 1111; a++) {
-            for(long b = 1; b < 1111; b++) {
-                if(isFull(a, b, a *b)) {
-                    logger.info("a = " + a + " b = " + b + " product " + (a*b));
-                    numbers.add(a * b);
+    private static List<Integer> findApplicableProducts(List<Integer> pandigital) {
+        List<Integer> products = new ArrayList<>();
+        for(int i = 1; i < 8; i++) {
+            for(int j = i + 1; j < 9;j++) {
+                Integer op1 = parseInteger(pandigital, 0, i);
+                Integer op2 = parseInteger(pandigital, i, j);
+                Integer product = parseInteger(pandigital, j, 9);
+                logger.info(op1 + " * " + op2 + " = " + product);
+                if(op1 * op2 == product) {
+                    products.add(product);
                 }
             }
         }
-        logger.info("List of products " + numbers);
-        return numbers.toArray(new Long[numbers.size()]);
+        return products;
     }
 
-    public static long answer() {
-        return Utility.summation(listOfProducts());
+    private static Integer parseInteger(List<Integer> list, int i, int j) {
+        return Integer.parseInt(StringUtils.join(list.subList(i, j), ""));
+    }
+
+    public static long answer(List<Integer> array) {
+        List<List<Integer>> permutes = Utility.permutes(array);
+        sortListOfLists(permutes);
+        Set<Integer> products = new TreeSet<>();
+        for (List<Integer> permute : permutes) {
+            products.addAll(findApplicableProducts(permute));
+        }
+        return Utility.summation(products.toArray(new Integer[products.size()]));
     }
 
 
 
     @Test
     public void testSimple() {
-        assertEquals(answer(), 30424);
+        assertEquals(answer(Arrays.asList(1,2,3,4,5,6,7,8,9)), 45228);
+        assertEquals(findApplicableProducts(Arrays.asList(3, 9, 1, 8, 6, 7, 2, 5, 4)), Arrays.asList(7254));
     }
 }

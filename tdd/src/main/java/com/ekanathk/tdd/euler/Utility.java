@@ -1,15 +1,14 @@
 package com.ekanathk.tdd.euler;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * User: EkanathK
@@ -80,6 +79,15 @@ public class Utility {
         return true;
     }
 
+
+    public static <T> void sortListOfLists(List<List<T>> listOfLists) {
+        Collections.sort(listOfLists, new Comparator<List<T>>() {
+            @Override
+            public int compare(List<T> o1, List<T> o2) {
+                return StringUtils.join(o1, "").compareTo(StringUtils.join(o2, ""));
+            }
+        });
+    }
 
     public static <T> List<List<T>> permutes(List<T> array) {
         List<List<T>> permutations = new ArrayList<>();
