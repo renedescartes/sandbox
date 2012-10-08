@@ -70,7 +70,7 @@ public class Utility {
     }
 
     public static boolean isPrime(long n) {
-        if(n < 0) return false;
+        if(n < 2) return false;
         for(long i = 2; i <= Math.sqrt(n); i++) {
             if(n % i == 0) {
                 return false;
@@ -119,5 +119,15 @@ public class Utility {
             product *= i;
         }
         return product;
+    }
+
+    public static <T> List<List<T>> rotations(List<T> array) {
+        List<List<T>> rotations = new ArrayList<>();
+        LinkedList<T> rotateContext = new LinkedList<>(array);
+        for(int i = 0; i < array.size(); i++) {
+            rotateContext.add(rotateContext.remove());
+            rotations.add(new ArrayList<>(rotateContext));
+        }
+        return rotations;
     }
 }
