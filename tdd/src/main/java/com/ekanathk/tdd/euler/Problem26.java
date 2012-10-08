@@ -17,14 +17,16 @@ public class Problem26 {
 
     private static final Logger logger = Logger.getLogger(Problem26.class.getName());
 
+    /** Length of Sequence. For Denominator = 7 => 1/7 = 0.(142857) this will return 6 as 6 digits are repeated*/
     public static int getRepetitionLength(int denominator) {
-        String quotient = getDivision(denominator);
+        String quotient = getDivisionWithRepetition(denominator);
         int start = quotient.indexOf("(");
         int end = quotient.indexOf(")");
         return start == -1 ? 0 : (end - start - 1);
     }
 
-    public static String getDivision(int denominator) {
+    /** Gets the String representation so if 7 is passed then we get back "0.(142857" */
+    public static String getDivisionWithRepetition(int denominator) {
         List<Integer> quotients = new ArrayList<>();
         List<Integer> remainders = new ArrayList<>();
         int remainder = 1, quotient = 1, repetitionStartPoint = -1;
@@ -57,6 +59,7 @@ public class Problem26 {
         return -1;
     }
 
+    /** Just pretty format it*/
     private static String prettyFormat(List<Integer> elements, int repetitionPoint) {
         StringBuffer b = new StringBuffer();
         for(int i = 0; i < elements.size(); i++) {
@@ -69,15 +72,6 @@ public class Problem26 {
             b.append(")");
         }
         return b.toString();
-    }
-
-    private static int findFirstOccurenceOf(List<Integer> elements, Integer find) {
-        for(int i = 0; i < elements.size(); i++) {
-            if(elements.get(i).equals(find)) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     @DataProvider(name = "quotient-string")
@@ -97,7 +91,7 @@ public class Problem26 {
 
     @Test(dataProvider = "quotient-string")
     public void testSimple(int denominator, String output, int repetitionLength) {
-        assertEquals(getDivision(denominator), output);
+        assertEquals(getDivisionWithRepetition(denominator), output);
         assertEquals(getRepetitionLength(denominator), repetitionLength);
     }
 
@@ -113,7 +107,7 @@ public class Problem26 {
             }
         }
         System.out.println("The answer is " + d);
-        System.out.println("The answer is " + getDivision(983));
+        System.out.println("The answer is " + getDivisionWithRepetition(983));
     }
 
 
