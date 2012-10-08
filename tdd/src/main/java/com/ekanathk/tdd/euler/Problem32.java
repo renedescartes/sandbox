@@ -44,6 +44,8 @@ public class Problem32 {
         return Utility.summation(listOfProducts());
     }
 
+
+
     @Test
     public void testSimple() {
         assertEquals(answer(), 30424);
