@@ -25,7 +25,7 @@ public class Problem32 {
                 Integer op1 = parseInteger(pandigital, 0, i);
                 Integer op2 = parseInteger(pandigital, i, j);
                 Integer product = parseInteger(pandigital, j, 9);
-                logger.info(op1 + " * " + op2 + " = " + product);
+                logger.fine(op1 + " * " + op2 + " = " + product);
                 if(op1 * op2 == product) {
                     products.add(product);
                 }
@@ -43,7 +43,9 @@ public class Problem32 {
         sortListOfLists(permutes);
         Set<Integer> products = new TreeSet<>();
         for (List<Integer> permute : permutes) {
-            products.addAll(findApplicableProducts(permute));
+            if(products.addAll(findApplicableProducts(permute))) {
+                logger.info("Products are " + products);
+            }
         }
         return Utility.summation(products.toArray(new Integer[products.size()]));
     }
