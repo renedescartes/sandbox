@@ -130,4 +130,15 @@ public class Utility {
         }
         return rotations;
     }
+
+    public static <T> List<List<T>> truncationOptions(List<T> array) {
+        List<List<T>> rotations = new ArrayList<>();
+        rotations.add(new ArrayList<>(array));
+        for(int i = 1; i < array.size(); i++) {
+            rotations.add(array.subList(i, array.size()));
+            rotations.add(array.subList(0, array.size() - i));
+        }
+        return rotations;
+    }
+
 }
