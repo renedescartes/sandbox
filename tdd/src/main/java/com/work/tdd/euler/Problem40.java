@@ -13,12 +13,13 @@ public class Problem40 {
         if(position <= 9) {
             return position;
         }
-        int step = ((9 * (int)Math.pow(10, index - 1)) * index) + start;
-        if(position > step) {
-            return getSequenceDigit(position, step, index + 1);
+        int powerOfTen = (int) Math.pow(10, index - 1);
+        int nextStep = ((9 * powerOfTen) * index) + start;
+        if(position > nextStep) {
+            return getSequenceDigit(position, nextStep, index + 1);
         } else {
             int difference = position - start;
-            Integer bucketIndex = (int)Math.pow(10, index - 1) + ((difference - 1)/index);
+            Integer bucketIndex = powerOfTen + ((difference - 1)/index);
             int finalIndex = (difference - 1)% index;
             return bucketIndex.toString().charAt(finalIndex) - '0';
         }
