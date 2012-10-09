@@ -5,18 +5,18 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 public class Problem40 {
-    public static int getSequenceDigit(int position) {
-        return getSequenceDigit(position, 9, 2);
+    public static int digit(int position) {
+        return digit(position, 9, 2);
     }
 
-    public static int getSequenceDigit(int position, int start, int index) {
+    public static int digit(int position, int start, int index) {
         if(position <= 9) {
             return position;
         }
         int powerOfTen = (int) Math.pow(10, index - 1);
         int nextStep = ((9 * powerOfTen) * index) + start;
         if(position > nextStep) {
-            return getSequenceDigit(position, nextStep, index + 1);
+            return digit(position, nextStep, index + 1);
         } else {
             int difference = position - start;
             Integer bucketIndex = powerOfTen + ((difference - 1)/index);
@@ -27,18 +27,19 @@ public class Problem40 {
 
     @Test
     public void testSimple() {
-        assertEquals(getSequenceDigit(14), 1);
-        assertEquals(getSequenceDigit(7), 7);
-        assertEquals(getSequenceDigit(9), 9);
-        assertEquals(getSequenceDigit(189), 9);
-        assertEquals(getSequenceDigit(188), 9);
-        assertEquals(getSequenceDigit(187), 8);
-        assertEquals(getSequenceDigit(190), 1);
-        assertEquals(getSequenceDigit(192), 0);
-        assertEquals(getSequenceDigit(2789), 6);
-        assertEquals(getSequenceDigit(2889), 9);
-        assertEquals(getSequenceDigit(2890), 1);
-        assertEquals(getSequenceDigit(2893), 0);
-        assertEquals(getSequenceDigit(2894), 1);
+        assertEquals(digit(14), 1);
+        assertEquals(digit(7), 7);
+        assertEquals(digit(9), 9);
+        assertEquals(digit(189), 9);
+        assertEquals(digit(188), 9);
+        assertEquals(digit(187), 8);
+        assertEquals(digit(190), 1);
+        assertEquals(digit(192), 0);
+        assertEquals(digit(2789), 6);
+        assertEquals(digit(2889), 9);
+        assertEquals(digit(2890), 1);
+        assertEquals(digit(2893), 0);
+        assertEquals(digit(2894), 1);
+        System.out.println(digit(1) * digit(10) * digit(100) * digit(1000) * digit(10000) * digit(100000) * digit(1000000));
     }
 }
