@@ -9,6 +9,7 @@ class TestProblem38 extends FunSuite {
     assert(!Problem38.isPanDigital(45126789));
     assert(!Problem38.isPanDigital(4512670));
     assert(Problem38.canBeConstructed(192, 192384576));
+    println(Problem38.digits(23411));
   }
 
 }
