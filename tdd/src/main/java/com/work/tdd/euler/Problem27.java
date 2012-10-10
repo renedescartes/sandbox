@@ -21,7 +21,7 @@ public class Problem27 {
         for(int a = low + 1; a < high; a++) {
             for(int b = low + 1; b < high; b++) {
                 if(isPrime(b) && isPrime(b+1+a) && checkNumberOfPrimes(a, b, maxPrimes)) {
-                    int numPrimes = numberOfPrimes(a, b);
+                    int numPrimes = numberOfPrimes(a, b, maxPrimes + 1);
                     logger.info("a = " + a + " b = " + b + " numPrimes = " + numPrimes + " maxPrimes = " + maxPrimes);
                     if(numPrimes > maxPrimes) {
                         maxPrimes = numPrimes;
@@ -44,8 +44,8 @@ public class Problem27 {
         return true;
     }
 
-    private static int numberOfPrimes(int a, int b) {
-        int count = 0;
+    private static int numberOfPrimes(int a, int b, int start) {
+        int count = start;
         while(isPrime(evaluate(a, b, count))) {
             logger.fine("Evaluating a [" + a + "] b [" + b + "] n [" + count + "] value [" + evaluate(a, b, count) + "]");
             count++;
