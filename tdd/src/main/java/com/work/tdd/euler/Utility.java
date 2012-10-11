@@ -144,14 +144,19 @@ public class Utility {
     }
 
     public static List<Long> primeFactors(Long n) {
+        if( n % 2 == 0) {
+            return combineLists(Arrays.asList(2L), primeFactors(n/2));
+        }
         long a;
-        for(a = (long)Math.sqrt(n) + 1; a <= n; a++) {
+        for(a = (long)Math.sqrt(n); a <= n; a++) {
             if(isPerfectSquare(a * a - n)) {
                 long b = (long) Math.sqrt(a * a - n);
-                return combineLists(primeFactors(a+b), primeFactors(a-b));
+                if(a + b < n) {
+                    return combineLists(primeFactors(a + b), primeFactors(a - b));
+                }
             }
         }
-        return asList(n);
+        return n == 1 ? Collections.<Long>emptyList() : asList(n);
     }
 
     private static boolean isPerfectSquare(long number) {
