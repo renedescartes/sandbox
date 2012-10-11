@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static java.util.Arrays.asList;
+
 /**
  * User: renedescartes
  * Date: 29/09/12
@@ -141,4 +143,26 @@ public class Utility {
         return rotations;
     }
 
+    public static List<Long> primeFactors(Long n) {
+        long a;
+        for(a = (long)Math.sqrt(n) + 1; a <= n; a++) {
+            if(isPerfectSquare(a * a - n)) {
+                long b = (long) Math.sqrt(a * a - n);
+                return combineLists(primeFactors(a+b), primeFactors(a-b));
+            }
+        }
+        return asList(n);
+    }
+
+    private static boolean isPerfectSquare(long number) {
+        long sqrt = (long) Math.sqrt(number);
+        return sqrt * sqrt == number;
+    }
+
+    private static <T> List<T> combineLists(List<T> l1, List<T> l2) {
+        List<T> list = new ArrayList<>();
+        list.addAll(l1);
+        list.addAll(l2);
+        return list;
+    }
 }
