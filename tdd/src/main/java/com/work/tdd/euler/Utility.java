@@ -18,6 +18,10 @@ import static java.util.Arrays.asList;
  */
 public class Utility {
 
+    public int[] setOfPrimes(int max) {
+        return null;
+    }
+
     public static List<String> readFile(String classpathResourceName) {
         try {
             URL resource = Thread.currentThread().getContextClassLoader().getResource(classpathResourceName);
