@@ -15,7 +15,7 @@ public class Problem45 {
     }
 
     private static boolean isPerfectSquare(long number) {
-        double sqrt = Math.sqrt(number);
+        long sqrt = (long) Math.sqrt(number);
         return sqrt * sqrt == number;
     }
 
