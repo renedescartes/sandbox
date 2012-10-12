@@ -27,6 +27,14 @@ public class Problem40 {
 
     @Test
     public void testSimple() {
+        assertEquals(digit(10), 1);
+        assertEquals(digit(100), 5);
+        assertEquals(digit(110), 6);
+        assertEquals(digit(230), 1);
+        assertEquals(digit(1000), 3);
+        assertEquals(digit(10000), 7);
+        assertEquals(digit(100000), 2);
+        assertEquals(digit(1000000), 1);
         assertEquals(digit(14), 1);
         assertEquals(digit(7), 7);
         assertEquals(digit(9), 9);
