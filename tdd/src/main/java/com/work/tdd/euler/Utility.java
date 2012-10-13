@@ -18,10 +18,6 @@ import static java.util.Arrays.asList;
  */
 public class Utility {
 
-    public int[] setOfPrimes(int max) {
-        return null;
-    }
-
     public static List<String> readFile(String classpathResourceName) {
         try {
             URL resource = Thread.currentThread().getContextClassLoader().getResource(classpathResourceName);
@@ -32,22 +28,22 @@ public class Utility {
     }
 
     public static Integer[] properDivisors(int n) {
-        if(n == 0) {
+        if (n == 0) {
             return new Integer[0];
         }
         Collection<Integer> divisors = new TreeSet<>();
         divisors.add(1);
-        for(int i = 2; i <= Math.sqrt(n); i++) {
-            if(n % i == 0) {
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
                 divisors.add(i);
-                divisors.add(n/i);
+                divisors.add(n / i);
             }
         }
         return divisors.toArray(new Integer[divisors.size()]);
     }
 
     public static <T> boolean isValidIndex(T[] array, int index) {
-        return index >=0 && index < array.length;
+        return index >= 0 && index < array.length;
     }
 
     public static Integer summation(Integer[] array) {
@@ -61,7 +57,7 @@ public class Utility {
     public static Integer[] digits(Long number) {
         String s = number.toString();
         List<Integer> digits = new ArrayList<>();
-        for(int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             digits.add(s.charAt(i) - '0');
         }
         return digits.toArray(new Integer[digits.size()]);
@@ -76,9 +72,9 @@ public class Utility {
     }
 
     public static boolean isPrime(long n) {
-        if(n < 2) return false;
-        for(long i = 2; i <= Math.sqrt(n); i++) {
-            if(n % i == 0) {
+        if (n < 2) return false;
+        for (long i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
                 return false;
             }
         }
@@ -101,15 +97,25 @@ public class Utility {
         return permutations;
     }
 
+    public static Set<Long> permutes(Long n) {
+        Integer[] digits = digits(n);
+        List<List<Integer>> permutes = permutes(Arrays.asList(digits));
+        Set<Long> numbers = new TreeSet<>();
+        for (List<Integer> permute : permutes) {
+            numbers.add(Long.parseLong(StringUtils.join(permute, "")));
+        }
+        return numbers;
+    }
+
     public static <T> void permutes(List<T> array, int n, List<List<T>> permutations) {
-        if(n == 1) {
+        if (n == 1) {
             permutations.add(new ArrayList<>(array));
             return;
         }
-        for(int i = 0; i < n; i++) {
-            swap(array, i, n-1);
+        for (int i = 0; i < n; i++) {
+            swap(array, i, n - 1);
             permutes(array, n - 1, permutations);
-            swap(array, i, n-1);
+            swap(array, i, n - 1);
         }
     }
 
@@ -121,7 +127,7 @@ public class Utility {
 
     public static long factorial(long n) {
         long product = 1;
-        for(long i = 2; i <= n; i++) {
+        for (long i = 2; i <= n; i++) {
             product *= i;
         }
         return product;
@@ -130,7 +136,7 @@ public class Utility {
     public static <T> List<List<T>> rotations(List<T> array) {
         List<List<T>> rotations = new ArrayList<>();
         LinkedList<T> rotateContext = new LinkedList<>(array);
-        for(int i = 0; i < array.size(); i++) {
+        for (int i = 0; i < array.size(); i++) {
             rotateContext.add(rotateContext.remove());
             rotations.add(new ArrayList<>(rotateContext));
         }
@@ -140,7 +146,7 @@ public class Utility {
     public static <T> List<List<T>> truncationOptions(List<T> array) {
         List<List<T>> rotations = new ArrayList<>();
         rotations.add(new ArrayList<>(array));
-        for(int i = 1; i < array.size(); i++) {
+        for (int i = 1; i < array.size(); i++) {
             rotations.add(array.subList(i, array.size()));
             rotations.add(array.subList(0, array.size() - i));
         }
@@ -148,14 +154,14 @@ public class Utility {
     }
 
     public static List<Long> primeFactors(Long n) {
-        if( n % 2 == 0) {
-            return combineLists(Arrays.asList(2L), primeFactors(n/2));
+        if (n % 2 == 0) {
+            return combineLists(Arrays.asList(2L), primeFactors(n / 2));
         }
         long a;
-        for(a = (long)Math.sqrt(n); a <= n; a++) {
-            if(isPerfectSquare(a * a - n)) {
+        for (a = (long) Math.sqrt(n); a <= n; a++) {
+            if (isPerfectSquare(a * a - n)) {
                 long b = (long) Math.sqrt(a * a - n);
-                if(a + b < n) {
+                if (a + b < n) {
                     return combineLists(primeFactors(a + b), primeFactors(a - b));
                 }
             }
