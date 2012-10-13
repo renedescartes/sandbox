@@ -46,8 +46,8 @@ public class Utility {
         return index >= 0 && index < array.length;
     }
 
-    public static Integer summation(List<Integer> array) {
-        Integer sum = 0;
+    public static Long summation(List<Long> array) {
+        Long sum = 0L;
         for (int i = 0; i < array.size(); i++) {
             sum = sum + array.get(i);
         }
