@@ -153,6 +153,30 @@ public class Utility {
         return rotations;
     }
 
+    public static <T> List<List<T>> combinations(List<T> elements, int c) {
+        if (c > elements.size()) {
+            throw new IllegalArgumentException("Cant choose more elements than in the list");
+        }
+        if (c == elements.size()) {
+            return Arrays.asList(elements);
+        }
+        List<List<T>> allCombinations = new ArrayList<>();
+        combinationInternal(elements, new ArrayList<T>(), 0, c, allCombinations);
+        return allCombinations;
+    }
+
+    private static <T> void combinationInternal(List<T> elements, List<T> chosen, int level, int required, List<List<T>> allCombinations) {
+        if (chosen.size() == required) {
+            allCombinations.add(new ArrayList<>(chosen));
+            return;
+        }
+        if (level == elements.size()) {
+            return;
+        }
+        combinationInternal(elements, combineLists(chosen, Arrays.asList(elements.get(level))), level + 1, required, allCombinations);
+        combinationInternal(elements, new ArrayList<>(chosen), level + 1, required, allCombinations);
+    }
+
     public static List<Long> primeFactors(Long n) {
         if (n % 2 == 0) {
             return combineLists(Arrays.asList(2L), primeFactors(n / 2));
