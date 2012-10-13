@@ -13,7 +13,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.work.tdd.euler.Utility.combinations;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 13/10/12
  */
 public class Problem49 {

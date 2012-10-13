@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: EkanathK
+ * User: renedescartes
  * Date: 13/10/12
  */
 public class Problem48 {
