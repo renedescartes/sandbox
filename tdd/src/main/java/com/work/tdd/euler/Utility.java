@@ -46,6 +46,14 @@ public class Utility {
         return index >= 0 && index < array.length;
     }
 
+    public static Integer summation(List<Integer> array) {
+        Integer sum = 0;
+        for (int i = 0; i < array.size(); i++) {
+            sum = sum + array.get(i);
+        }
+        return sum;
+    }
+
     public static Integer summation(Integer[] array) {
         Integer sum = 0;
         for (int i = 0; i < array.length; i++) {
