@@ -1,14 +1,18 @@
 package com.work.tdd.euler;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.work.tdd.euler.Utility.*;
 import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
@@ -17,19 +21,45 @@ public class Problem51 {
     private static final Logger logger = Logger.getLogger(Problem51.class.getName());
 
     public static long answer() {
-        long count = 11;
+        long count = 13;
         while (true) {
             Integer[] digits = digits(count);
-            for (int i = 1; i < digits.length; i++) {
-                List<List<Integer>> combinations = combinations(generate(digits.length), i);
-                for (List<Integer> combination : combinations) {
-                    Collection<Long> replacements = filter(replacementNumbers(asList(digits), combination), primePredicate());
-                    if (replacements.size() == 8) {
-                        return replacements.iterator().next();
+            logger.info("Count " + count);
+            if (isPrime(count)) {
+                for (int i = 1; i < digits.length; i++) {
+                    List<List<Integer>> combinations = combinations(generate(digits.length), i);
+                    for (List<Integer> combination : combinations) {
+                        Predicate<Long> p = Predicates.and(greaterOrEqual(count), lengthPredicate(digits.length), primePredicate());
+                        Collection<Long> replacements = newArrayList(filter(replacementNumbers(asList(digits), combination), p));
+                        if (replacements.size() != 0) {
+                            logger.fine(replacements.toString());
+                        }
+                        if (replacements.size() == 8) {
+                            return replacements.iterator().next();
+                        }
                     }
                 }
             }
+            count++;
         }
+    }
+
+    private static Predicate<Long> greaterOrEqual(final long count) {
+        return new Predicate<Long>() {
+            @Override
+            public boolean apply(@Nullable Long input) {
+                return input >= count;
+            }
+        };
+    }
+
+    private static Predicate<Long> lengthPredicate(final int length) {
+        return new Predicate<Long>() {
+            @Override
+            public boolean apply(@Nullable Long input) {
+                return length == input.toString().length();
+            }
+        };
     }
 
     private static List<Long> replacementNumbers(List<Integer> digits, List<Integer> positions) {
@@ -50,6 +80,11 @@ public class Problem51 {
             positions.add(i);
         }
         return positions;
+    }
+
+    @Test
+    public void testSimple() {
+        System.out.println(answer());
     }
 
     @Test

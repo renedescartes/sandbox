@@ -52,7 +52,7 @@ public class Utility {
         return new Predicate<Long>() {
             @Override
             public boolean apply(@Nullable Long input) {
-                return false;  //To change body of implemented methods use File | Settings | File Templates.
+                return isPrime(input);
             }
         };
     }
