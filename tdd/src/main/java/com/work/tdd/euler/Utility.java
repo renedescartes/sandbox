@@ -1,7 +1,9 @@
 package com.work.tdd.euler;
 
+import com.google.common.base.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -44,6 +46,15 @@ public class Utility {
 
     public static <T> boolean isValidIndex(T[] array, int index) {
         return index >= 0 && index < array.length;
+    }
+
+    public static Predicate<Long> primePredicate() {
+        return new Predicate<Long>() {
+            @Override
+            public boolean apply(@Nullable Long input) {
+                return false;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        };
     }
 
     public static Long summation(List<Long> array) {
