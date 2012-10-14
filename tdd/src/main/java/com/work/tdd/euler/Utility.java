@@ -227,7 +227,7 @@ public class Utility {
         return list;
     }
 
-    public static int gcd(int a, int b) {
+    public static long gcd(long a, long b) {
         if (a > b) {
             return gcd(b, a);
         }
@@ -237,12 +237,16 @@ public class Utility {
         return gcd(b % a, a);
     }
 
+    public static long lcm(long a, long b) {
+        return (a * b) / gcd(a, b);
+    }
+
     /**
      * Cut common factors example 4/8 will become 1/2
      */
     public static Fraction reduce(Fraction f) {
         Fraction reduced = f;
-        int gcd;
+        long gcd;
         while ((gcd = gcd(reduced.numerator, reduced.denominator)) != 1) {
             reduced = new Fraction(f.numerator / gcd, f.denominator / gcd);
         }
@@ -250,9 +254,13 @@ public class Utility {
     }
 
     public static Fraction addFractions(Fraction a, Fraction b) {
-        int den = gcd(a.denominator, b.denominator);
-        int num = (a.numerator * (den / a.denominator)) + (b.numerator * (den / b.denominator));
+        long den = lcm(a.denominator, b.denominator);
+        long num = (a.numerator * (den / a.denominator)) + (b.numerator * (den / b.denominator));
         return reduce(new Fraction(num, den));
+    }
+
+    public static Fraction reciprocal(Fraction a) {
+        return reduce(new Fraction(a.denominator, a.numerator));
     }
 
 

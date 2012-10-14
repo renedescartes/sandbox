@@ -1,9 +1,9 @@
 package com.work.tdd.euler;
 
 public class Fraction {
-    final int numerator, denominator;
+    final long numerator, denominator;
 
-    Fraction(int numerator, int denominator) {
+    Fraction(long numerator, long denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
     }
@@ -23,8 +23,8 @@ public class Fraction {
 
     @Override
     public int hashCode() {
-        int result = numerator;
-        result = 31 * result + denominator;
+        int result = (int) (numerator ^ (numerator >>> 32));
+        result = 31 * result + (int) (denominator ^ (denominator >>> 32));
         return result;
     }
 
