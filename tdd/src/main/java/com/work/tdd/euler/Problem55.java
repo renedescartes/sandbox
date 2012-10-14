@@ -1,4 +1,4 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler;
 
 import org.testng.annotations.Test;
 
