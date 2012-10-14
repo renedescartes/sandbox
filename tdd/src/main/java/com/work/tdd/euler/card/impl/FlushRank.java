@@ -1,33 +1,30 @@
 package com.work.tdd.euler.card.impl;
 
-import com.work.tdd.euler.card.Card;
 import com.work.tdd.euler.card.HandRank;
+import com.work.tdd.euler.card.Rank;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
-
 public class FlushRank extends AbstractRank {
-    private List<Card> cards;
+    private List<Rank> ranks;
 
-    public FlushRank(List<Card> cards) {
-        this.cards = reverse(newArrayList(cards));
-    }
-
-    @Override
-    int compareCurrentLevel(HandRank o) {
-        CompareToBuilder b = new CompareToBuilder();
-        List<Card> otherCards = reverse(((FlushRank) o).cards);
-        for (int i = 0; i < cards.size(); i++) {
-            b.append(cards.get(i), otherCards.get(i));
-        }
-        return b.toComparison();
+    public FlushRank(List<Rank> ranks) {
+        this.ranks = ranks;
     }
 
     @Override
     public Integer getLevel() {
-        return 9;
+        return 6;
+    }
+
+    @Override
+    int compareCurrentLevel(HandRank o) {
+        FlushRank next = (FlushRank) o;
+        CompareToBuilder b = new CompareToBuilder();
+        for (int i = 0; i < ranks.size(); i++) {
+            b.append(ranks.get(i), next.ranks.get(i));
+        }
+        return b.toComparison();
     }
 }
