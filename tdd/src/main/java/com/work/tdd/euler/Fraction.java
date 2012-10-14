@@ -1,20 +1,11 @@
 package com.work.tdd.euler;
 
-import static com.work.tdd.euler.Utility.gcd;
-import static com.work.tdd.euler.Utility.reduce;
-
 public class Fraction {
     final int numerator, denominator;
 
     Fraction(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
-    }
-
-    public Fraction add(Fraction b) {
-        int den = gcd(denominator, b.denominator);
-        int num = (numerator * (den / denominator)) + (b.numerator * (den / b.denominator));
-        return reduce(new Fraction(num, den));
     }
 
     @Override

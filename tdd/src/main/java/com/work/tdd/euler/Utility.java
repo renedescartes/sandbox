@@ -249,5 +249,11 @@ public class Utility {
         return reduced;
     }
 
+    public static Fraction addFractions(Fraction a, Fraction b) {
+        int den = gcd(a.denominator, b.denominator);
+        int num = (a.numerator * (den / a.denominator)) + (b.numerator * (den / b.denominator));
+        return reduce(new Fraction(num, den));
+    }
+
 
 }
