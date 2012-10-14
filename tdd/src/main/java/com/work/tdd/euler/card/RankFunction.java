@@ -4,6 +4,16 @@ import java.util.List;
 
 public class RankFunction {
 
+    public static boolean checkStraight(Hand h) {
+        List<Card> cards = h.getCards();
+        for (int i = 0; i < cards.size() - 1; i++) {
+            if (cards.get(i).getRank().ordinal() != cards.get(i + 1).getRank().ordinal() - 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean checkFlush(Hand h) {
         for (Kind k : Kind.values()) {
             if (countForKind(h, k) == 5) {
