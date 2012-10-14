@@ -1,5 +1,7 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
 
+import com.work.tdd.euler.card.Card;
+import com.work.tdd.euler.card.HandRank;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 import java.util.List;

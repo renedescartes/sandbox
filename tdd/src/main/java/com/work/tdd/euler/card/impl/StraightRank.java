@@ -1,4 +1,7 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
+
+import com.work.tdd.euler.card.HandRank;
+import com.work.tdd.euler.card.Rank;
 
 public class StraightRank extends AbstractRank {
     private Rank highestRank;

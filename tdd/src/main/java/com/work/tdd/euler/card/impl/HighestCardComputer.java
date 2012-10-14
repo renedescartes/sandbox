@@ -1,6 +1,10 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
 
 import com.google.common.collect.Collections2;
+import com.work.tdd.euler.card.Hand;
+import com.work.tdd.euler.card.Rank;
+import com.work.tdd.euler.card.RankComputer;
+import com.work.tdd.euler.card.RankFunction;
 
 import java.util.List;
 

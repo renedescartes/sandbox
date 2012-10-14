@@ -1,4 +1,6 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
+
+import com.work.tdd.euler.card.*;
 
 public class FourOfKindComputer implements RankComputer<FourOfKindRank> {
     @Override

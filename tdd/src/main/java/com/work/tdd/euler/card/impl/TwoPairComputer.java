@@ -1,6 +1,7 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
 
 import com.google.common.collect.Collections2;
+import com.work.tdd.euler.card.*;
 
 import java.util.Collection;
 import java.util.List;

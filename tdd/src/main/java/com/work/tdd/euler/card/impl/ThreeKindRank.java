@@ -1,5 +1,7 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
 
+import com.work.tdd.euler.card.HandRank;
+import com.work.tdd.euler.card.Rank;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 import static com.google.common.base.Preconditions.checkArgument;
