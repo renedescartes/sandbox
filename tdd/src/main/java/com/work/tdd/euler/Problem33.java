@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import static com.work.tdd.euler.Utility.gcd;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -13,19 +14,6 @@ import static org.testng.Assert.assertEquals;
  * Date: 06/10/12
  */
 public class Problem33 {
-
-    /**
-     * Find gcd of two numbers
-     */
-    private static int gcd(int a, int b) {
-        if (a > b) {
-            return gcd(b, a);
-        }
-        if (a == 0) {
-            return b;
-        }
-        return gcd(b % a, a);
-    }
 
     /**
      * Cut common factors example 4/8 will become 1/2

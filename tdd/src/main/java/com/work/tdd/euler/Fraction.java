@@ -1,11 +1,16 @@
 package com.work.tdd.euler;
 
 public class Fraction {
-    int numerator, denominator;
+    final int numerator, denominator;
 
     Fraction(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
+    }
+
+    public Fraction add(Fraction b) {
+        int den = Utility.gcd(1, 2);
+        return null;
     }
 
     @Override
