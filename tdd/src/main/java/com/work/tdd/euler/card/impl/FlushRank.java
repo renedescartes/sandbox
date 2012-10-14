@@ -23,4 +23,11 @@ public class FlushRank extends AbstractRank {
     int compareCurrentLevel(HandRank o) {
         return rankComparison(ranks, ((FlushRank) o).ranks);
     }
+
+    @Override
+    public String toString() {
+        return "FlushRank{" +
+                "ranks=" + ranks +
+                '}';
+    }
 }

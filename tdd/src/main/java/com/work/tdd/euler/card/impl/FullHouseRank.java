@@ -29,4 +29,12 @@ public class FullHouseRank extends AbstractRank {
         return rankComparison(asList(threeKindRank, twoKindRank),
                 asList(next.threeKindRank, next.twoKindRank));
     }
+
+    @Override
+    public String toString() {
+        return "FullHouseRank{" +
+                "threeKindRank=" + threeKindRank +
+                ", twoKindRank=" + twoKindRank +
+                '}';
+    }
 }

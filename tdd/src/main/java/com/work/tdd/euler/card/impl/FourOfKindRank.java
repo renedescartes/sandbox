@@ -29,4 +29,12 @@ public class FourOfKindRank extends AbstractRank {
         return rankComparison(asList(fourKindRank, otherRank),
                 asList(next.fourKindRank, next.otherRank));
     }
+
+    @Override
+    public String toString() {
+        return "FourOfKindRank{" +
+                "fourKindRank=" + fourKindRank +
+                ", otherRank=" + otherRank +
+                '}';
+    }
 }

@@ -7,4 +7,13 @@ public enum Kind {
     Kind(char c) {
         this.c = c;
     }
+
+    public static Kind parseKind(char target) {
+        for (Kind k : values()) {
+            if (k.c == target) {
+                return k;
+            }
+        }
+        throw new IllegalArgumentException("Invalid Kind - " + target);
+    }
 }

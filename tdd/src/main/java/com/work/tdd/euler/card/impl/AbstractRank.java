@@ -1,7 +1,6 @@
 package com.work.tdd.euler.card.impl;
 
 import com.work.tdd.euler.card.HandRank;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 public abstract class AbstractRank implements HandRank {
     @Override
@@ -12,7 +11,4 @@ public abstract class AbstractRank implements HandRank {
 
     abstract int compareCurrentLevel(HandRank o);
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
 }

@@ -36,4 +36,13 @@ public class ThreeKindRank extends AbstractRank {
                 newArrayList(asList(next.threeKindRank, next.otherRank1, next.otherRank2))
         );
     }
+
+    @Override
+    public String toString() {
+        return "ThreeKindRank{" +
+                "threeKindRank=" + threeKindRank +
+                ", otherRank1=" + otherRank1 +
+                ", otherRank2=" + otherRank2 +
+                '}';
+    }
 }

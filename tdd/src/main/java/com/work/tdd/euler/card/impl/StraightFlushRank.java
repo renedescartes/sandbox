@@ -19,4 +19,11 @@ public class StraightFlushRank extends AbstractRank {
     public Integer getLevel() {
         return 9;
     }
+
+    @Override
+    public String toString() {
+        return "StraightFlushRank{" +
+                "highestRank=" + highestRank +
+                '}';
+    }
 }

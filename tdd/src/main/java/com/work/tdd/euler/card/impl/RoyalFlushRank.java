@@ -13,4 +13,9 @@ public class RoyalFlushRank extends AbstractRank {
     public Integer getLevel() {
         return 10;
     }
+
+    public String toString() {
+        return "RoyalFlushRank";
+    }
 }
+

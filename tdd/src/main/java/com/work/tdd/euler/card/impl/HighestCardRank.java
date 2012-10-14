@@ -25,4 +25,11 @@ public class HighestCardRank extends AbstractRank {
         HighestCardRank next = (HighestCardRank) o;
         return rankComparison(ranks, next.ranks);
     }
+
+    @Override
+    public String toString() {
+        return "HighestCardRank{" +
+                "ranks=" + ranks +
+                '}';
+    }
 }

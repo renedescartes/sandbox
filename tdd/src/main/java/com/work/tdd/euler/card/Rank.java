@@ -8,4 +8,13 @@ public enum Rank {
     Rank(char c) {
         this.c = c;
     }
+
+    public static Rank parseRank(char target) {
+        for (Rank r : values()) {
+            if (r.c == target) {
+                return r;
+            }
+        }
+        throw new IllegalArgumentException("Invalid rank - " + target);
+    }
 }

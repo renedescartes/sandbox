@@ -34,4 +34,13 @@ public class TwoPairRank extends AbstractRank {
                 newArrayList(asList(next.pair1Rank, next.pair2Rank, next.otherRank))
         );
     }
+
+    @Override
+    public String toString() {
+        return "TwoPairRank{" +
+                "pair1Rank=" + pair1Rank +
+                ", pair2Rank=" + pair2Rank +
+                ", otherRank=" + otherRank +
+                '}';
+    }
 }
