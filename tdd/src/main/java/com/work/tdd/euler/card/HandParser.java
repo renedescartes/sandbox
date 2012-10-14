@@ -23,7 +23,7 @@ public class HandParser {
         try {
             return new Hand(cards);
         } catch (Exception e) {
-            throw new RuntimeException("Could not parse [" + hand + "]");
+            throw new RuntimeException("Could not parse [" + hand + "]", e);
         }
     }
 

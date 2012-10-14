@@ -1,6 +1,7 @@
 package com.work.tdd.euler.card;
 
 import com.work.tdd.euler.card.impl.OnePairRank;
+import com.work.tdd.euler.card.impl.TwoPairRank;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -12,6 +13,12 @@ import static org.testng.Assert.assertTrue;
 public class PreTests {
 
     private static final Logger logger = Logger.getLogger(PreTests.class.getName());
+
+    @Test
+    public void testStrings() {
+        Hand hand = HandParser.parseHand("5C AD 5D AC 9C");
+        assertTrue(hand.getHandRank() instanceof TwoPairRank);
+    }
 
     @Test
     public void testSimple() {
