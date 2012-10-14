@@ -3,8 +3,11 @@ package com.work.tdd.euler.card;
 import java.util.Collections;
 import java.util.List;
 
+import static com.work.tdd.euler.card.HandRankComputer.computeRank;
+
 public class Hand implements Comparable<Hand> {
-    private List<Card> cards;
+    private final List<Card> cards;
+    private final HandRank handRank;
 
     public Hand(List<Card> cards) {
         if (cards.size() != 5) {
@@ -12,22 +15,23 @@ public class Hand implements Comparable<Hand> {
         }
         this.cards = cards;
         Collections.sort(cards);
-        compute();
+        this.handRank = computeRank(this);
     }
-
-    private void compute() {
-
-    }
-
 
     @Override
     public int compareTo(Hand o) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return handRank.compareTo(o.handRank);
     }
 
     public List<Card> getCards() {
         return cards;
     }
 
-
+    @Override
+    public String toString() {
+        return "Hand{" +
+                "cards=" + cards +
+                ", handRank=" + handRank +
+                '}';
+    }
 }
