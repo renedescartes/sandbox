@@ -1,12 +1,12 @@
 package com.work.tdd.euler.card.impl;
 
-import com.google.common.collect.Collections2;
 import com.work.tdd.euler.card.Hand;
 import com.work.tdd.euler.card.Rank;
 import com.work.tdd.euler.card.RankComputer;
 
 import java.util.List;
 
+import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 import static com.work.tdd.euler.card.RankFunction.checkFlush;
@@ -19,6 +19,6 @@ public class FlushComputer implements RankComputer<FlushRank> {
     }
 
     private static List<Rank> ranks(Hand h) {
-        return reverse(newArrayList(Collections2.transform(h.getCards(), rankTransform())));
+        return reverse(newArrayList(transform(h.getCards(), rankTransform())));
     }
 }
