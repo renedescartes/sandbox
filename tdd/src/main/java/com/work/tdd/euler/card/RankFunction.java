@@ -1,13 +1,24 @@
 package com.work.tdd.euler.card;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import org.apache.commons.lang.builder.CompareToBuilder;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RankFunction {
+
+    public static int rankComparison(List<Rank> ranks1, List<Rank> ranks2) {
+        Preconditions.checkState(ranks1.size() == ranks2.size(), "Two ranks are not same size");
+        CompareToBuilder b = new CompareToBuilder();
+        for (int i = 0; i < ranks1.size(); i++) {
+            b.append(ranks1.get(i), ranks2.get(i));
+        }
+        return b.toComparison();
+    }
 
     public static List<Rank> pairRanks(Hand h) {
         List<Rank> pairRanks = new ArrayList<>();

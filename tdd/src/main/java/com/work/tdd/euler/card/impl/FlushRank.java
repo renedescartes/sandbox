@@ -2,9 +2,10 @@ package com.work.tdd.euler.card.impl;
 
 import com.work.tdd.euler.card.HandRank;
 import com.work.tdd.euler.card.Rank;
-import org.apache.commons.lang.builder.CompareToBuilder;
 
 import java.util.List;
+
+import static com.work.tdd.euler.card.RankFunction.rankComparison;
 
 public class FlushRank extends AbstractRank {
     private List<Rank> ranks;
@@ -20,11 +21,6 @@ public class FlushRank extends AbstractRank {
 
     @Override
     int compareCurrentLevel(HandRank o) {
-        FlushRank next = (FlushRank) o;
-        CompareToBuilder b = new CompareToBuilder();
-        for (int i = 0; i < ranks.size(); i++) {
-            b.append(ranks.get(i), next.ranks.get(i));
-        }
-        return b.toComparison();
+        return rankComparison(ranks, ((FlushRank) o).ranks);
     }
 }
