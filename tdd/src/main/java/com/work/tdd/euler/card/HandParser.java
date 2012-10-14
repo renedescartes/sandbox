@@ -1,8 +1,10 @@
 package com.work.tdd.euler.card;
 
 import com.google.common.base.Function;
+import com.work.tdd.euler.Utility;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.*;
@@ -18,7 +20,23 @@ public class HandParser {
         String[] cardStrings = hand.split(" ");
         checkState(cardStrings.length == 5, "Need atleast 5 cards");
         List<Card> cards = newArrayList(transform(asList(cardStrings), stringToCardFunction()));
-        return new Hand(cards);
+        try {
+            return new Hand(cards);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not parse [" + hand + "]");
+        }
+    }
+
+    public static List<List<Hand>> parseListOfGames(String resource) {
+        List<String> strings = Utility.readFile(resource);
+        List<List<Hand>> games = new ArrayList<>();
+        for (String s : strings) {
+            int midPoint = s.length() / 2;
+            Hand hand1 = parseHand(s.substring(0, midPoint));
+            Hand hand2 = parseHand(s.substring(midPoint + 1));
+            games.add(asList(hand1, hand2));
+        }
+        return games;
     }
 
     private static Function<String, Card> stringToCardFunction() {
