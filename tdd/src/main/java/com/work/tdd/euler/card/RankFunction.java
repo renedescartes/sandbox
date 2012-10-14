@@ -1,5 +1,6 @@
 package com.work.tdd.euler.card;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 import javax.annotation.Nullable;
@@ -139,6 +140,15 @@ public class RankFunction {
             @Override
             public boolean apply(@Nullable Card input) {
                 return input.getRank().equals(r);
+            }
+        };
+    }
+
+    public static Function<Card, Rank> rankTransform() {
+        return new Function<Card, Rank>() {
+            @Override
+            public Rank apply(@Nullable Card input) {
+                return input.getRank();
             }
         };
     }
