@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import static com.work.tdd.euler.Utility.gcd;
+import static com.work.tdd.euler.Utility.reduce;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -14,18 +15,6 @@ import static org.testng.Assert.assertEquals;
  * Date: 06/10/12
  */
 public class Problem33 {
-
-    /**
-     * Cut common factors example 4/8 will become 1/2
-     */
-    private static Fraction reduce(Fraction f) {
-        Fraction reduced = f;
-        int gcd;
-        while ((gcd = gcd(reduced.numerator, reduced.denominator)) != 1) {
-            reduced = new Fraction(f.numerator / gcd, f.denominator / gcd);
-        }
-        return reduced;
-    }
 
     /**
      * Incorrectly reduce example 43/83 will become 4/8

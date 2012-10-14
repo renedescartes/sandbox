@@ -236,4 +236,18 @@ public class Utility {
         }
         return gcd(b % a, a);
     }
+
+    /**
+     * Cut common factors example 4/8 will become 1/2
+     */
+    public static Fraction reduce(Fraction f) {
+        Fraction reduced = f;
+        int gcd;
+        while ((gcd = gcd(reduced.numerator, reduced.denominator)) != 1) {
+            reduced = new Fraction(f.numerator / gcd, f.denominator / gcd);
+        }
+        return reduced;
+    }
+
+
 }
