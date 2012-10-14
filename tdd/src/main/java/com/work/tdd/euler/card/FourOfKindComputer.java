@@ -1,6 +1,6 @@
 package com.work.tdd.euler.card;
 
-public class FourOfKindComputer implements RankComputer {
+public class FourOfKindComputer implements RankComputer<FourOfKindRank> {
     @Override
     public FourOfKindRank handRank(Hand h) {
         Rank rank = RankFunction.checkFourOfAKind(h);

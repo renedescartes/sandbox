@@ -1,6 +1,6 @@
 package com.work.tdd.euler.card;
 
-public interface RankComputer {
+public interface RankComputer<E extends HandRank> {
 
-    HandRank handRank(Hand h);
+    E handRank(Hand h);
 }
