@@ -74,7 +74,10 @@ public class Utility {
     }
 
     public static Integer[] digits(Long number) {
-        String s = number.toString();
+        return digits(number.toString());
+    }
+
+    public static Integer[] digits(String s) {
         List<Integer> digits = new ArrayList<>();
         for (int i = 0; i < s.length(); i++) {
             digits.add(s.charAt(i) - '0');
