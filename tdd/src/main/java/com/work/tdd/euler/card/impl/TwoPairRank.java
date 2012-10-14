@@ -2,9 +2,11 @@ package com.work.tdd.euler.card.impl;
 
 import com.work.tdd.euler.card.HandRank;
 import com.work.tdd.euler.card.Rank;
-import org.apache.commons.lang.builder.CompareToBuilder;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.work.tdd.euler.card.RankFunction.rankComparison;
+import static java.util.Arrays.asList;
 
 public class TwoPairRank extends AbstractRank {
 
@@ -21,14 +23,15 @@ public class TwoPairRank extends AbstractRank {
 
     @Override
     public Integer getLevel() {
-        return 4;
+        return 3;
     }
 
     @Override
     int compareCurrentLevel(HandRank o) {
         TwoPairRank next = (TwoPairRank) o;
-        return new CompareToBuilder().append(pair1Rank, next.pair1Rank).
-                append(pair2Rank, next.pair2Rank).
-                append(otherRank, next.otherRank).toComparison();
+        return rankComparison(
+                newArrayList(asList(pair1Rank, pair2Rank, otherRank)),
+                newArrayList(asList(next.pair1Rank, next.pair2Rank, next.otherRank))
+        );
     }
 }

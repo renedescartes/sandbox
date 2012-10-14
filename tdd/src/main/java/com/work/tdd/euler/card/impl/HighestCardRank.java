@@ -2,9 +2,10 @@ package com.work.tdd.euler.card.impl;
 
 import com.work.tdd.euler.card.HandRank;
 import com.work.tdd.euler.card.Rank;
-import org.apache.commons.lang.builder.CompareToBuilder;
 
 import java.util.List;
+
+import static com.work.tdd.euler.card.RankFunction.rankComparison;
 
 public class HighestCardRank extends AbstractRank {
 
@@ -16,16 +17,12 @@ public class HighestCardRank extends AbstractRank {
 
     @Override
     public Integer getLevel() {
-        return 2;
+        return 1;
     }
 
     @Override
     int compareCurrentLevel(HandRank o) {
         HighestCardRank next = (HighestCardRank) o;
-        CompareToBuilder b = new CompareToBuilder();
-        for (int i = 0; i < ranks.size(); i++) {
-            b.append(ranks.get(i), next.ranks.get(i));
-        }
-        return b.toComparison();
+        return rankComparison(ranks, next.ranks);
     }
 }
