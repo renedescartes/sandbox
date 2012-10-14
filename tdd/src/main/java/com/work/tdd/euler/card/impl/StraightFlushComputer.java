@@ -10,6 +10,6 @@ public class StraightFlushComputer implements RankComputer<StraightFlushRank> {
     @Override
     public StraightFlushRank handRank(Hand h) {
         Rank rank = checkStraightFlush(h);
-        return rank == null ? new StraightFlushRank(rank) : null;
+        return rank != null ? new StraightFlushRank(rank) : null;
     }
 }
