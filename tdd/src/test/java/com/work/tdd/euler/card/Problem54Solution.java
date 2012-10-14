@@ -24,7 +24,7 @@ public class Problem54Solution {
                     ((compare > 0) ? "Hand1" : "Hand2"));
             player1Win += compare > 0 ? 1 : 0;
         }
-        logger.info("Player 1 wins [" + player1Win + "]");
+        assertEquals(player1Win, 376);
 
 
     }
