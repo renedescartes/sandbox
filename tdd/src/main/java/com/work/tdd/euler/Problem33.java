@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import static com.work.tdd.euler.Utility.gcd;
-import static com.work.tdd.euler.Utility.reduce;
+import static com.work.tdd.euler.Utility.*;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -84,12 +83,11 @@ public class Problem33 {
         assertEquals(new Fraction(1, 2), reduce(new Fraction(16, 32)));
         assertEquals(new Fraction(1, 3), incorrectReduce(new Fraction(14, 34)));
         List<Fraction> fractions = getFractions(100);
-        int num = 1, den = 1;
+        Fraction product = new Fraction(1, 1);
         for (Fraction fraction : fractions) {
-            num *= fraction.numerator;
-            den *= fraction.denominator;
+            product = multiply(product, fraction);
         }
-        System.out.println(reduce(new Fraction(num, den)).denominator);
+        System.out.println(product.denominator);
     }
 }
 

@@ -4,7 +4,8 @@ import org.testng.annotations.Test;
 
 import java.util.logging.Logger;
 
-import static com.work.tdd.euler.Utility.*;
+import static com.work.tdd.euler.Utility.addFractions;
+import static com.work.tdd.euler.Utility.reciprocal;
 import static org.testng.Assert.assertEquals;
 
 public class Problem57 {
@@ -25,7 +26,7 @@ public class Problem57 {
         for (int i = 1; i <= MAX; i++) {
             Fraction f = findFraction(i);
             logger.info("i = " + i + " f = " + f);
-            if (digits((long) f.numerator).length > digits((long) f.denominator).length) {
+            if (f.numerator.toString().length() > f.denominator.toString().length()) {
                 answer++;
             }
         }

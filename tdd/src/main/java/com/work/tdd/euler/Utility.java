@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -237,8 +238,8 @@ public class Utility {
         return gcd(b % a, a);
     }
 
-    public static long lcm(long a, long b) {
-        return (a * b) / gcd(a, b);
+    public static BigInteger lcm(BigInteger a, BigInteger b) {
+        return (a.multiply(b)).divide(a.gcd(b));
     }
 
     /**
@@ -246,17 +247,23 @@ public class Utility {
      */
     public static Fraction reduce(Fraction f) {
         Fraction reduced = f;
-        long gcd;
-        while ((gcd = gcd(reduced.numerator, reduced.denominator)) != 1) {
-            reduced = new Fraction(f.numerator / gcd, f.denominator / gcd);
+        BigInteger gcd;
+        while (!(gcd = reduced.numerator.gcd(reduced.denominator)).equals(new BigInteger("1"))) {
+            reduced = new Fraction(f.numerator.divide(gcd), f.denominator.divide(gcd));
         }
         return reduced;
     }
 
     public static Fraction addFractions(Fraction a, Fraction b) {
-        long den = lcm(a.denominator, b.denominator);
-        long num = (a.numerator * (den / a.denominator)) + (b.numerator * (den / b.denominator));
+        BigInteger den = lcm(a.denominator, b.denominator);
+        BigInteger f1 = a.numerator.multiply(den).divide(a.denominator);
+        BigInteger f2 = b.numerator.multiply(den).divide(b.denominator);
+        BigInteger num = f1.add(f2);
         return reduce(new Fraction(num, den));
+    }
+
+    public static Fraction multiply(Fraction a, Fraction b) {
+        return reduce(new Fraction(a.numerator.multiply(b.numerator), a.denominator.multiply(b.denominator)));
     }
 
     public static Fraction reciprocal(Fraction a) {

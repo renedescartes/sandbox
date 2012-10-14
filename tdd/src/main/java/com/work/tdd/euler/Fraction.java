@@ -1,9 +1,15 @@
 package com.work.tdd.euler;
 
-public class Fraction {
-    final long numerator, denominator;
+import java.math.BigInteger;
 
-    Fraction(long numerator, long denominator) {
+public class Fraction {
+    final BigInteger numerator, denominator;
+
+    public Fraction(long numerator, long denominator) {
+        this(new BigInteger("" + numerator), new BigInteger("" + denominator));
+    }
+
+    public Fraction(BigInteger numerator, BigInteger denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
     }
@@ -15,16 +21,17 @@ public class Fraction {
 
         Fraction fraction = (Fraction) o;
 
-        if (denominator != fraction.denominator) return false;
-        if (numerator != fraction.numerator) return false;
+        if (denominator != null ? !denominator.equals(fraction.denominator) : fraction.denominator != null)
+            return false;
+        if (numerator != null ? !numerator.equals(fraction.numerator) : fraction.numerator != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (numerator ^ (numerator >>> 32));
-        result = 31 * result + (int) (denominator ^ (denominator >>> 32));
+        int result = numerator != null ? numerator.hashCode() : 0;
+        result = 31 * result + (denominator != null ? denominator.hashCode() : 0);
         return result;
     }
 
