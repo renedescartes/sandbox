@@ -2,9 +2,10 @@ package com.work.tdd.euler.card.impl;
 
 import com.work.tdd.euler.card.HandRank;
 import com.work.tdd.euler.card.Rank;
-import org.apache.commons.lang.builder.CompareToBuilder;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.work.tdd.euler.card.RankFunction.rankComparison;
+import static java.util.Arrays.asList;
 
 public class FullHouseRank extends AbstractRank {
 
@@ -25,7 +26,7 @@ public class FullHouseRank extends AbstractRank {
     @Override
     int compareCurrentLevel(HandRank o) {
         FullHouseRank next = (FullHouseRank) o;
-        return new CompareToBuilder().append(threeKindRank, next.threeKindRank).
-                append(twoKindRank, next.twoKindRank).toComparison();
+        return rankComparison(asList(threeKindRank, twoKindRank),
+                asList(next.threeKindRank, next.twoKindRank));
     }
 }
