@@ -34,4 +34,8 @@ public class Hand implements Comparable<Hand> {
                 ", handRank=" + handRank +
                 '}';
     }
+
+    public HandRank getHandRank() {
+        return handRank;
+    }
 }

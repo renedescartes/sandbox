@@ -108,7 +108,7 @@ public class RankFunction {
 
     public static boolean containsRanks(Hand h, Rank start, Kind k, int successive) {
         for (int i = 0; i < successive; i++) {
-            Rank rank = Rank.values()[start.ordinal() + successive];
+            Rank rank = Rank.values()[start.ordinal() + i];
             if (!containsCard(h, rank, k)) {
                 return false;
             }

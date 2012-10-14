@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Predicates.and;
+import static com.google.common.base.Predicates.not;
 import static com.work.tdd.euler.card.impl.RankFunction.rankPredicate;
 
 public class TwoPairComputer implements RankComputer<TwoPairRank> {
@@ -24,7 +25,7 @@ public class TwoPairComputer implements RankComputer<TwoPairRank> {
     }
 
     private static Rank otherRank(Hand h, Rank pair1Rank, Rank pair2Rank) {
-        Collection<Card> otherCard = Collections2.filter(h.getCards(), and(rankPredicate(pair1Rank), rankPredicate(pair2Rank)));
+        Collection<Card> otherCard = Collections2.filter(h.getCards(), not(and(rankPredicate(pair1Rank), rankPredicate(pair2Rank))));
         checkState(otherCard.size() == 1);
         return otherCard.iterator().next().getRank();
     }

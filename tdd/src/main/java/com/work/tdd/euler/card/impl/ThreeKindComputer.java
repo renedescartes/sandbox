@@ -17,8 +17,12 @@ public class ThreeKindComputer implements RankComputer<ThreeKindRank> {
     @Override
     public ThreeKindRank handRank(Hand h) {
         Rank rank = RankFunction.threeOfAKind(h);
-        Card[] otherCards = otherCards(h, rank);
-        return rank != null ? new ThreeKindRank(rank, otherCards[0].getRank(), otherCards[1].getRank()) : null;
+        if (rank == null) {
+            return null;
+        } else {
+            Card[] otherCards = otherCards(h, rank);
+            return new ThreeKindRank(rank, otherCards[0].getRank(), otherCards[1].getRank());
+        }
     }
 
     private static Card[] otherCards(Hand h, Rank threeKindRank) {

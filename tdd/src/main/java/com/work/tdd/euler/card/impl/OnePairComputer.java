@@ -7,6 +7,7 @@ import com.work.tdd.euler.card.RankComputer;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Lists.newArrayList;
@@ -26,7 +27,7 @@ public class OnePairComputer implements RankComputer<OnePairRank> {
     }
 
     private static List<Rank> otherRanks(Hand h, Rank pairRank) {
-        List<Rank> otherRanks = reverse(newArrayList(transform(filter(h.getCards(), rankPredicate(pairRank)), rankTransform())));
+        List<Rank> otherRanks = reverse(newArrayList(transform(filter(h.getCards(), not(rankPredicate(pairRank))), rankTransform())));
         checkState(otherRanks.size() == 3);
         return otherRanks;
     }
