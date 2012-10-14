@@ -1,5 +1,7 @@
 package com.work.tdd.euler.card;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class FourOfKindRank extends AbstractRank {
@@ -20,6 +22,8 @@ public class FourOfKindRank extends AbstractRank {
 
     @Override
     int compareCurrentLevel(HandRank o) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        FourOfKindRank next = (FourOfKindRank) o;
+        return new CompareToBuilder().append(fourKindRank, next.fourKindRank).
+                append(otherRank, next.otherRank).toComparison();
     }
 }
