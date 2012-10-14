@@ -4,13 +4,13 @@ import java.util.List;
 
 public class RankFunction {
 
-    public static Rank computeFlush(Hand h) {
+    public static boolean checkFlush(Hand h) {
         for (Kind k : Kind.values()) {
             if (countForKind(h, k) == 5) {
-                return last(h.getCards()).getRank();
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public static Rank[] fullHouse(Hand h) {
