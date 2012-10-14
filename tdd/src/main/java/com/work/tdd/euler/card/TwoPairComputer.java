@@ -1,22 +1,27 @@
 package com.work.tdd.euler.card;
 
-import java.util.Collection;
+import com.google.common.collect.Collections2;
 
-import static com.google.common.base.Predicates.not;
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Lists.reverse;
+import java.util.Collection;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Predicates.and;
 import static com.work.tdd.euler.card.RankFunction.rankPredicate;
 
-public class TwoPairComputer implements RankComputer<ThreeKindRank> {
+public class TwoPairComputer implements RankComputer<TwoPairRank> {
     @Override
-    public ThreeKindRank handRank(Hand h) {
-        Rank rank = RankFunction.threeOfAKind(h);
-        Card[] otherCards = otherCards(h, rank);
-        return rank != null ? new ThreeKindRank(rank, otherCards[0].getRank(), otherCards[1].getRank()) : null;
+    public TwoPairRank handRank(Hand h) {
+        List<Rank> rank = RankFunction.pairRanks(h);
+        if (rank.size() != 2) {
+            return null;
+        }
+        return new TwoPairRank(rank.get(1), rank.get(0), otherRank(h, rank.get(1), rank.get(0)));
     }
 
-    private static Card[] otherCards(Hand h, Rank threeKindRank) {
-        Collection<Card> otherCards = filter(reverse(h.getCards()), not(rankPredicate(threeKindRank)));
-        return otherCards.toArray(new Card[otherCards.size()]);
+    private static Rank otherRank(Hand h, Rank pair1Rank, Rank pair2Rank) {
+        Collection<Card> otherCard = Collections2.filter(h.getCards(), and(rankPredicate(pair1Rank), rankPredicate(pair2Rank)));
+        checkState(otherCard.size() == 1);
+        return otherCard.iterator().next().getRank();
     }
 }

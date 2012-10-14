@@ -3,9 +3,20 @@ package com.work.tdd.euler.card;
 import com.google.common.base.Predicate;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RankFunction {
+
+    public static List<Rank> pairRanks(Hand h) {
+        List<Rank> pairRanks = new ArrayList<>();
+        for (Rank r : Rank.values()) {
+            if (countForRank(h, r) == 2) {
+                pairRanks.add(r);
+            }
+        }
+        return pairRanks;
+    }
 
     public static boolean checkStraight(Hand h) {
         List<Card> cards = h.getCards();
@@ -28,9 +39,9 @@ public class RankFunction {
 
     public static Rank[] fullHouse(Hand h) {
         Rank r1 = threeOfAKind(h);
-        Rank r2 = pairKind(h);
-        if (r1 != null && r2 != null) {
-            return new Rank[]{r1, r2};
+        List<Rank> pairRanks = pairRanks(h);
+        if (r1 != null && !pairRanks.isEmpty()) {
+            return new Rank[]{r1, pairRanks.get(0)};
         } else {
             return null;
         }
@@ -39,15 +50,6 @@ public class RankFunction {
     public static Rank threeOfAKind(Hand h) {
         for (Rank r : Rank.values()) {
             if (countForRank(h, r) == 3) {
-                return r;
-            }
-        }
-        return null;
-    }
-
-    public static Rank pairKind(Hand h) {
-        for (Rank r : Rank.values()) {
-            if (countForRank(h, r) == 2) {
                 return r;
             }
         }
