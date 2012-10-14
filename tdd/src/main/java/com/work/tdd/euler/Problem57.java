@@ -35,7 +35,7 @@ public class Problem57 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer(1000), 25);
+        assertEquals(answer(1000), 153);
         assertEquals(findFraction(1), new Fraction(3, 2));
         assertEquals(findFraction(2), new Fraction(7, 5));
         assertEquals(findFraction(3), new Fraction(17, 12));
