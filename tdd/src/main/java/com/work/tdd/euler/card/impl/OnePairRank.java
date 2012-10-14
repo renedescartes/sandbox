@@ -7,7 +7,7 @@ import java.util.List;
 
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.work.tdd.euler.card.RankFunction.rankComparison;
+import static com.work.tdd.euler.card.impl.RankFunction.rankComparison;
 import static java.util.Arrays.asList;
 
 public class OnePairRank extends AbstractRank {

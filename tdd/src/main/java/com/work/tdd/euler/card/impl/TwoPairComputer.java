@@ -1,14 +1,17 @@
 package com.work.tdd.euler.card.impl;
 
 import com.google.common.collect.Collections2;
-import com.work.tdd.euler.card.*;
+import com.work.tdd.euler.card.Card;
+import com.work.tdd.euler.card.Hand;
+import com.work.tdd.euler.card.Rank;
+import com.work.tdd.euler.card.RankComputer;
 
 import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Predicates.and;
-import static com.work.tdd.euler.card.RankFunction.rankPredicate;
+import static com.work.tdd.euler.card.impl.RankFunction.rankPredicate;
 
 public class TwoPairComputer implements RankComputer<TwoPairRank> {
     @Override

@@ -6,7 +6,7 @@ import com.work.tdd.euler.card.Rank;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.work.tdd.euler.card.RankFunction.rankComparison;
+import static com.work.tdd.euler.card.impl.RankFunction.rankComparison;
 import static java.util.Arrays.asList;
 
 public class ThreeKindRank extends AbstractRank {

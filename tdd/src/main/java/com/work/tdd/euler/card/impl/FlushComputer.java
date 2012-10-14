@@ -9,8 +9,8 @@ import java.util.List;
 import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
-import static com.work.tdd.euler.card.RankFunction.checkFlush;
-import static com.work.tdd.euler.card.RankFunction.rankTransform;
+import static com.work.tdd.euler.card.impl.RankFunction.checkFlush;
+import static com.work.tdd.euler.card.impl.RankFunction.rankTransform;
 
 public class FlushComputer implements RankComputer<FlushRank> {
     @Override

@@ -5,7 +5,7 @@ import com.work.tdd.euler.card.Rank;
 
 import java.util.List;
 
-import static com.work.tdd.euler.card.RankFunction.rankComparison;
+import static com.work.tdd.euler.card.impl.RankFunction.rankComparison;
 
 public class FlushRank extends AbstractRank {
     private List<Rank> ranks;

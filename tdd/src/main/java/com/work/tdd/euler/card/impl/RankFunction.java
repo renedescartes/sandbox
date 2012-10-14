@@ -1,8 +1,12 @@
-package com.work.tdd.euler.card;
+package com.work.tdd.euler.card.impl;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.work.tdd.euler.card.Card;
+import com.work.tdd.euler.card.Hand;
+import com.work.tdd.euler.card.Kind;
+import com.work.tdd.euler.card.Rank;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 import javax.annotation.Nullable;

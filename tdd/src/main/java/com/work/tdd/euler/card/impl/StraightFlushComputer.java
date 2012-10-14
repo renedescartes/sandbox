@@ -4,7 +4,7 @@ import com.work.tdd.euler.card.Hand;
 import com.work.tdd.euler.card.Rank;
 import com.work.tdd.euler.card.RankComputer;
 
-import static com.work.tdd.euler.card.RankFunction.checkStraightFlush;
+import static com.work.tdd.euler.card.impl.RankFunction.checkStraightFlush;
 
 public class StraightFlushComputer implements RankComputer<StraightFlushRank> {
     @Override

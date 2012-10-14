@@ -4,7 +4,7 @@ import com.work.tdd.euler.card.HandRank;
 import com.work.tdd.euler.card.Rank;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.work.tdd.euler.card.RankFunction.rankComparison;
+import static com.work.tdd.euler.card.impl.RankFunction.rankComparison;
 import static java.util.Arrays.asList;
 
 public class FourOfKindRank extends AbstractRank {
