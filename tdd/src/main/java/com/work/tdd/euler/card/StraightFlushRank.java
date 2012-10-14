@@ -1,6 +1,6 @@
 package com.work.tdd.euler.card;
 
-public class StraightFlushRank implements HandRank {
+public class StraightFlushRank extends AbstractRank {
     private Rank highestRank;
 
     public StraightFlushRank(Rank rank) {
@@ -8,9 +8,8 @@ public class StraightFlushRank implements HandRank {
     }
 
     @Override
-    public int compareTo(HandRank o) {
-        int levelCompare = getLevel().compareTo(o.getLevel());
-        return levelCompare == 0 ? highestRank.compareTo(((StraightFlushRank) o).highestRank) : levelCompare;
+    int compareCurrentLevel(HandRank o) {
+        return highestRank.compareTo(((StraightFlushRank) o).highestRank);
     }
 
     @Override

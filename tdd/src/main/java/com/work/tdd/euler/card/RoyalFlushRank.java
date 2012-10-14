@@ -1,9 +1,10 @@
 package com.work.tdd.euler.card;
 
-public class RoyalFlushRank implements HandRank {
+public class RoyalFlushRank extends AbstractRank {
+
     @Override
-    public int compareTo(HandRank o) {
-        return getLevel().compareTo(o.getLevel());
+    int compareCurrentLevel(HandRank o) {
+        return 0;
     }
 
     @Override
