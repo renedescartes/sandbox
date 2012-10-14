@@ -1,5 +1,8 @@
 package com.work.tdd.euler.card;
 
+import com.google.common.base.Predicate;
+
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class RankFunction {
@@ -127,5 +130,14 @@ public class RankFunction {
 
     public static <T> T last(List<T> list) {
         return list.get(list.size() - 1);
+    }
+
+    public static Predicate<Card> rankPredicate(final Rank r) {
+        return new Predicate<Card>() {
+            @Override
+            public boolean apply(@Nullable Card input) {
+                return input.getRank().equals(r);
+            }
+        };
     }
 }
