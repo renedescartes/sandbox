@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.google.common.base.Strings.padStart;
+import static com.google.common.collect.Lists.reverse;
 
 class CombinationIterator<T> implements Iterator<List<T>> {
     Long current = 0L;
@@ -14,7 +15,7 @@ class CombinationIterator<T> implements Iterator<List<T>> {
     final List<T> elements;
 
     CombinationIterator(List<T> elements, int c) {
-        this.elements = elements;
+        this.elements = reverse(elements);
         this.c = c;
         this.powerMax = (long) Math.pow(2, elements.size());
         this.next = nextFeasibleNumber(current, elements.size(), c);
