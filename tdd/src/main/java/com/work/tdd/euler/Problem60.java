@@ -1,5 +1,6 @@
 package com.work.tdd.euler;
 
+import com.work.tdd.euler.util.Combinations;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -44,23 +45,23 @@ public class Problem60 {
 
     public static List<Long> answer(int SIZE) {
         List<Long> primes = listPrimes(SIZE);
-        List<List<Long>> combinations = combinations(primes, 5);
-        logger.info("Number of combinations [" + combinations.size() + "]");
-        for(int i = 0; i < combinations.size(); i++) {
-            List<Long> combination = combinations.get(i);
-            if(i % 100 == 0) {
+        Iterable<List<Long>> listIterable = Combinations.combinationIterator(primes, 5);
+        int i = 0;
+        for (List<Long> combination : listIterable) {
+            if(i % 10000 == 0) {
                 logger.info("Examining combination [" + (i+1) + "] -> " + combination);
             }
             if(isRemarkableCombination(combination)) {
                 return combination;
             }
+            i++;
         }
         return Collections.emptyList();
     }
 
     @Test
     public void testSimple() {
-        System.out.println(answer(20));
+        System.out.println(answer(100));
     }
 
 }
