@@ -6,11 +6,11 @@ import org.testng.annotations.Test;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Collections2.transform;
+import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 
 public class Problem59 {
@@ -18,19 +18,19 @@ public class Problem59 {
     private static final Logger logger = Logger.getLogger(Problem59.class.getName());
 
     private static long sumOfASCIIMessage(String resourceName) {
-        Collection<Integer> chars = readChars(resourceName);
+        List<Integer> chars = readChars(resourceName);
         logger.info(StringUtils.join(chars, " "));
         return 0;
     }
 
-    private static Collection<Integer> readChars(String resourceName) {
+    private static List<Integer> readChars(String resourceName) {
         List<String> strings = Utility.readFile(resourceName);
-        return transform(asList(strings.get(0).split(",")), new Function<String, Integer>() {
+        return newArrayList(transform(asList(strings.get(0).split(",")), new Function<String, Integer>() {
             @Override
             public Integer apply(@Nullable String input) {
                 return Integer.parseInt(input);
             }
-        });
+        }));
     }
 
     private static List<Character> decryptMessage(int[] encryptedMessage) {
@@ -38,7 +38,8 @@ public class Problem59 {
         for(int i = 'a'; i <= 'z'; i++) {
             boolean possibleKey = true;
             for(int j = 0; j < encryptedMessage.length && possibleKey;j++) {
-                if(!Character.isAlphabetic(i ^ encryptedMessage[j])) {
+                int decrypt = i ^ encryptedMessage[j];
+                if(decrypt < 32 || decrypt > 122) {
                     possibleKey = false;
                 }
             }
@@ -51,9 +52,14 @@ public class Problem59 {
 
     @Test
     public void testSimple() {
-        for(int i = 'a'; i <= 'z'; i++) {
-            System.out.println((char)(79 ^ i));
+        List<Integer> chars = readChars("cipher1.txt");
+        int[] cipher = new int[]{'g', 'o', 'd'};
+        long sum = 0;
+        for(int i = 0 ; i < chars.size(); i++) {
+            int ascii = chars.get(i) ^ cipher[i % 3];
+            System.out.print((char) ascii);
+            sum+=ascii;
         }
-        //System.out.println(decryptMessage(new int[]{79, 2, 8}));
+        System.out.println(sum);
     }
 }
