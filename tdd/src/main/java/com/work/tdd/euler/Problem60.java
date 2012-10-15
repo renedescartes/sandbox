@@ -1,6 +1,5 @@
 package com.work.tdd.euler;
 
-import com.work.tdd.euler.util.Combinations;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -9,8 +8,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Lists.reverse;
-import static com.work.tdd.euler.Utility.combinations;
 import static com.work.tdd.euler.Utility.isCachedPrime;
+import static com.work.tdd.euler.util.Combinations.combinationIterator;
 import static java.lang.Long.parseLong;
 import static org.apache.commons.lang.StringUtils.join;
 
@@ -19,7 +18,7 @@ public class Problem60 {
     private static final Logger logger = Logger.getLogger(Problem60.class.getName());
 
     private static boolean isRemarkableCombination(List<Long> primes) {
-        List<List<Long>> combinations = combinations(primes, 2);
+        Iterable<List<Long>> combinations = combinationIterator(primes, 2);
         for (List<Long> combination : combinations) {
             Long one = parseLong(join(combination, ""));
             Long two = parseLong(join(reverse(combination), ""));
@@ -45,7 +44,7 @@ public class Problem60 {
 
     public static List<Long> answer(int SIZE) {
         List<Long> primes = listPrimes(SIZE);
-        Iterable<List<Long>> listIterable = Combinations.combinationIterator(primes, 5);
+        Iterable<List<Long>> listIterable = combinationIterator(primes, 4);
         int i = 0;
         for (List<Long> combination : listIterable) {
             if(i % 10000 == 0) {
