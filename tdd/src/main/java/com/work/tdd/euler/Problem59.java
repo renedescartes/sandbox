@@ -5,7 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
@@ -33,29 +33,27 @@ public class Problem59 {
         });
     }
 
-    private static int[] decryptMessage(int[] encryptedMessage) {
-        int[] xorBuffers = new int[encryptedMessage.length];
-        int xor = 0;
-        for(int i = 0 ; i < encryptedMessage.length; i++) {
-            xor = xor ^ encryptedMessage[i];
-            xorBuffers[i] = xor;
+    private static List<Character> decryptMessage(int[] encryptedMessage) {
+        List<Character> possibleKeys = new ArrayList<>();
+        for(int i = 'a'; i <= 'z'; i++) {
+            boolean possibleKey = true;
+            for(int j = 0; j < encryptedMessage.length && possibleKey;j++) {
+                if(!Character.isAlphabetic(i ^ encryptedMessage[j])) {
+                    possibleKey = false;
+                }
+            }
+            if(possibleKey) {
+                possibleKeys.add((char)i);
+            }
         }
-        int[] decryptedMessages = new int[encryptedMessage.length];
-        for(int i = encryptedMessage.length - 1; i > 0; i--) {
-            decryptedMessages[i] = xorBuffers[i] ^ xorBuffers[i-1];
-        }
-        decryptedMessages[0] = xorBuffers[1] ^ decryptedMessages[1];
-        return decryptedMessages;
+        return possibleKeys;
     }
 
     @Test
     public void testSimple() {
-        int[] encrypt = new int[] {74, 7, 13, 6};
-        System.out.println(Arrays.toString(encrypt));
-        System.out.println(Arrays.toString(new int[]{74, 74 ^ 7, 74 ^ 7 ^ 13, 74 ^ 7 ^ 13 ^ 6}));
-        System.out.println(Arrays.toString(new int[]{74, 77 ^ 74, 64 ^ 77, 70^ 64}));
-
-        System.out.println(Arrays.toString(decryptMessage(encrypt)));
-        //sumOfASCIIMessage("cipher1.txt");
+        for(int i = 'a'; i <= 'z'; i++) {
+            System.out.println((char)(79 ^ i));
+        }
+        //System.out.println(decryptMessage(new int[]{79, 2, 8}));
     }
 }
