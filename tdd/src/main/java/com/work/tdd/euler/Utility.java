@@ -270,5 +270,12 @@ public class Utility {
         return reduce(new Fraction(a.denominator, a.numerator));
     }
 
+    private static Map<Long, Boolean> primeMap = new HashMap<>();
+    public static boolean isCachedPrime(Long number) {
+        if(!primeMap.containsKey(number)) {
+            primeMap.put(number, Utility.isPrime(number));
+        }
+        return primeMap.get(number);
+    }
 
 }
