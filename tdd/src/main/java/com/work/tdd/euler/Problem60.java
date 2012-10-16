@@ -3,6 +3,7 @@ package com.work.tdd.euler;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
@@ -58,10 +59,50 @@ public class Problem60 {
         return Collections.emptyList();
     }
 
+    public static List<Long> differentAnswer(int SIZE) {
+        List<Long> primes = listPrimes(SIZE);
+        for(int a = 0; a < SIZE; a++) {
+            for(int b = 0; b < SIZE; b++) {
+                if(b !=  a) {
+                    List<Long> doublePrimes = Arrays.asList(primes.get(a), primes.get(b));
+                    if(isRemarkableCombination(doublePrimes)) {
+                        logger.info("Remarkable Level 2 " + doublePrimes);
+                        for(int c = 0; c < SIZE; c++) {
+                            if(c != a && c != b) {
+                                List<Long> triplePrimes = Arrays.asList(primes.get(a), primes.get(b), primes.get(c));
+                                if(isRemarkableCombination(triplePrimes)) {
+                                    logger.info("Remarkable Level 3 " + triplePrimes);
+                                    for(int d = 0; d < SIZE; d++) {
+                                        if(d != c && d != b && d != a) {
+                                            List<Long> fourPrimes = Arrays.asList(primes.get(a), primes.get(b), primes.get(c), primes.get(d));
+                                            if(isRemarkableCombination(fourPrimes)) {
+                                                logger.info("Remarkable Level 4 " + fourPrimes);
+                                                for(int e = 0; e < SIZE; e++) {
+                                                    if(e != a && e != b && e != c && e != d) {
+                                                        List<Long> fivePrimes = Arrays.asList(primes.get(a), primes.get(b), primes.get(c), primes.get(d), primes.get(e));
+                                                        if(isRemarkableCombination(fivePrimes)) {
+                                                            logger.info("Remarkable Level 5 " + fivePrimes);
+                                                            return fivePrimes;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     @Test
     public void testSimple() {
-        System.out.println(Utility.nCr(100, 4));
-        //System.out.println(answer(100));
+        //System.out.println(Utility.nCr(100, 4));
+        System.out.println(differentAnswer(3000));
     }
 
 }
