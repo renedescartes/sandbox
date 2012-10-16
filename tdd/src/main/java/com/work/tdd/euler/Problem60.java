@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Lists.reverse;
+import static com.work.tdd.euler.Utility.factorial;
 import static com.work.tdd.euler.Utility.isCachedPrime;
 import static com.work.tdd.euler.util.Combinations.combinationIterator;
 import static java.lang.Long.parseLong;
@@ -47,7 +48,7 @@ public class Problem60 {
         Iterable<List<Long>> listIterable = combinationIterator(primes, 4);
         int i = 0;
         for (List<Long> combination : listIterable) {
-            if(i % 10000 == 0) {
+            if(i % 1000 == 0) {
                 logger.info("Examining combination [" + (i+1) + "] -> " + combination);
             }
             if(isRemarkableCombination(combination)) {
@@ -60,7 +61,8 @@ public class Problem60 {
 
     @Test
     public void testSimple() {
-        System.out.println(answer(100));
+        System.out.println(Utility.factorial(100)/factorial(4) * factorial(96));
+        //System.out.println(answer(100));
     }
 
 }

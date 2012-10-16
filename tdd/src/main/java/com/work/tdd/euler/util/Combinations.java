@@ -1,5 +1,8 @@
 package com.work.tdd.euler.util;
 
+import org.apache.commons.lang.StringUtils;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,22 +11,23 @@ import static com.google.common.base.Strings.padStart;
 import static com.google.common.collect.Lists.reverse;
 
 class CombinationIterator<T> implements Iterator<List<T>> {
-    Long current = 0L;
-    Long next = 0L;
-    Long powerMax = 0L;
+    private static final BigDecimal TWO = new BigDecimal("2");
+    BigDecimal current = new BigDecimal("0");
+    BigDecimal next = new BigDecimal("0");
+    BigDecimal powerMax = new BigDecimal("0");
     final Integer c;
     final List<T> elements;
 
     CombinationIterator(List<T> elements, int c) {
         this.elements = reverse(elements);
         this.c = c;
-        this.powerMax = (long) Math.pow(2, elements.size());
+        this.powerMax = new BigDecimal("2").pow(elements.size());
         this.next = nextFeasibleNumber(current, elements.size(), c);
     }
 
     @Override
     public boolean hasNext() {
-        return next <= powerMax;
+        return next.compareTo(powerMax) < 0;
     }
 
     @Override
@@ -41,13 +45,23 @@ class CombinationIterator<T> implements Iterator<List<T>> {
         throw new UnsupportedOperationException("this operation is not supported");
     }
 
-    private static long nextFeasibleNumber(Long from, int size, int c) {
-        while(numberOfOnes(toPaddedBinary(++from, size)) != c);
+    private static BigDecimal nextFeasibleNumber(BigDecimal from, int size, int c) {
+        while(numberOfOnes(toPaddedBinary((from = from.add(new BigDecimal("1"))), size)) != c);
         return from;
     }
 
-    private static String toPaddedBinary(long n, int requiredDigits) {
-        return padStart(Long.toBinaryString(n), requiredDigits, '0');
+    private static String toPaddedBinary(BigDecimal n, int requiredDigits) {
+        return padStart(toBinary(n), requiredDigits, '0');
+    }
+
+    private static String toBinary(BigDecimal n) {
+        StringBuffer b = new StringBuffer();
+        while(!n.equals(new BigDecimal("0"))) {
+            BigDecimal[] div = n.divideAndRemainder(TWO);
+            n = div[0];
+            b.append(div[1]);
+        }
+        return StringUtils.reverse(b.toString());
     }
 
     private static int numberOfOnes(String binary) {
