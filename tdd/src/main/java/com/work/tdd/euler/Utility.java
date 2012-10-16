@@ -156,6 +156,18 @@ public class Utility {
         return product;
     }
 
+    public static BigInteger nCr(long n, long r) {
+        return bigFactorial(n).divide(bigFactorial(r)).divide(bigFactorial(n-r));
+    }
+
+    public static BigInteger bigFactorial(long n) {
+        BigInteger product = new BigInteger("1");
+        for (long i = 2; i <= n; i++) {
+            product = product.multiply(new BigInteger("" + i));
+        }
+        return product;
+    }
+
     public static <T> List<List<T>> rotations(List<T> array) {
         List<List<T>> rotations = new ArrayList<>();
         LinkedList<T> rotateContext = new LinkedList<>(array);

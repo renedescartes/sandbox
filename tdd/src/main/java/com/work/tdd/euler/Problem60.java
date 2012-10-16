@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Lists.reverse;
-import static com.work.tdd.euler.Utility.factorial;
 import static com.work.tdd.euler.Utility.isCachedPrime;
 import static com.work.tdd.euler.util.Combinations.combinationIterator;
 import static java.lang.Long.parseLong;
@@ -61,7 +60,7 @@ public class Problem60 {
 
     @Test
     public void testSimple() {
-        System.out.println(Utility.factorial(100)/factorial(4) * factorial(96));
+        System.out.println(Utility.nCr(100, 4));
         //System.out.println(answer(100));
     }
 
