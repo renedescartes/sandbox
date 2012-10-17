@@ -8,52 +8,80 @@ public class Polygonal {
     }
 
     public static boolean isTriangular(long x) {
-        return isQuadraticSolvable(1, 1, -2 * x) >= 0;
+        return triangleRoot(x) >= 0;
+    }
+
+    public static long triangleRoot(long x) {
+        return isQuadraticSolvable(1, 1, -2 * x);
     }
 
     public static boolean isSquare(long x) {
-        return isQuadraticSolvable(1, 0, -1 * x) >= 0;
+        return squareRoot(x) >= 0;
+    }
+
+    public static long squareRoot(long x) {
+        return isQuadraticSolvable(1, 0, -1 * x);
     }
 
     public static boolean isPentagonal(long x) {
-        return isQuadraticSolvable(3, -1, -2 * x) >= 0;
+        return pentagonalRoot(x) >= 0;
+    }
+
+    public static long pentagonalRoot(long x) {
+        return isQuadraticSolvable(3, -1, -2 * x);
     }
 
     public static boolean isHexagonal(long x) {
-        return isQuadraticSolvable(2, -1, -1 * x) >= 0;
+        return hexagonalRoot(x) >= 0;
+    }
+
+    public static long hexagonalRoot(long x) {
+        return isQuadraticSolvable(2, -1, -1 * x);
     }
 
     public static boolean isHeptagonal(long x) {
-        return isQuadraticSolvable(5, -3, -2 * x) >= 0;
+        return heptagonalRoot(x) >= 0;
+    }
+
+    public static long heptagonalRoot(long x) {
+        return isQuadraticSolvable(5, -3, -2 * x);
     }
 
     public static boolean isOctagonal(long x) {
-        return isQuadraticSolvable(3, -2, -1 * x) >= 0;
+        return octagonalRoot(x) >= 0;
+    }
+
+    public static long octagonalRoot(long x) {
+        return isQuadraticSolvable(3, -2, -1 * x);
+    }
+
+    public static long polygonalRoot(long n, int dimension) {
+        if (n <= 0) {
+            return -1;
+        }
+        if (dimension == 3) {
+            return triangleRoot(n);
+        }
+        if (dimension == 4) {
+            return squareRoot(n);
+        }
+        if (dimension == 5) {
+            return pentagonalRoot(n);
+        }
+        if (dimension == 6) {
+            return hexagonalRoot(n);
+        }
+        if (dimension == 7) {
+            return heptagonalRoot(n);
+        }
+        if (dimension == 8) {
+            return octagonalRoot(n);
+        }
+        throw new IllegalArgumentException("Dimension is not valid [" + dimension + "]");
     }
 
     public static boolean isPolygonal(long n, int dimension) {
-        if (n <= 0) {
-            return false;
-        }
-        if (dimension == 3) {
-            return isTriangular(n);
-        }
-        if (dimension == 4) {
-            return isSquare(n);
-        }
-        if (dimension == 5) {
-            return isPentagonal(n);
-        }
-        if (dimension == 6) {
-            return isHexagonal(n);
-        }
-        if (dimension == 7) {
-            return isHeptagonal(n);
-        }
-        if (dimension == 8) {
-            return isOctagonal(n);
-        }
-        throw new IllegalArgumentException("Dimension is not valid [" + dimension + "]");
+        return polygonalRoot(n, dimension) >= 0;
     }
 
     /**
