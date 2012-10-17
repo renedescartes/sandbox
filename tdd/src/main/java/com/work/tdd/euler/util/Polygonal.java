@@ -8,21 +8,19 @@ public class Polygonal {
     }
 
     public static boolean isTriangular(long x) {
-        return isPerfectSquare((8 * x) + 1);
+        return isQuadraticSolvable(1, 1, -2 * x) >= 0;
     }
 
     public static boolean isSquare(long x) {
-        return isPerfectSquare(x);
+        return isQuadraticSolvable(1, 0, -1 * x) >= 0;
     }
 
     public static boolean isPentagonal(long x) {
-        long e = (24 * x) + 1;
-        return isPerfectSquare(e) && (Math.sqrt(e) % 6 == 5);
+        return isQuadraticSolvable(3, -1, -2 * x) >= 0;
     }
 
     public static boolean isHexagonal(long x) {
-        long e = (8 * x) + 1;
-        return isPerfectSquare(e) && (Math.sqrt(e) % 4 == 3);
+        return isQuadraticSolvable(2, -1, -1 * x) >= 0;
     }
 
     public static boolean isHeptagonal(long x) {
@@ -67,8 +65,7 @@ public class Polygonal {
         long coeff = (b * b) - (4 * a * c);
         long den = 2 * a;
         if (!isPerfectSquare(coeff)) {
-            long num = -1 * b;
-            return num % den == 0 ? num/den : -1;
+            return -1;
         }
         long p1 = ((-1) * b) - (long) Math.sqrt(coeff);
         long p2 = ((-1) * b) + (long) Math.sqrt(coeff);
