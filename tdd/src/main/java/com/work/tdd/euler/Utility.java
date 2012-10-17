@@ -59,11 +59,7 @@ public class Utility {
     }
 
     public static Long summation(List<Long> array) {
-        Long sum = 0L;
-        for (int i = 0; i < array.size(); i++) {
-            sum = sum + array.get(i);
-        }
-        return sum;
+        return summation(array.toArray(new Long[array.size()]));
     }
 
     public static Integer summation(Integer[] array) {

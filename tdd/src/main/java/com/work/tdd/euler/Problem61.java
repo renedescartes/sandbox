@@ -82,8 +82,6 @@ public class Problem61 {
 
     @Test
     public void testSimple() {
-        //assertTrue(isCyclicSolution(Arrays.asList(1176, 1089, 4510, 8911, 7645, 1160)));
         explore(1010, 9999, Sets.newTreeSet(Arrays.asList(3, 4, 5, 6, 7, 8)), new HashMap<Integer, Integer>());
-        System.out.println(solution);
     }
 }
