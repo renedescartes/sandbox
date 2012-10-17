@@ -28,7 +28,7 @@ public class Polygonal {
     }
 
     public static boolean isHeptagonal(long x) {
-        return isQuadraticSolvable(3, -2, -1 * x);
+        return isQuadraticSolvable(5, -3, -2 * x);
     }
 
     public static boolean isOctagonal(long x) {
@@ -69,6 +69,10 @@ public class Polygonal {
         return -1;
     }
 
+    /**
+     * This will check if the equation a * n^2 + b * n + c = 0
+     * has atleast one root that is a positive Natual number (1, 2, 3.... etc)
+     */
     public static boolean isQuadraticSolvable(long a, long b, long c) {
         long coeff = (b * b) - (4 * a * c);
         if (!isPerfectSquare(coeff)) {
