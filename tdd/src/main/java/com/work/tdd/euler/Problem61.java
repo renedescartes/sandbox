@@ -7,7 +7,10 @@ import org.testng.annotations.Test;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static com.work.tdd.euler.util.Polygonal.dimension;
+import static com.google.common.collect.Sets.newHashSet;
+import static com.work.tdd.euler.Utility.summation;
+import static com.work.tdd.euler.util.Polygonal.isPolygonal;
+import static org.testng.Assert.assertEquals;
 
 public class Problem61 {
 
@@ -40,6 +43,25 @@ public class Problem61 {
         }
     }
 
+    public static int dimension(long n, Set<Integer> dimensions) {
+        for (Integer d : dimensions) {
+            if (isPolygonal(n, d) && isNotPolygonal(n, Sets.difference(dimensions, newHashSet(d)))) {
+                return d;
+            }
+        }
+        return -1;
+    }
+
+    public static boolean isNotPolygonal(long n, Set<Integer> polygonal) {
+        for(Integer d : polygonal) {
+            if(isPolygonal(n, d)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     /** For 8756 return 5610*/
     private static int start(int number) {
         return (lastTwoDigits(number) * 100) + 10;
@@ -61,14 +83,13 @@ public class Problem61 {
     private static boolean isCyclicSolution(Collection<Integer> values) {
         Set<Integer> integers = Sets.newTreeSet(values);
         Integer first = integers.iterator().next();
-        Integer head = first;
         Integer next;
-        while( ((next = findNumberStartingWith(integers, lastTwoDigits(first))) != -1) && (integers.size() != 1)) {
+        while( ((next = findNumberStartingWith(integers, lastTwoDigits(first))) != -1) && (!integers.isEmpty())) {
             first = next;
             integers.remove(next);
 
         }
-        return integers.size() == 1 && integers.iterator().next() == head;
+        return integers.isEmpty();
     }
 
     private static Integer findNumberStartingWith(Collection<Integer> numbers, int twoDigits) {
@@ -82,6 +103,8 @@ public class Problem61 {
 
     @Test
     public void testSimple() {
+        //assertFalse(isCyclicSolution(Arrays.asList(2415, 1024, 1520, 2016, 3367, 1633)));
         explore(1010, 9999, Sets.newTreeSet(Arrays.asList(3, 4, 5, 6, 7, 8)), new HashMap<Integer, Integer>());
+        assertEquals(summation(solution.values().toArray(new Integer[solution.values().size()])), new Integer(11975), "Solution is " + solution);
     }
 }

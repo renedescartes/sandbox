@@ -1,7 +1,5 @@
 package com.work.tdd.euler.util;
 
-import java.util.Set;
-
 public class Polygonal {
 
     private static boolean isPerfectSquare(long number) {
@@ -58,15 +56,6 @@ public class Polygonal {
             return isOctagonal(n);
         }
         throw new IllegalArgumentException("Dimension is not valid [" + dimension + "]");
-    }
-
-    public static int dimension(long n, Set<Integer> dimensions) {
-        for (Integer d : dimensions) {
-            if (isPolygonal(n, d)) {
-                return d;
-            }
-        }
-        return -1;
     }
 
     /**
