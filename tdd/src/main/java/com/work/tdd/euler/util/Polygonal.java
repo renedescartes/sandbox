@@ -26,11 +26,11 @@ public class Polygonal {
     }
 
     public static boolean isHeptagonal(long x) {
-        return isQuadraticSolvable(5, -3, -2 * x);
+        return isQuadraticSolvable(5, -3, -2 * x) >= 0;
     }
 
     public static boolean isOctagonal(long x) {
-        return isQuadraticSolvable(3, -2, -1 * x);
+        return isQuadraticSolvable(3, -2, -1 * x) >= 0;
     }
 
     public static boolean isPolygonal(long n, int dimension) {
@@ -61,14 +61,23 @@ public class Polygonal {
     /**
      * This will check if the equation a * n^2 + b * n + c = 0
      * has atleast one root that is a positive Natual number (1, 2, 3.... etc)
+     * and return that root
      */
-    public static boolean isQuadraticSolvable(long a, long b, long c) {
+    public static long isQuadraticSolvable(long a, long b, long c) {
         long coeff = (b * b) - (4 * a * c);
+        long den = 2 * a;
         if (!isPerfectSquare(coeff)) {
-            return false;
+            long num = -1 * b;
+            return num % den == 0 ? num/den : -1;
         }
         long p1 = ((-1) * b) - (long) Math.sqrt(coeff);
         long p2 = ((-1) * b) + (long) Math.sqrt(coeff);
-        return p1 % (2 * a) == 0 || p2 % (2 * a) == 0;
+        if(p1 % den == 0 && p1/ den > 0) {
+            return p1/ den;
+        }
+        if(p2 % den == 0 && p2/ den > 0) {
+            return p2/ den;
+        }
+        return -1;
     }
 }
