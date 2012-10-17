@@ -1,6 +1,6 @@
 package com.work.tdd.euler.util;
 
-import java.util.List;
+import java.util.Set;
 
 public class Polygonal {
 
@@ -60,7 +60,7 @@ public class Polygonal {
         throw new IllegalArgumentException("Dimension is not valid [" + dimension + "]");
     }
 
-    public static int dimension(long n, List<Integer> dimensions) {
+    public static int dimension(long n, Set<Integer> dimensions) {
         for (Integer d : dimensions) {
             if (isPolygonal(n, d)) {
                 return d;
