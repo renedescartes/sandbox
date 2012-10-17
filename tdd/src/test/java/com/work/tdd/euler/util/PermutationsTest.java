@@ -26,5 +26,11 @@ public class PermutationsTest {
             logger.info(b.toString());
         }
         assertEquals(120, permutes.size());
+
+        permutes = Lists.newArrayList(Permutations.permutationIterator(new BigInteger("1000")));
+        for(BigInteger b : permutes) {
+            logger.info(b.toString());
+        }
+        assertEquals(24, permutes.size());
     }
 }
