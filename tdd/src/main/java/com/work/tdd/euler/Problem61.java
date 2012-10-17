@@ -2,6 +2,7 @@ package com.work.tdd.euler;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.work.tdd.euler.util.Polygonal;
 import org.testng.annotations.Test;
 
 import java.util.*;
@@ -105,6 +106,13 @@ public class Problem61 {
     public void testSimple() {
         //assertFalse(isCyclicSolution(Arrays.asList(2415, 1024, 1520, 2016, 3367, 1633)));
         explore(1010, 9999, Sets.newTreeSet(Arrays.asList(3, 4, 5, 6, 7, 8)), new HashMap<Integer, Integer>());
+        logger.info("****Solution****");
+        logger.info("(3, " + Polygonal.isQuadraticSolvable(1, 1, (-2 * solution.get(3))) + ") -> " + solution.get(3));
+        logger.info("(4, " + Polygonal.isQuadraticSolvable(1, 0, (-1 * solution.get(4))) + ") -> " + solution.get(4));
+        logger.info("(5, " + Polygonal.isQuadraticSolvable(3, -1, (-2 * solution.get(5))) + ") -> " + solution.get(5));
+        logger.info("(6, " + Polygonal.isQuadraticSolvable(2, -1, (-1 * solution.get(6))) + ") -> " + solution.get(6));
+        logger.info("(7, " + Polygonal.isQuadraticSolvable(5, -3, (-2 * solution.get(7))) + ") -> " + solution.get(7));
+        logger.info("(8, " + Polygonal.isQuadraticSolvable(3, -2, (-1 * solution.get(8))) + ") -> " + solution.get(8));
         assertEquals(summation(solution.values().toArray(new Integer[solution.values().size()])), new Integer(11975), "Solution is " + solution);
     }
 }
