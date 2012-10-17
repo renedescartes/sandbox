@@ -36,6 +36,9 @@ public class Polygonal {
     }
 
     public static boolean isPolygonal(long n, int dimension) {
+        if (n <= 0) {
+            return false;
+        }
         if (dimension == 3) {
             return isTriangular(n);
         }
