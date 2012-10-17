@@ -18,7 +18,6 @@ public class Problem62 {
     private static final Logger logger = Logger.getLogger(Problem62.class.getName());
 
     private static int countPermutations(Iterable<BigInteger> permutes) {
-        int count = 0;
         Set<BigInteger> options = new TreeSet<>();
         for(BigInteger b : permutes) {
             if(isCubicNumber(b.longValue())) {
