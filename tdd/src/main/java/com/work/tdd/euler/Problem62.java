@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 
 import javax.annotation.Nullable;
 import java.math.BigInteger;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Iterables.filter;
@@ -17,12 +19,13 @@ public class Problem62 {
 
     private static int countPermutations(Iterable<BigInteger> permutes) {
         int count = 0;
+        Set<BigInteger> options = new TreeSet<>();
         for(BigInteger b : permutes) {
             if(isCubicNumber(b.longValue())) {
-                count++;
+                options.add(b);
             }
         }
-        return count;
+        return options.size();
     }
 
     public static long findSmallest(int n) {
