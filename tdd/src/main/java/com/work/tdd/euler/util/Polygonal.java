@@ -4,55 +4,62 @@ import java.util.List;
 
 public class Polygonal {
 
-    public static boolean isTriangular(long n) {
+    private static boolean isPerfectSquare(long number) {
+        long sqrt = (long) Math.sqrt(number);
+        return sqrt * sqrt == number;
+    }
+
+    public static boolean isTriangular(long x) {
+        return isPerfectSquare((8 * x) + 1);
+    }
+
+    public static boolean isSquare(long x) {
+        return isPerfectSquare(x);
+    }
+
+    public static boolean isPentagonal(long x) {
+        long e = (24 * x) + 1;
+        return isPerfectSquare(e) && (Math.sqrt(e) % 6 == 5);
+    }
+
+    public static boolean isHexagonal(long x) {
+        long e = (8 * x) + 1;
+        return isPerfectSquare(e) && (Math.sqrt(e) % 4 == 3);
+    }
+
+    public static boolean isHeptagonal(long x) {
         return true;
     }
 
-    public static boolean isSquare(long n) {
-        return true;
-    }
-
-    public static boolean isPentagonal(long n) {
-        return true;
-    }
-
-    public static boolean isHexagonal(long n) {
-        return true;
-    }
-
-    public static boolean isHeptagonal(long n) {
-        return true;
-    }
-
-    public static boolean isOctagonal(long n) {
+    public static boolean isOctagonal(long x) {
         return true;
     }
 
     public static boolean isPolygonal(long n, int dimension) {
-        if(dimension == 3) {
+        if (dimension == 3) {
             return isTriangular(n);
         }
-        if(dimension == 4) {
+        if (dimension == 4) {
             return isSquare(n);
         }
-        if(dimension == 5) {
+        if (dimension == 5) {
             return isPentagonal(n);
         }
-        if(dimension == 6) {
+        if (dimension == 6) {
             return isHexagonal(n);
         }
-        if(dimension == 7) {
+        if (dimension == 7) {
             return isHeptagonal(n);
         }
-        if(dimension == 8) {
+        if (dimension == 8) {
             return isOctagonal(n);
         }
         throw new IllegalArgumentException("Dimension is not valid [" + dimension + "]");
     }
 
     public static int dimension(long n, List<Integer> dimensions) {
-        for(Integer d : dimensions) {
-            if(isPolygonal(n, d)) {
+        for (Integer d : dimensions) {
+            if (isPolygonal(n, d)) {
                 return d;
             }
         }
