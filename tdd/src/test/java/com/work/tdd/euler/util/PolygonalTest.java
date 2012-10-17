@@ -67,6 +67,7 @@ public class PolygonalTest {
                 {-1, 7},
                 {21, 7},
                 {-1, 8},
+                {32, 8},
                 {39, 8},
         };
     }

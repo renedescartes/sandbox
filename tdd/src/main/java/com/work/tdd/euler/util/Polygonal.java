@@ -28,11 +28,11 @@ public class Polygonal {
     }
 
     public static boolean isHeptagonal(long x) {
-        return true;
+        return isQuadraticSolvable(3, -2, -1 * x);
     }
 
     public static boolean isOctagonal(long x) {
-        return true;
+        return isQuadraticSolvable(3, -2, -1 * x);
     }
 
     public static boolean isPolygonal(long n, int dimension) {
@@ -67,5 +67,15 @@ public class Polygonal {
             }
         }
         return -1;
+    }
+
+    public static boolean isQuadraticSolvable(long a, long b, long c) {
+        long coeff = (b * b) - (4 * a * c);
+        if (!isPerfectSquare(coeff)) {
+            return false;
+        }
+        long p1 = ((-1) * b) - (long) Math.sqrt(coeff);
+        long p2 = ((-1) * b) + (long) Math.sqrt(coeff);
+        return p1 % (2 * a) == 0 || p2 % (2 * a) == 0;
     }
 }
