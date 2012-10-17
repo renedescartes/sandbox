@@ -61,6 +61,6 @@ public class Problem62 {
 
     @Test
     public void testSimple() {
-        assertEquals(findSmallest(3), 41063625L);
+        assertEquals(findSmallest(5), 41063625L);
     }
 }
