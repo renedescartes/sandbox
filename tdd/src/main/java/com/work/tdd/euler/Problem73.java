@@ -10,19 +10,24 @@ public class Problem73 {
 
     private static final Logger logger = Logger.getLogger(Problem73.class.getName());
 
-    public static int fractionBetween(final Fraction f1, final Fraction f2, final long d) {
-        int count = 0;
+    public static long fractionBetween(final Fraction f1, final Fraction f2, final long d) {
+        long count = 0;
         for(long den = d; den >= 2; den--) {
-            long start = (long) Math.floor(equivalent(f1, den));
-            long end = (long) Math.ceil(equivalent(f2, den));
-            logger.fine("Denominator [" + den + "] start [" + start + "] end [" + end + "]");
-            for(long num = start; num <= end; num++) {
-                Fraction f = new Fraction(num, den);
-                if(f.compareTo(f1) > 0 && f.compareTo(f2) < 0) {
-                    logger.fine(f.toString() + " is between " + f1 + " and " + f2);
-                    count++;
-                }
+            long start = (long) Math.ceil(equivalent(f1, den));
+            long end = (long) Math.floor(equivalent(f2, den));
+            long diff = end - start + 1; //maximum possible fractions in this interval;
+            Fraction startFraction = new Fraction(start, den).reduce();
+            Fraction endFraction = new Fraction(end, den).reduce();
+            if(startFraction.equals(f1)) {
+                diff--;
             }
+            if(endFraction.equals(f2)) {
+                diff--;
+            }
+            if(diff > 0) {
+                count += diff;
+            }
+            logger.info("Denominator [" + den + "] start [" + start + "] end [" + end + "] has [" + diff + "] fractions and total [" + count + "]");
         }
         return count;
     }
@@ -33,13 +38,13 @@ public class Problem73 {
 
     @Test
     public void testSimple() {
-        int count =  fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 1000000);
+        long count =  fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 12000);
         assertEquals(count, 25);
     }
 
     @Test
     public void testBits() {
-        int count = fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 8);
+        long count = fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 8);
         assertEquals(count, 3);
     }
 }
