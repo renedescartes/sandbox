@@ -224,7 +224,7 @@ public class Utility {
         return n == 1 ? Collections.<Long>emptyList() : asList(n);
     }
 
-    private static boolean isPerfectSquare(long number) {
+    public static boolean isPerfectSquare(long number) {
         long sqrt = (long) Math.sqrt(number);
         return sqrt * sqrt == number;
     }
