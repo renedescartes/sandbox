@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class Problem62New {
+public class Problem62 {
 
-    private static final Logger logger = Logger.getLogger(Problem62New.class.getName());
+    private static final Logger logger = Logger.getLogger(Problem62.class.getName());
 
     /** This method returns a simple iterator that iterates over the cubes that are of N- Digits length*/
     private static Iterable<Long> nDigitNumbersThatAreCubes(final int digits) {
