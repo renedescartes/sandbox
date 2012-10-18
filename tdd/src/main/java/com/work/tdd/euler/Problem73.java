@@ -15,19 +15,17 @@ public class Problem73 {
         for(long den = d; den >= 2; den--) {
             long start = (long) Math.ceil(equivalent(f1, den));
             long end = (long) Math.floor(equivalent(f2, den));
-            long diff = end - start + 1; //maximum possible fractions in this interval;
-            Fraction startFraction = new Fraction(start, den).reduce();
-            Fraction endFraction = new Fraction(end, den).reduce();
-            if(startFraction.equals(f1)) {
-                diff--;
+            for(long num = start; num <= den; num++) {
+                Fraction f = new Fraction(num, den);
+                if(f.compareTo(f1) > 0 && f.compareTo(f2) < 0) {
+                    if(f.equals(f.reduce())) {
+                        count++;
+                    }
+                }
             }
-            if(endFraction.equals(f2)) {
-                diff--;
+            if(den % 1000 == 0) {
+                logger.info("Denominator [" + den + "] start [" + start + "] end [" + end + "] has [" + count + "] fractions");
             }
-            if(diff > 0) {
-                count += diff;
-            }
-            logger.info("Denominator [" + den + "] start [" + start + "] end [" + end + "] has [" + diff + "] fractions and total [" + count + "]");
         }
         return count;
     }
@@ -38,13 +36,14 @@ public class Problem73 {
 
     @Test
     public void testSimple() {
-        long count =  fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 50);
-        assertEquals(count, 25);
+        assertEquals(fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 12000), 7295372);
     }
 
     @Test
     public void testBits() {
-        long count = fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 8);
-        assertEquals(count, 3);
+        Long count = fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 8);
+        assertEquals(count.longValue(), 3);
+        count = fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 50);
+        assertEquals(count.longValue(), 129);
     }
 }

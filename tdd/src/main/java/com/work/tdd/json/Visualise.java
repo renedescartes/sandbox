@@ -6,11 +6,11 @@ import java.util.Arrays;
 
 class EventType {
     private Event eventType;
-    private Long cardinality;
+    private Long marketCount;
 
     EventType(Event e, Long cardinality) {
         this.eventType = e;
-        this.cardinality = cardinality;
+        this.marketCount = cardinality;
     }
 }
 
