@@ -13,7 +13,8 @@ public class Problem72 {
     public static long countOfFractions(long d) {
         long count = 0;
         for(long den = 2; den <= d; den++) {
-            for(long num = 1; num < den; num++) {
+            int step = den % 2 == 0? 2 : 1;
+            for(long num = 1; num < den; num+= step) {
                 if(Utility.gcd(num, den) == 1) {
                     count++;
                 }
