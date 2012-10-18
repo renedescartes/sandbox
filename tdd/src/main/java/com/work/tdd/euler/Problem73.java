@@ -38,7 +38,7 @@ public class Problem73 {
 
     @Test
     public void testSimple() {
-        long count =  fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 12000);
+        long count =  fractionBetween(new Fraction(1, 3), new Fraction(1, 2), 50);
         assertEquals(count, 25);
     }
 
