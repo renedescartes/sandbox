@@ -1,10 +1,13 @@
 package com.work.tdd.euler;
 
 import com.google.common.base.Predicate;
+import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
 import javax.annotation.Nullable;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -16,6 +19,8 @@ import static org.testng.Assert.assertEquals;
 public class Problem62 {
 
     private static final Logger logger = Logger.getLogger(Problem62.class.getName());
+
+    private static Set<BigInteger> blackListOfPermutations = new HashSet<BigInteger>();
 
     private static int countPermutations(Iterable<BigInteger> permutes) {
         Set<BigInteger> options = new TreeSet<>();
@@ -33,8 +38,12 @@ public class Problem62 {
         BigInteger cube = new BigInteger("27");
         while(permuteCount < n) {
             cube = cube(count);
-            logger.info("Count = " + count);
-            permuteCount = countPermutations(filter(permutationIterator(cube), lengthPredicate(cube.toString().length())));
+            logger.info("Black list size[" + blackListOfPermutations.size()  + "]");
+            if(!blackListOfPermutations.contains(smallestPermutation(cube))) {
+                logger.info("Count = " + count);
+                permuteCount = countPermutations(filter(permutationIterator(cube), lengthPredicate(cube.toString().length())));
+            }
+            blackListOfPermutations.add(smallestPermutation(cube));
             count++;
         }
         return cube.longValue();
@@ -56,6 +65,12 @@ public class Problem62 {
                 return length == input.toString().length();
             }
         };
+    }
+
+    private static BigInteger smallestPermutation(BigInteger b) {
+        Integer[] digits = Utility.digits(b.longValue());
+        Arrays.sort(digits);
+        return new BigInteger(StringUtils.join(digits, ""));
     }
 
     @Test
