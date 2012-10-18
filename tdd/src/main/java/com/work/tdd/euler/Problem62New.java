@@ -1,19 +1,16 @@
 package com.work.tdd.euler;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class Problem62New {
 
@@ -21,44 +18,38 @@ public class Problem62New {
 
     private static Iterable<Long> nDigitNumbersThatAreCubes(final int digits) {
         final Iterator<Long> iterator = new Iterator<Long>() {
-            long current = start(digits);
+            long current = (long) Math.ceil(Math.cbrt(start(digits)));
             long end = end(digits);
             @Override
             public boolean hasNext() {
-                return current <= end;
+                return cube(current) <= end;
             }
 
             @Override
             public Long next() {
-                return current++;
+                return cube(current++);
             }
 
             @Override
             public void remove() {
             }
         };
-        Iterable<Long> nDigitNumbers = new Iterable<Long>() {
+        return new Iterable<Long>() {
 
             @Override
             public Iterator<Long> iterator() {
                 return iterator;
             }
         };
-        return Iterables.filter(nDigitNumbers, cubicPredicate());
     }
 
-    private static Predicate<? super Long> cubicPredicate() {
-        return new Predicate<Long>() {
-            @Override
-            public boolean apply(@Nullable Long input) {
-                return isCubicNumber(input);
-            }
-        };
+    private static long cube(long n) {
+        return n * n * n;
     }
 
     private static boolean isCubicNumber(long n) {
-        long cbrt = (long) Math.cbrt(n);
-        return cbrt * cbrt * cbrt == n;
+        long cubicRoot = (long) Math.cbrt(n);
+        return cube(cubicRoot) == n;
     }
 
     private static Long start(int digits) {
@@ -75,23 +66,42 @@ public class Problem62New {
         return Long.parseLong(StringUtils.join(digits, ""));
     }
 
-    public static Collection<Long> permutesCount(int n, int digits) {
+    public static List<Collection<Long>> permutesCount(int numberOfPermutes, int digits) {
         List<Long> cubeNumbersList = Lists.newArrayList(nDigitNumbersThatAreCubes(digits));
         Multimap<Long, Long> map = ArrayListMultimap.create();
+        List<Collection<Long>> permutes = new ArrayList<>();
         for(Long l : cubeNumbersList) {
             map.put(smallestPermutation(l), l);
         }
         for(Long l : map.keySet()) {
-            if(map.get(l).size() >= n) {
-                return map.get(l);
+            if(map.get(l).size() >= numberOfPermutes) {
+                permutes.add(map.get(l));
             }
         }
-        return null;
+        return permutes;
+    }
+
+    public static List<Collection<Long>> searchForPermutes(int numberOfPermutes) {
+        int digitCount = 3;
+        List<Collection<Long>> permutes;
+        while((permutes = permutesCount(numberOfPermutes, digitCount)).isEmpty()) {
+            digitCount++;
+            logger.info("Looking for numbers with [" + digitCount + "] digits");
+        }
+        return permutes;
     }
 
     @Test
     public void testSimple() {
-        System.out.println(permutesCount(3, 8));
+        List<Collection<Long>> bestPermutes = searchForPermutes(5);
+        logger.info("Permutes " + bestPermutes);
+    }
+
+    @Test
+    public void testComponent() {
+        List<Long> longs = Lists.newArrayList(nDigitNumbersThatAreCubes(3));
+        assertEquals(5, longs.size(), longs.toString());
+        assertTrue(isCubicNumber(729));
     }
 
 }
