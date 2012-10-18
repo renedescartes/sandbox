@@ -28,6 +28,6 @@ public class Problem67 {
     public void testSimple() {
         int[][] array = numberTree("triangle.txt");
         logger.info("" + array);
-        assertEquals(Problem18.maximalSum(array), 22455);
+        assertEquals(Problem18.maximalSum(array), 7273);
     }
 }
