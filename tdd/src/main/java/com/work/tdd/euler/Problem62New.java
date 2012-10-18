@@ -1,11 +1,14 @@
 package com.work.tdd.euler;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -16,6 +19,7 @@ public class Problem62New {
 
     private static final Logger logger = Logger.getLogger(Problem62New.class.getName());
 
+    /** This method returns a simple iterator that iterates over the cubes that are of N- Digits length*/
     private static Iterable<Long> nDigitNumbersThatAreCubes(final int digits) {
         final Iterator<Long> iterator = new Iterator<Long>() {
             long current = (long) Math.ceil(Math.cbrt(start(digits)));
@@ -24,18 +28,15 @@ public class Problem62New {
             public boolean hasNext() {
                 return cube(current) <= end;
             }
-
             @Override
             public Long next() {
                 return cube(current++);
             }
-
             @Override
             public void remove() {
             }
         };
         return new Iterable<Long>() {
-
             @Override
             public Iterator<Long> iterator() {
                 return iterator;
@@ -60,6 +61,10 @@ public class Problem62New {
         return start(digits+1) - 1;
     }
 
+    /**
+     * Returns a Long that is the smallest permutation of the digits in that long
+     * ex: 71235 will return 12357
+     */
     private static Long smallestPermutation(Long b) {
         Integer[] digits = Utility.digits(b);
         Arrays.sort(digits);
@@ -75,26 +80,34 @@ public class Problem62New {
         }
         for(Long l : map.keySet()) {
             if(map.get(l).size() >= numberOfPermutes) {
-                permutes.add(map.get(l));
+                permutes.add(new TreeSet<>(map.get(l)));
             }
         }
         return permutes;
     }
 
-    public static List<Collection<Long>> searchForPermutes(int numberOfPermutes) {
+    public static Long searchForPermutes(int numberOfPermutes) {
         int digitCount = 3;
         List<Collection<Long>> permutes;
         while((permutes = permutesCount(numberOfPermutes, digitCount)).isEmpty()) {
             digitCount++;
             logger.info("Looking for numbers with [" + digitCount + "] digits");
         }
-        return permutes;
+        logger.info("Sets of permutations that are cubes " + permutes);
+        Set<Long> firstElements = Sets.newTreeSet(Lists.transform(permutes, new Function<Collection<Long>, Long>() {
+            @Override
+            public Long apply(@Nullable Collection<Long> input) {
+                return input.iterator().next();
+            }
+        }));
+        return firstElements.iterator().next();
     }
 
     @Test
     public void testSimple() {
-        List<Collection<Long>> bestPermutes = searchForPermutes(5);
-        logger.info("Permutes " + bestPermutes);
+        Long bestPermute = searchForPermutes(5);
+        logger.info("Permutes " + bestPermute);
+        assertEquals(127035954683L, bestPermute.longValue());
     }
 
     @Test
