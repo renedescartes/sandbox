@@ -1,57 +1,55 @@
 package com.work.tdd.euler;
 
-import com.google.common.collect.DiscreteDomains;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ranges;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static org.testng.Assert.assertEquals;
 
-class Combination {
-
-    private static final Logger logger = Logger.getLogger(Combination.class.getName());
-    private List<Integer> array;
-    private int finalCost;
-    private long count = 0;
-
-    Combination(List<Integer> array, int finalCost) {
-        this.array = array;
-        this.finalCost = finalCost;
-    }
-
-    void explore(int level, int current) {
-        logger.fine("Level = " + level + " Current = " + current);
-        if (current == finalCost) {
-            count++;
-            return;
-        }
-        if (level == array.size() || current > finalCost) {
-            return;
-        }
-        explore(level + 1, current);
-        int times = 1;
-        int weightToAdd;
-        while ((weightToAdd = current + (times * array.get(level))) <= finalCost) {
-            explore(level + 1, weightToAdd);
-            times++;
-        }
-    }
-
-    public long getCount() {
-        return count;
-    }
-}
-
 public class Problem76New {
 
+    private static final Logger logger = Logger.getLogger(Problem76.class.getName());
+
+    public static int count(List<Integer> array) {
+        int count = 1;
+        while (nextElement(array) != null) {
+            count++;
+        }
+        return count;
+    }
+
+    private static List<Integer> nextElement(List<Integer> list) {
+        return null;
+    }
+
+    private static int firstDecreasingIndex(List<Integer> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i) > list.get(i + 1)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static Comparator<? super List<Integer>> listComparator() {
+        return new Comparator<List<Integer>>() {
+            @Override
+            public int compare(List<Integer> o1, List<Integer> o2) {
+                CompareToBuilder e = new CompareToBuilder();
+                for (int i = 0; i < o1.size(); i++) {
+                    e.append(o1.get(i), o2.get(i));
+                }
+                return e.toComparison();
+            }
+        };
+    }
+
     public static long countCombine(int n) {
-        List<Integer> integers = Lists.newArrayList(Ranges.open(0, n).asSet(DiscreteDomains.integers()));
-        Combination c = new Combination(integers, n);
-        c.explore(0, 0);
-        return c.getCount();
+        return 0;
     }
 
     @Test
@@ -61,8 +59,7 @@ public class Problem76New {
 
     @Test
     public void testBits() {
-        assertEquals(countCombine(6), 10);
-        assertEquals(countCombine(10), 41);
+        assertEquals(count(Arrays.asList(6, 1, 1, 1, 1)), 10);
     }
 }
 

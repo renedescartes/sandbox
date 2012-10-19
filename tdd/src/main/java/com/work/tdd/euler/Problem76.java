@@ -31,7 +31,7 @@ public class Problem76 {
                             newAttempt.add(digits.get(i) - j);
                             newAttempt.addAll(digits.subList(i + 1, digits.size()));
                             Collections.sort(newAttempt);
-                            newPermutes.add(newAttempt);
+                            newPermutes.add(Lists.reverse(newAttempt));
                         }
                     }
                 }
@@ -50,7 +50,7 @@ public class Problem76 {
             public int compare(List<Integer> o1, List<Integer> o2) {
                 CompareToBuilder e = new CompareToBuilder();
                 for (int i = 0; i < o1.size(); i++) {
-                    e.append(o1.get(i), o2.get(i));
+                    e.append(o2.get(i), o1.get(i));
                 }
                 return e.toComparison();
             }
@@ -64,7 +64,8 @@ public class Problem76 {
 
     @Test
     public void testBits() {
-        assertEquals(splitSum(11), 41);
+        splitSum(10);
+        splitSum(11);
     }
 }
 

@@ -23,8 +23,8 @@ public class Problem60 {
         for (List<Long> combination : combinations) {
             Long one = parseLong(join(combination, ""));
             Long two = parseLong(join(reverse(combination), ""));
-            logger.fine("Combination " + combination + " one = " + one + " two = " + two);
-            if(!isCachedPrime(one) || !isCachedPrime(two)) {
+            logger.fine("BitSet " + combination + " one = " + one + " two = " + two);
+            if (!isCachedPrime(one) || !isCachedPrime(two)) {
                 return false;
             }
         }
@@ -34,8 +34,8 @@ public class Problem60 {
     private static List<Long> listPrimes(int SIZE) {
         List<Long> primes = new ArrayList<>();
         long count = 2;
-        while(primes.size() < SIZE) {
-            if(isCachedPrime(count)) {
+        while (primes.size() < SIZE) {
+            if (isCachedPrime(count)) {
                 primes.add(count);
             }
             count++;
@@ -48,10 +48,10 @@ public class Problem60 {
         Iterable<List<Long>> listIterable = combinationIterator(primes, 4);
         int i = 0;
         for (List<Long> combination : listIterable) {
-            if(i % 1000 == 0) {
-                logger.info("Examining combination [" + (i+1) + "] -> " + combination);
+            if (i % 1000 == 0) {
+                logger.info("Examining combination [" + (i + 1) + "] -> " + combination);
             }
-            if(isRemarkableCombination(combination)) {
+            if (isRemarkableCombination(combination)) {
                 return combination;
             }
             i++;
@@ -61,26 +61,26 @@ public class Problem60 {
 
     public static List<Long> differentAnswer(int SIZE) {
         List<Long> primes = listPrimes(SIZE);
-        for(int a = 0; a < SIZE; a++) {
-            for(int b = 0; b < SIZE; b++) {
-                if(b !=  a) {
+        for (int a = 0; a < SIZE; a++) {
+            for (int b = 0; b < SIZE; b++) {
+                if (b != a) {
                     List<Long> doublePrimes = Arrays.asList(primes.get(a), primes.get(b));
-                    if(isRemarkableCombination(doublePrimes)) {
+                    if (isRemarkableCombination(doublePrimes)) {
                         logger.info("Remarkable Level 2 " + doublePrimes);
-                        for(int c = 0; c < SIZE; c++) {
-                            if(c != a && c != b) {
+                        for (int c = 0; c < SIZE; c++) {
+                            if (c != a && c != b) {
                                 List<Long> triplePrimes = Arrays.asList(primes.get(a), primes.get(b), primes.get(c));
-                                if(isRemarkableCombination(triplePrimes)) {
+                                if (isRemarkableCombination(triplePrimes)) {
                                     logger.info("Remarkable Level 3 " + triplePrimes);
-                                    for(int d = 0; d < SIZE; d++) {
-                                        if(d != c && d != b && d != a) {
+                                    for (int d = 0; d < SIZE; d++) {
+                                        if (d != c && d != b && d != a) {
                                             List<Long> fourPrimes = Arrays.asList(primes.get(a), primes.get(b), primes.get(c), primes.get(d));
-                                            if(isRemarkableCombination(fourPrimes)) {
+                                            if (isRemarkableCombination(fourPrimes)) {
                                                 logger.info("Remarkable Level 4 " + fourPrimes);
-                                                for(int e = 0; e < SIZE; e++) {
-                                                    if(e != a && e != b && e != c && e != d) {
+                                                for (int e = 0; e < SIZE; e++) {
+                                                    if (e != a && e != b && e != c && e != d) {
                                                         List<Long> fivePrimes = Arrays.asList(primes.get(a), primes.get(b), primes.get(c), primes.get(d), primes.get(e));
-                                                        if(isRemarkableCombination(fivePrimes)) {
+                                                        if (isRemarkableCombination(fivePrimes)) {
                                                             logger.info("Remarkable Level 5 " + fivePrimes);
                                                             return fivePrimes;
                                                         }
