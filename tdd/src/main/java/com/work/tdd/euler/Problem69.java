@@ -63,16 +63,16 @@ public class Problem69 {
     public static long explore(long n) {
         double bestRatio = 0;
         long answer = 0;
-        for(long i = 2; i < n; i++) {
+        for(long i = 2; i <= n; i++) {
             Long phi = phi(i);
-            double phiRatio = i/phi;
+            double phiRatio = (double)i/(double)phi;
             if(phiRatio > bestRatio) {
-                logger.info("Prefer [" + i + "] with phi [" + phiRatio + "] over [" + answer + "] with phi [" + bestRatio + "]");
+                logger.info("Prefer [" + i + "] with phiRatio [" + phiRatio + "] over [" + answer + "] with phiRatio [" + bestRatio + "]");
                 bestRatio = phiRatio;
                 answer = i;
             }
-            if(i % 1000 == 0) {
-                logger.fine("i = " + i + " phi = " + phi);
+            if(i % 10000 == 0) {
+                logger.info("i = " + i + " phi = " + phi);
             }
         }
         return answer;
@@ -80,7 +80,12 @@ public class Problem69 {
 
     @Test
     public void testBits() {
-        assertEquals(210, explore(10000));
+        assertEquals(2310, explore(10000));
+    }
+
+    @Test
+    public void testSimple() {
+        assertEquals(210, explore(1000000));
     }
 
 }
