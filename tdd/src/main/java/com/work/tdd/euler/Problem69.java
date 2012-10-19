@@ -1,14 +1,26 @@
 package com.work.tdd.euler;
 
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.work.tdd.euler.util.fraction.Fraction;
 import org.testng.annotations.Test;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
+import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.newHashSet;
+import static com.google.common.collect.Sets.newTreeSet;
 import static com.work.tdd.euler.util.fraction.Fractions.longFraction;
 import static org.testng.Assert.assertEquals;
 
@@ -60,10 +72,10 @@ public class Problem69 {
         return fraction.numerator().longValue();
     }
 
-    public static long explore(long n) {
+    public static long explore(long start, long n) {
         double bestRatio = 0;
         long answer = 0;
-        for(long i = 2; i <= n; i++) {
+        for(long i = start; i <= n; i++) {
             Long phi = phi(i);
             double phiRatio = (double)i/(double)phi;
             if(phiRatio > bestRatio) {
@@ -71,21 +83,55 @@ public class Problem69 {
                 bestRatio = phiRatio;
                 answer = i;
             }
-            if(i % 10000 == 0) {
+            if(i % 1000 == 0) {
                 logger.info("i = " + i + " phi = " + phi);
             }
         }
         return answer;
     }
 
+    public static long exploreParallel(final long n, long batchSize) {
+        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
+        long numberOfBatches = (n/batchSize) + (n % batchSize == 0 ? 0 : 1);
+        List<Future<Long>> jobs = new ArrayList<>();
+        for(long b = 0; b < numberOfBatches; b++) {
+            final long start = Math.max((b * batchSize) + 1, 2);
+            final long end = batchSize * (b + 1);
+            ListenableFuture<Long> job = service.submit(new Callable<Long>() {
+                @Override
+                public Long call() throws Exception {
+                    return explore(start, end);
+                }
+            });
+            jobs.add(job);
+        }
+        List<Long> values = transform(jobs, futureTransform());
+        return newTreeSet(values).last();
+    }
+
+    private static Function<? super Future<Long>, Long> futureTransform() {
+        return new Function<Future<Long>, Long>() {
+            @Override
+            public Long apply(@Nullable Future<Long> input) {
+                try {
+                    return input.get();
+                } catch (Exception e) {
+                    throw new RuntimeException("Could not get value");
+                }
+            }
+        };
+    }
+
     @Test
     public void testBits() {
-        assertEquals(2310, explore(10000));
+        assertEquals(2310, explore(2, 10000));
+
+        assertEquals(2310, exploreParallel(10000, 100));
     }
 
     @Test
     public void testSimple() {
-        assertEquals(210, explore(1000000));
+        assertEquals(210, explore(2, 1000000));
     }
 
 }
