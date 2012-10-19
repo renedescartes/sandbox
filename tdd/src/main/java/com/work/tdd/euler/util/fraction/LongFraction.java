@@ -11,7 +11,7 @@ class LongFraction extends NumberFraction {
     @Override
     public Fraction reduce() {
         long gcd = Utility.gcd(numerator().longValue(), denominator().longValue());
-        return gcd == 1 ? this : new LongFraction(numerator.longValue()/gcd, denominator.longValue()/gcd);
+        return gcd == 1 ? this : new LongFraction(numerator().longValue()/gcd, denominator().longValue()/gcd);
     }
 
     @Override
@@ -36,6 +36,17 @@ class LongFraction extends NumberFraction {
         long den = Utility.lcm(denominator().longValue(), f.denominator().longValue());
         long num = equivalent(den).numerator().longValue() + f.equivalent(den).numerator().longValue();
         return new LongFraction(num, den).reduce();
+    }
+
+    @Override
+    public int compareTo(Fraction o) {
+        if(!(o instanceof LongFraction)) {
+            throw new IllegalStateException("Cant compare to other fractions");
+        }
+        Long lcm = Utility.lcm(denominator().longValue(), o.denominator().longValue());
+        Comparable value1 = (Comparable) equivalent(lcm).numerator();
+        Comparable value2 = (Comparable) o.equivalent(lcm).numerator();
+        return value1.compareTo(value2);
     }
 
     @Override

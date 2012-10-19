@@ -1,7 +1,7 @@
 package com.work.tdd.euler.util.fraction;
 
 abstract class NumberFraction implements Fraction {
-    final Number numerator, denominator;
+    private final Number numerator, denominator;
 
     public NumberFraction(Number numerator, Number denominator) {
         this.numerator = numerator;
@@ -37,11 +37,6 @@ abstract class NumberFraction implements Fraction {
     }
 
     @Override
-    public int compareTo(Fraction o) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public final Number numerator() {
         return numerator;
     }
@@ -50,4 +45,5 @@ abstract class NumberFraction implements Fraction {
     public final Number denominator() {
         return denominator;
     }
+
 }
