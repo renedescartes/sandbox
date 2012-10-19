@@ -2,14 +2,14 @@ package com.work.tdd.euler;
 
 import java.math.BigInteger;
 
-public class Fraction implements Comparable<Fraction> {
+public class BigIntegerFraction implements Comparable<BigIntegerFraction> {
     final BigInteger numerator, denominator;
 
-    public Fraction(long numerator, long denominator) {
+    public BigIntegerFraction(long numerator, long denominator) {
         this(new BigInteger("" + numerator), new BigInteger("" + denominator));
     }
 
-    public Fraction(BigInteger numerator, BigInteger denominator) {
+    public BigIntegerFraction(BigInteger numerator, BigInteger denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
     }
@@ -19,7 +19,7 @@ public class Fraction implements Comparable<Fraction> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Fraction fraction = (Fraction) o;
+        BigIntegerFraction fraction = (BigIntegerFraction) o;
 
         if (denominator != null ? !denominator.equals(fraction.denominator) : fraction.denominator != null)
             return false;
@@ -37,18 +37,18 @@ public class Fraction implements Comparable<Fraction> {
 
     @Override
     public String toString() {
-        return "Fraction {" + numerator +
+        return "BigIntegerFraction {" + numerator +
                 " / " + denominator +
                 '}';
     }
 
-    public Fraction reduce() {
+    public BigIntegerFraction reduce() {
         BigInteger gcd = numerator.gcd(denominator);
-        return gcd.equals(new BigInteger("1")) ? this : new Fraction(numerator.divide(gcd), denominator.divide(gcd));
+        return gcd.equals(new BigInteger("1")) ? this : new BigIntegerFraction(numerator.divide(gcd), denominator.divide(gcd));
     }
 
     @Override
-    public int compareTo(Fraction o) {
+    public int compareTo(BigIntegerFraction o) {
         BigInteger lcm = lcm(denominator, o.denominator);
         return numerator.multiply(lcm.divide(denominator)).compareTo(o.numerator.multiply(lcm.divide(o.denominator)));
     }

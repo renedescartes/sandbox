@@ -18,7 +18,7 @@ public class Problem33 {
     /**
      * Incorrectly reduce example 43/83 will become 4/8
      */
-    private static Fraction incorrectReduce(Fraction f) {
+    private static BigIntegerFraction incorrectReduce(BigIntegerFraction f) {
         List<Character> nList = charList("" + f.numerator), dList = charList("" + f.denominator);
         ListIterator<Character> it = nList.listIterator();
         while (it.hasNext()) {
@@ -28,7 +28,7 @@ public class Problem33 {
                 it.remove();
             }
         }
-        return new Fraction(join(nList), join(dList));
+        return new BigIntegerFraction(join(nList), join(dList));
     }
 
     /**
@@ -60,11 +60,11 @@ public class Problem33 {
     /**
      * Iterate and find the fractions
      */
-    protected static List<Fraction> getFractions(int number) {
-        List<Fraction> fractions = new ArrayList<>();
+    protected static List<BigIntegerFraction> getFractions(int number) {
+        List<BigIntegerFraction> fractions = new ArrayList<>();
         for (int n = 1; n < number; n++) {
             for (int d = n + 1; d < number; d++) {
-                Fraction f = new Fraction(n, d);
+                BigIntegerFraction f = new BigIntegerFraction(n, d);
                 boolean incorrectReduced = !f.equals(incorrectReduce(f));
                 if (incorrectReduced && reduce(f).equals(reduce(incorrectReduce(f)))) {
                     fractions.add(f);
@@ -80,11 +80,11 @@ public class Problem33 {
         assertEquals(2, gcd(58, 60));
         assertEquals(1, gcd(19, 14));
 
-        assertEquals(new Fraction(1, 2), reduce(new Fraction(16, 32)));
-        assertEquals(new Fraction(1, 3), incorrectReduce(new Fraction(14, 34)));
-        List<Fraction> fractions = getFractions(100);
-        Fraction product = new Fraction(1, 1);
-        for (Fraction fraction : fractions) {
+        assertEquals(new BigIntegerFraction(1, 2), reduce(new BigIntegerFraction(16, 32)));
+        assertEquals(new BigIntegerFraction(1, 3), incorrectReduce(new BigIntegerFraction(14, 34)));
+        List<BigIntegerFraction> fractions = getFractions(100);
+        BigIntegerFraction product = new BigIntegerFraction(1, 1);
+        for (BigIntegerFraction fraction : fractions) {
             product = multiply(product, fraction);
         }
         System.out.println(product.denominator);

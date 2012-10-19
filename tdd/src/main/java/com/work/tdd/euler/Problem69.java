@@ -42,7 +42,9 @@ public class Problem69 {
 
     public static long phi(long n) {
         Set<Long> factors = cachedPrimeFactors(n);
-        Fraction f = new Fraction(n , 1);
+        BigIntegerFraction f = new BigIntegerFraction(n , 1);
+        for(Long l : factors) {
+        }
         return -1;
     }
 

@@ -257,29 +257,29 @@ public class Utility {
     /**
      * Cut common factors example 4/8 will become 1/2
      */
-    public static Fraction reduce(Fraction f) {
-        Fraction reduced = f;
+    public static BigIntegerFraction reduce(BigIntegerFraction f) {
+        BigIntegerFraction reduced = f;
         BigInteger gcd;
         while (!(gcd = reduced.numerator.gcd(reduced.denominator)).equals(new BigInteger("1"))) {
-            reduced = new Fraction(f.numerator.divide(gcd), f.denominator.divide(gcd));
+            reduced = new BigIntegerFraction(f.numerator.divide(gcd), f.denominator.divide(gcd));
         }
         return reduced;
     }
 
-    public static Fraction addFractions(Fraction a, Fraction b) {
+    public static BigIntegerFraction addFractions(BigIntegerFraction a, BigIntegerFraction b) {
         BigInteger den = lcm(a.denominator, b.denominator);
         BigInteger f1 = a.numerator.multiply(den).divide(a.denominator);
         BigInteger f2 = b.numerator.multiply(den).divide(b.denominator);
         BigInteger num = f1.add(f2);
-        return reduce(new Fraction(num, den));
+        return reduce(new BigIntegerFraction(num, den));
     }
 
-    public static Fraction multiply(Fraction a, Fraction b) {
-        return reduce(new Fraction(a.numerator.multiply(b.numerator), a.denominator.multiply(b.denominator)));
+    public static BigIntegerFraction multiply(BigIntegerFraction a, BigIntegerFraction b) {
+        return reduce(new BigIntegerFraction(a.numerator.multiply(b.numerator), a.denominator.multiply(b.denominator)));
     }
 
-    public static Fraction reciprocal(Fraction a) {
-        return reduce(new Fraction(a.denominator, a.numerator));
+    public static BigIntegerFraction reciprocal(BigIntegerFraction a) {
+        return reduce(new BigIntegerFraction(a.denominator, a.numerator));
     }
 
     private static Map<Long, Boolean> primeMap = new HashMap<>();
