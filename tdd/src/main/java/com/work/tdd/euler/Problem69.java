@@ -137,7 +137,7 @@ public class Problem69 {
 
     @Test
     public void testSimple() {
-        assertEquals(210, exploreParallel(1000000, 10000));
+        assertEquals(510510, exploreParallel(1000000, 10000).getX().longValue());
     }
 
 }
