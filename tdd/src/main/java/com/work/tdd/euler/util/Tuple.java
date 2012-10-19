@@ -1,5 +1,8 @@
 package com.work.tdd.euler.util;
 
+import com.google.common.base.Function;
+
+import javax.annotation.Nullable;
 import java.util.Comparator;
 
 public class Tuple<X extends Comparable, Y extends Comparable> {
@@ -21,7 +24,7 @@ public class Tuple<X extends Comparable, Y extends Comparable> {
         return y;
     }
 
-    public Comparator<Tuple<X, Y>> yComparator() {
+    public <X extends Comparable, Y extends Comparable> Comparator<Tuple<X, Y>> yComparator() {
         return new Comparator<Tuple<X, Y>>() {
             @Override
             public int compare(Tuple<X, Y> o1, Tuple<X, Y> o2) {
@@ -30,6 +33,14 @@ public class Tuple<X extends Comparable, Y extends Comparable> {
         };
     }
 
+    public static <X extends Comparable, Y extends Comparable> Function<Tuple<X, Y>, Y> yFunction() {
+        return new Function<Tuple<X, Y>, Y>() {
+            @Override
+            public Y apply(@Nullable Tuple<X, Y> input) {
+                return input.getY();
+            }
+        };
+    }
 
     @Override
     public String toString() {

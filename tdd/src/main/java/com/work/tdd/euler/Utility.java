@@ -58,7 +58,7 @@ public class Utility {
         };
     }
 
-    public static Long summation(List<Long> array) {
+    public static Long summation(Collection<Long> array) {
         return summation(array.toArray(new Long[array.size()]));
     }
 
