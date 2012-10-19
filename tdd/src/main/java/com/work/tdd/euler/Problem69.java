@@ -28,7 +28,7 @@ import static org.testng.Assert.assertEquals;
 public class Problem69 {
     private static final Logger logger = Logger.getLogger(Problem45.class.getName());
 
-    private static final Object[] factors = new Object[1000000];
+    private static final Object[] factors = new Object[1000001];
 
     @SuppressWarnings("unchecked")
     public static Set<Long> cachedPrimeFactors(Long n) {
@@ -80,11 +80,11 @@ public class Problem69 {
             Long phi = phi(i);
             double phiRatio = (double)i/(double)phi;
             if(phiRatio > bestRatio) {
-                logger.info("Prefer [" + i + "] with phiRatio [" + phiRatio + "] over [" + answer + "] with phiRatio [" + bestRatio + "]");
+                logger.fine("Prefer [" + i + "] with phiRatio [" + phiRatio + "] over [" + answer + "] with phiRatio [" + bestRatio + "]");
                 bestRatio = phiRatio;
                 answer = i;
             }
-            if(i % 1000 == 0) {
+            if(i % 10000 == 0) {
                 logger.info("i = " + i + " phi = " + phi);
             }
         }
@@ -107,6 +107,7 @@ public class Problem69 {
             jobs.add(job);
         }
         List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, futureTransform()));
+        logger.info("Finished [" + values.size() + "] jobs");
         Collections.sort(values, new Tuple(1, 2).yComparator());
         return values.get(values.size()-1);
     }
@@ -116,9 +117,9 @@ public class Problem69 {
             @Override
             public Tuple<Long, Double> apply(@Nullable Future<Tuple<Long, Double>> input) {
                 try {
-                    return input.get();
+                    return input == null ? null : input.get();
                 } catch (Exception e) {
-                    throw new RuntimeException("Could not get value");
+                    throw new RuntimeException("Could not get value", e);
                 }
             }
         };
@@ -136,7 +137,7 @@ public class Problem69 {
 
     @Test
     public void testSimple() {
-        assertEquals(210, explore(2, 1000000));
+        assertEquals(210, exploreParallel(1000000, 10000));
     }
 
 }
