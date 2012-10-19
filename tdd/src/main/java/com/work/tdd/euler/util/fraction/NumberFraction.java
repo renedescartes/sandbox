@@ -1,9 +1,12 @@
 package com.work.tdd.euler.util.fraction;
 
+import com.google.common.base.Preconditions;
+
 abstract class NumberFraction implements Fraction {
     private final Number numerator, denominator;
 
     public NumberFraction(Number numerator, Number denominator) {
+        Preconditions.checkNotNull(denominator, "Denominator cannot be zero");
         this.numerator = numerator;
         this.denominator = denominator;
     }
