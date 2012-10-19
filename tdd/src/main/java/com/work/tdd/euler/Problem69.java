@@ -2,9 +2,11 @@ package com.work.tdd.euler;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.work.tdd.euler.util.Tuple;
 import com.work.tdd.euler.util.fraction.Fraction;
 import org.testng.annotations.Test;
 
@@ -20,7 +22,6 @@ import java.util.logging.Logger;
 
 import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.google.common.collect.Sets.newTreeSet;
 import static com.work.tdd.euler.util.fraction.Fractions.longFraction;
 import static org.testng.Assert.assertEquals;
 
@@ -72,7 +73,7 @@ public class Problem69 {
         return fraction.numerator().longValue();
     }
 
-    public static long explore(long start, long n) {
+    public static Tuple<Long, Double> explore(long start, long n) {
         double bestRatio = 0;
         long answer = 0;
         for(long i = start; i <= n; i++) {
@@ -87,32 +88,33 @@ public class Problem69 {
                 logger.info("i = " + i + " phi = " + phi);
             }
         }
-        return answer;
+        return new Tuple<>(answer, bestRatio);
     }
 
-    public static long exploreParallel(final long n, long batchSize) {
+    public static Tuple<Long, Double> exploreParallel(final long n, long batchSize) {
         ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
         long numberOfBatches = (n/batchSize) + (n % batchSize == 0 ? 0 : 1);
-        List<Future<Long>> jobs = new ArrayList<>();
+        List<ListenableFuture<Tuple<Long, Double>>> jobs = new ArrayList<>();
         for(long b = 0; b < numberOfBatches; b++) {
             final long start = Math.max((b * batchSize) + 1, 2);
             final long end = batchSize * (b + 1);
-            ListenableFuture<Long> job = service.submit(new Callable<Long>() {
+            ListenableFuture<Tuple<Long, Double>> job = service.submit(new Callable<Tuple<Long, Double>>() {
                 @Override
-                public Long call() throws Exception {
+                public Tuple<Long, Double> call() throws Exception {
                     return explore(start, end);
                 }
             });
             jobs.add(job);
         }
-        List<Long> values = transform(jobs, futureTransform());
-        return newTreeSet(values).last();
+        List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, futureTransform()));
+        Collections.sort(values, new Tuple(1, 2).yComparator());
+        return values.get(values.size()-1);
     }
 
-    private static Function<? super Future<Long>, Long> futureTransform() {
-        return new Function<Future<Long>, Long>() {
+    private static Function<? super Future<Tuple<Long, Double>>, Tuple<Long, Double>> futureTransform() {
+        return new Function<Future<Tuple<Long, Double>>, Tuple<Long, Double>>() {
             @Override
-            public Long apply(@Nullable Future<Long> input) {
+            public Tuple<Long, Double> apply(@Nullable Future<Tuple<Long, Double>> input) {
                 try {
                     return input.get();
                 } catch (Exception e) {
@@ -124,9 +126,8 @@ public class Problem69 {
 
     @Test
     public void testBits() {
-        assertEquals(2310, explore(2, 10000));
-
-        assertEquals(2310, exploreParallel(10000, 100));
+        assertEquals(new Tuple(2310L, 4.8125), explore(2, 10000));
+        assertEquals(4.8125, exploreParallel(10000, 100).getY());
     }
 
     @Test
