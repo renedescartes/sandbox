@@ -51,8 +51,10 @@ public class Problem72 {
             jobs.add(job);
         }
         List<Tuple<Long, Long>> values = Lists.newArrayList(transform(jobs, futureTransform()));
-        logger.info("Finished [" + values.size() + "] jobs");
-        return Utility.summation(values.)
+
+        List<Long> countValues = transform(values, Tuple.<Long, Long>yFunction());
+        logger.info("Finished jobs " + values);
+        return Utility.summation(countValues);
     }
 
     private static Function<? super Future<Tuple<Long, Long>>, Tuple<Long, Long>> futureTransform() {
@@ -86,14 +88,16 @@ public class Problem72 {
 
     @Test
     public void testSimple() {
-        assertEquals(countOfFractions(1000000), 7295372);
+        assertEquals(exploreParallel(1000000, 10000).longValue(), 7295372);
     }
 
     @Test
     public void testBits() {
         Long count = countOfFractions(8);
         assertEquals(count.longValue(), 21);
+        assertEquals(exploreParallel(8, 2).longValue(), 21);
         count = countOfFractions(50);
         assertEquals(count.longValue(), 773);
+        assertEquals(exploreParallel(50, 5).longValue(), 773);
     }
 }
