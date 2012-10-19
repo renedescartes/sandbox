@@ -246,6 +246,10 @@ public class Utility {
         return gcd(b % a, a);
     }
 
+    public static long lcm(long a, long b) {
+        return (a * b)/gcd(a,b);
+    }
+
     public static BigInteger lcm(BigInteger a, BigInteger b) {
         return (a.multiply(b)).divide(a.gcd(b));
     }

@@ -1,6 +1,8 @@
 package com.work.tdd.euler.util.fraction;
 
-public class LongFraction extends NumberFraction {
+import com.work.tdd.euler.Utility;
+
+class LongFraction extends NumberFraction {
 
     public LongFraction(Long numerator, Long denominator) {
         super(numerator, denominator);
@@ -8,31 +10,45 @@ public class LongFraction extends NumberFraction {
 
     @Override
     public Fraction reduce() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        long gcd = Utility.gcd(numerator().longValue(), denominator().longValue());
+        return gcd == 1 ? this : new LongFraction(numerator.longValue()/gcd, denominator.longValue()/gcd);
     }
 
     @Override
     public Fraction multiply(Fraction f) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        LongFraction product = new LongFraction(numerator().longValue() * f.numerator().longValue(),
+                denominator().longValue() * f.denominator().longValue());
+        return product.reduce();
     }
 
     @Override
     public Fraction subtract(Fraction f) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return add(((LongFraction) f).negate());
     }
 
     @Override
     public Fraction divide(Fraction f) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return multiply(((LongFraction)f).reciprocal());
     }
 
     @Override
     public Fraction add(Fraction f) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        long den = Utility.lcm(denominator().longValue(), f.denominator().longValue());
+        long num = equivalent(den).numerator().longValue() + f.equivalent(den).numerator().longValue();
+        return new LongFraction(num, den).reduce();
     }
 
     @Override
-    public int compareTo(Fraction o) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    public Fraction equivalent(Number requiredDenominator) {
+        long f = requiredDenominator.longValue()/denominator().longValue();
+        return new LongFraction(numerator().longValue() * f, requiredDenominator.longValue());
+    }
+
+    public Fraction negate() {
+        return new LongFraction(-1 * numerator().longValue(), denominator().longValue());
+    }
+
+    public Fraction reciprocal() {
+        return new LongFraction(denominator().longValue(), numerator().longValue()).reduce();
     }
 }

@@ -9,7 +9,7 @@ abstract class NumberFraction implements Fraction {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -23,26 +23,31 @@ abstract class NumberFraction implements Fraction {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = numerator != null ? numerator.hashCode() : 0;
         result = 31 * result + (denominator != null ? denominator.hashCode() : 0);
         return result;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Fraction {" + numerator +
                 " / " + denominator +
                 '}';
     }
 
     @Override
-    public Number numerator() {
+    public int compareTo(Fraction o) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public final Number numerator() {
         return numerator;
     }
 
     @Override
-    public Number denominator() {
+    public final Number denominator() {
         return denominator;
     }
 }
