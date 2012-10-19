@@ -18,4 +18,6 @@ public interface Fraction extends Comparable<Fraction> {
 
     public Fraction equivalent(Number denominator);
 
+    public Fraction reciprocal();
+
 }
