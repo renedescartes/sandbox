@@ -10,7 +10,7 @@ import static com.work.tdd.algos.SubsetFinder.getCombinations;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 28/09/12
  */
 public class SubsetFinderTest {

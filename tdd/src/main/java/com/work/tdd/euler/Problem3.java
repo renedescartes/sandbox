@@ -5,14 +5,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 04/10/12
  */
 public class Problem3 {
 
     private static boolean isPrime(long n) {
-        for(long i = 2; i < Math.sqrt(n); i++) {
-            if(n % i == 0) {
+        for (long i = 2; i < Math.sqrt(n); i++) {
+            if (n % i == 0) {
                 return false;
             }
         }
@@ -20,8 +20,8 @@ public class Problem3 {
     }
 
     public static long largestPrimeFactor(long n) {
-        for(long i = (long)Math.sqrt(n); i > 1; i--) {
-            if(isPrime(i) && n % i == 0) {
+        for (long i = (long) Math.sqrt(n); i > 1; i--) {
+            if (isPrime(i) && n % i == 0) {
                 return i;
             }
         }

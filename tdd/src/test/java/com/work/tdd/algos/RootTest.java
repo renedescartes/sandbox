@@ -7,14 +7,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 28/09/12
  */
 public class RootTest {
 
     @DataProvider(name = "numbers")
     public Object[][] createData1() {
-        return new Object[][] {
+        return new Object[][]{
                 {0.001, Math.sqrt(0.001)},
                 {0.0025, 0.05},
                 {64, 8},
@@ -27,6 +27,6 @@ public class RootTest {
 
     @Test(dataProvider = "numbers")
     public void testSimple(double n, double root) {
-       assertEquals(Root.squareRoot(n), root, Root.ERROR);
+        assertEquals(Root.squareRoot(n), root, Root.ERROR);
     }
 }

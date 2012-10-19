@@ -10,7 +10,7 @@ import static com.work.tdd.euler.Utility.digits;
 import static com.work.tdd.euler.Utility.factorial;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 08/10/12
  */
 public class Problem34 {
@@ -28,8 +28,8 @@ public class Problem34 {
 
     public static Collection<Long> findCuriousNumbers() {
         Collection<Long> numbers = new TreeSet<>();
-        for(long l = 3; l <= 99999999; l++) {
-            if(isCurious(l)) {
+        for (long l = 3; l <= 99999999; l++) {
+            if (isCurious(l)) {
                 logger.info("Curious number " + l);
                 numbers.add(l);
             }

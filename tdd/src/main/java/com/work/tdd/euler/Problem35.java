@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 08/10/12
  */
 public class Problem35 {
@@ -20,14 +20,14 @@ public class Problem35 {
     private static Logger logger = Logger.getLogger(Problem35.class.getName());
 
     public static boolean isCircularPrime(Integer number) {
-        if(!isCachedPrime(number)) {
+        if (!isCachedPrime(number)) {
             return false;
         }
         List<Integer> digits = Arrays.asList(Utility.digits((long) number));
         List<List<Integer>> variations = Utility.rotations(digits);
         for (List<Integer> variation : variations) {
             Integer rotatedNumber = Integer.parseInt(StringUtils.join(variation, ""));
-            if(!isCachedPrime(rotatedNumber)) {
+            if (!isCachedPrime(rotatedNumber)) {
                 return false;
             }
         }
@@ -35,7 +35,7 @@ public class Problem35 {
     }
 
     private static boolean isCachedPrime(Integer number) {
-        if(!primeMap.containsKey(number)) {
+        if (!primeMap.containsKey(number)) {
             primeMap.put(number, Utility.isPrime(number));
         }
         return primeMap.get(number);
@@ -43,8 +43,8 @@ public class Problem35 {
 
     public static int numberOfCircularPrimes(int max) {
         int number = 0;
-        for(int i = 0; i < max; i++) {
-            if(isCircularPrime(i)) {
+        for (int i = 0; i < max; i++) {
+            if (isCircularPrime(i)) {
                 logger.info("Circular prime " + i);
                 number++;
             }

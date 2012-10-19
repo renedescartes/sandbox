@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
- * User: kannan
+ * User: renedescartes
  * Date: 23/09/12
  * Time: 00:58
  * To change this template use File | Settings | File Templates.
@@ -25,17 +25,17 @@ public class SumOfSubsets {
     }
 
     private void sumOfSubsets(List<Integer> inputs, List<Boolean> subsetInclusion, int currentSum, int pointer, int totalSum) {
-        logger.info("Computing " + inputs + " weights " + subsetInclusion + " currentSum " + currentSum  + " pointer " + pointer + " totalSum " + totalSum);
-        if(pointer == inputs.size()) {
+        logger.info("Computing " + inputs + " weights " + subsetInclusion + " currentSum " + currentSum + " pointer " + pointer + " totalSum " + totalSum);
+        if (pointer == inputs.size()) {
             return;
         }
         subsetInclusion.set(pointer, true);
-        if(currentSum + inputs.get(pointer) == totalSum) {
+        if (currentSum + inputs.get(pointer) == totalSum) {
             logger.info("Found solution");
             solutions.add(new ArrayList<Boolean>(subsetInclusion));
             return;
         }
-        if(currentSum + inputs.get(pointer) < totalSum) {
+        if (currentSum + inputs.get(pointer) < totalSum) {
             sumOfSubsets(inputs, subsetInclusion, currentSum + inputs.get(pointer), pointer + 1, totalSum);
         }
         subsetInclusion.set(pointer, false);
@@ -43,7 +43,7 @@ public class SumOfSubsets {
     }
 
     private static <T> List<T> fill(List<T> list, T value, int count) {
-        for(int i = 0; i< count; i++) {
+        for (int i = 0; i < count; i++) {
             list.add(value);
         }
         return list;

@@ -6,7 +6,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
- * User: kannan
+ * User: renedescartes
  * Date: 14/09/12
  * Time: 13:03
  * To change this template use File | Settings | File Templates.

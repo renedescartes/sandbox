@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 08/10/12
  */
 public class Problem37 {
@@ -22,9 +22,9 @@ public class Problem37 {
     public static long sumOfTruncatablePrimes(int required) {
         long sum = 0;
         long number = 8;
-        while(required > 0) {
+        while (required > 0) {
             logger.fine("Checking number " + number);
-            if(isTruncatablePrime(number)) {
+            if (isTruncatablePrime(number)) {
                 logger.info("Found truncatable prime " + number);
                 sum += number;
                 required--;
@@ -35,12 +35,12 @@ public class Problem37 {
     }
 
     private static boolean isTruncatablePrime(long number) {
-        if(!isPrimeNumber(number)) {
+        if (!isPrimeNumber(number)) {
             return false;
         }
         List<List<Integer>> options = Utility.truncationOptions(Arrays.asList(Utility.digits(number)));
         for (List<Integer> option : options) {
-            if(!isPrimeNumber(Long.valueOf(StringUtils.join(option, "")))) {
+            if (!isPrimeNumber(Long.valueOf(StringUtils.join(option, "")))) {
                 return false;
             }
         }
@@ -48,7 +48,7 @@ public class Problem37 {
     }
 
     private static boolean isPrimeNumber(Long number) {
-        if(!primeMap.containsKey(number)) {
+        if (!primeMap.containsKey(number)) {
             primeMap.put(number, Utility.isPrime(number));
         }
         return primeMap.get(number);

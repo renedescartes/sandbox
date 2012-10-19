@@ -10,14 +10,16 @@ import java.util.logging.Logger;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 04/10/12
  */
 public class Problem26 {
 
     private static final Logger logger = Logger.getLogger(Problem26.class.getName());
 
-    /** Length of Sequence. For Denominator = 7 => 1/7 = 0.(142857) this will return 6 as 6 digits are repeated*/
+    /**
+     * Length of Sequence. For Denominator = 7 => 1/7 = 0.(142857) this will return 6 as 6 digits are repeated
+     */
     public static int getRepetitionLength(int denominator) {
         String quotient = getDivisionWithRepetition(denominator);
         int start = quotient.indexOf("(");
@@ -25,16 +27,18 @@ public class Problem26 {
         return start == -1 ? 0 : (end - start - 1);
     }
 
-    /** Gets the String representation so if 7 is passed then we get back "0.(142857" */
+    /**
+     * Gets the String representation so if 7 is passed then we get back "0.(142857"
+     */
     public static String getDivisionWithRepetition(int denominator) {
         List<Integer> quotients = new ArrayList<>();
         List<Integer> remainders = new ArrayList<>();
         int remainder = 1, quotient = 1, repetitionStartPoint = -1;
-        while(remainder != 0) {
+        while (remainder != 0) {
             logger.fine("Quotient " + quotient + " Remainder " + remainder + " QuotientArray " + quotients + " Remainders " + remainders);
             remainder = (quotient * 10) % denominator;
             quotient = (quotient * 10) / denominator;
-            if((repetitionStartPoint = isRepeatFound(quotients, remainders, quotient, remainder)) != -1) {
+            if ((repetitionStartPoint = isRepeatFound(quotients, remainders, quotient, remainder)) != -1) {
                 remainder = 0;
             } else {
                 quotients.add(quotient);
@@ -48,27 +52,29 @@ public class Problem26 {
     }
 
     private static int isRepeatFound(List<Integer> quotients, List<Integer> remainders, int quotient, int remainder) {
-        if(remainder == 0) {
+        if (remainder == 0) {
             return -1;
         }
-        for(int i = 0; i < quotients.size(); i++) {
-            if(quotients.get(i).equals(quotient) && remainders.get(i).equals(remainder)) {
+        for (int i = 0; i < quotients.size(); i++) {
+            if (quotients.get(i).equals(quotient) && remainders.get(i).equals(remainder)) {
                 return i;
             }
         }
         return -1;
     }
 
-    /** Just pretty format it*/
+    /**
+     * Just pretty format it
+     */
     private static String prettyFormat(List<Integer> elements, int repetitionPoint) {
         StringBuffer b = new StringBuffer();
-        for(int i = 0; i < elements.size(); i++) {
-            if(i == repetitionPoint) {
+        for (int i = 0; i < elements.size(); i++) {
+            if (i == repetitionPoint) {
                 b.append("(");
             }
             b.append(elements.get(i));
         }
-        if(repetitionPoint >= 0) {
+        if (repetitionPoint >= 0) {
             b.append(")");
         }
         return b.toString();
@@ -76,7 +82,7 @@ public class Problem26 {
 
     @DataProvider(name = "quotient-string")
     private Object[][] quotientData() {
-        return new Object[][] {
+        return new Object[][]{
                 {2, "0.5", 0},
                 {3, "0.(3)", 1},
                 {4, "0.25", 0},
@@ -97,11 +103,12 @@ public class Problem26 {
 
     @Test
     public void testAnswer() {
-        int longestCycle = -1; int d = -1;
-        for(int i = 2; i < 1000; i++) {
+        int longestCycle = -1;
+        int d = -1;
+        for (int i = 2; i < 1000; i++) {
             int cycleLength = getRepetitionLength(i);
             logger.info("number = " + i + " cycleLength = " + cycleLength + " longestCycle = " + longestCycle);
-            if(cycleLength > longestCycle) {
+            if (cycleLength > longestCycle) {
                 longestCycle = cycleLength;
                 d = i;
             }

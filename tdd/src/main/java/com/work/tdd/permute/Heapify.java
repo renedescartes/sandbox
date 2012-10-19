@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
- * User: kannan
+ * User: renedescartes
  * Date: 14/09/12
  * Time: 11:47
  * To change this template use File | Settings | File Templates.
@@ -25,7 +25,7 @@ public class Heapify {
 
     public Integer takeHeadAndRebalance() {
         Integer output = heap.get(0);
-        swap(heap, 0, heap.size()-1);
+        swap(heap, 0, heap.size() - 1);
         heap.remove(heap.size() - 1);
         rebalanceAfterHeadRemoval();
         return output;
@@ -33,7 +33,7 @@ public class Heapify {
 
     private void rebalanceAfterHeadRemoval() {
         int current = 0, childIndex = -1;
-        while((childIndex = identifySuitableChildIndexForSwap(current)) != -1) {
+        while ((childIndex = identifySuitableChildIndexForSwap(current)) != -1) {
             swap(heap, current, childIndex);
             current = childIndex;
         }
@@ -42,13 +42,13 @@ public class Heapify {
     private int identifySuitableChildIndexForSwap(int index) {
         int childIndex = -1;
         boolean left = isLeftChildPresent(index), right = isRightChildPresent(index);
-        if(left && right) {
-            if(heap.get(leftChildIndex(index)) > heap.get(rightChildIndex(index))) {
+        if (left && right) {
+            if (heap.get(leftChildIndex(index)) > heap.get(rightChildIndex(index))) {
                 childIndex = leftChildIndex(index);
             } else {
                 childIndex = rightChildIndex(index);
             }
-        } else  {
+        } else {
             if (left && !right) {
                 childIndex = leftChildIndex(index);
             }
@@ -56,7 +56,7 @@ public class Heapify {
                 childIndex = rightChildIndex(index);
             }
         }
-        if(childIndex == -1) {
+        if (childIndex == -1) {
             return -1;
         } else {
             if (heap.get(childIndex) > heap.get(index)) {

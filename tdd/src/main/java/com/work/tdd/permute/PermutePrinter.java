@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
- * User: kannan
+ * User: renedescartes
  * Date: 14/09/12
  * Time: 11:19
  * To change this template use File | Settings | File Templates.
@@ -19,14 +19,14 @@ public class PermutePrinter {
     List<String> permutes = new ArrayList<>();
 
     public <T> void permute(T[] array, int n) {
-        if(n == 1) {
+        if (n == 1) {
             permutes.add(Arrays.toString(array));
             return;
         }
-        for(int i = 0; i < n; i++) {
-            swap(array, i, n-1);
-            permute(array, n-1);
-            swap(array, i, n-1);
+        for (int i = 0; i < n; i++) {
+            swap(array, i, n - 1);
+            permute(array, n - 1);
+            swap(array, i, n - 1);
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 05/10/12
  */
 public class Problem31 {
@@ -21,17 +21,17 @@ public class Problem31 {
 
     protected void compute(List<Integer> availableWeights, Map<Integer, Integer> chosenWeights, int level, int requiredSum) {
         logger.fine("chosen " + prettyPrint(Arrays.asList(chosenWeights)) + " level " + level);
-        if(calculateWeight(chosenWeights) == requiredSum) {
+        if (calculateWeight(chosenWeights) == requiredSum) {
             solutions.add(new TreeMap<>(chosenWeights));
             return;
         }
-        if(level == availableWeights.size()) {
+        if (level == availableWeights.size()) {
             return;
         }
         //One branch where this weight was not added
         compute(availableWeights, new TreeMap<>(chosenWeights), level + 1, requiredSum);
         //now try adding weights to this
-        while(calculateWeight(addWeight(chosenWeights, availableWeights.get(level))) <= requiredSum) {
+        while (calculateWeight(addWeight(chosenWeights, availableWeights.get(level))) <= requiredSum) {
             compute(availableWeights, new TreeMap<>(chosenWeights), level + 1, requiredSum);
         }
     }
@@ -50,15 +50,15 @@ public class Problem31 {
         weights.put(weight, count + 1);
         return weights;
     }
-    
+
     protected static String prettyPrint(List<Map<Integer, Integer>> solutions) {
         StringBuffer b = new StringBuffer();
         for (Map<Integer, Integer> solution : solutions) {
             for (Map.Entry<Integer, Integer> entry : solution.entrySet()) {
                 b.append(entry.getKey()).append("p * ").append(entry.getValue()).append("\t + ");
             }
-            if(!solution.entrySet().isEmpty()) {
-                b.delete(b.length() -2, b.length());
+            if (!solution.entrySet().isEmpty()) {
+                b.delete(b.length() - 2, b.length());
             }
             b.append("\n");
 

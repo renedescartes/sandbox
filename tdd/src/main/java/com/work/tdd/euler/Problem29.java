@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import static org.testng.Assert.assertEquals;
 
 /**
- * User: kannan
+ * User: renedescartes
  * Date: 05/10/12
  */
 public class Problem29 {
@@ -19,8 +19,8 @@ public class Problem29 {
 
     public static int countOfPowers(int n) {
         Set<BigInteger> s = new TreeSet<>();
-        for(int a = 2; a <= n; a++) {
-            for(int b = 2; b <= n; b++) {
+        for (int a = 2; a <= n; a++) {
+            for (int b = 2; b <= n; b++) {
                 s.add(new BigInteger("" + a).pow(b));
             }
         }
