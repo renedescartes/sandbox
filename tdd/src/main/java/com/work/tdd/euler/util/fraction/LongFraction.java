@@ -28,7 +28,7 @@ class LongFraction extends NumberFraction {
 
     @Override
     public Fraction divide(Fraction f) {
-        return multiply(((LongFraction)f).reciprocal());
+        return multiply(f.reciprocal());
     }
 
     @Override
