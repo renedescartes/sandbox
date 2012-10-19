@@ -20,7 +20,7 @@ public class Problem76 {
         long sum = permutes.size();
         Set<List<Integer>> newPermutes = new HashSet<>();
         while (level <= n) {
-            logger.info("Level [" + level + "] count [" + sum + "] permutes [" + permutes + "]");
+            logger.info("Level [" + level + "] stepCount [" + permutes.size() + "] count [" + sum + "]");
             for (List<Integer> digits : permutes) {
                 for (int i = 0; i < digits.size(); i++) {
                     if (digits.get(i) != 1) {
@@ -45,12 +45,12 @@ public class Problem76 {
 
     @Test
     public void testSimple() {
-
+        assertEquals(splitSum(100), 10);
     }
 
     @Test
     public void testBits() {
-        assertEquals(splitSum(6), 10);
+        assertEquals(splitSum(10), 41);
     }
 }
 
