@@ -44,4 +44,10 @@ public class Problem47 {
         //System.out.println(primeFactors(9L));
         System.out.println(findNumbersWithDistinctPrimeFactors());
     }
+
+    @Test
+    public void testBits() {
+        //System.out.println(primeFactors(9L));
+        System.out.println(primeFactors(644L));
+    }
 }
