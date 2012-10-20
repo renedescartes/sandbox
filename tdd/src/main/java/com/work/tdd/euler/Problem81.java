@@ -1,8 +1,10 @@
 package com.work.tdd.euler;
 
+import com.google.common.base.Preconditions;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static org.testng.Assert.assertEquals;
@@ -37,6 +39,25 @@ public class Problem81 {
         for (long[] line : array) {
             logger.info(Arrays.toString(line));
         }
+    }
+
+    private static int[][] readArray(String resource, int expectedLength) {
+        List<String> strings = Utility.readFile(resource);
+        Preconditions.checkArgument(strings.size() == expectedLength);
+        int[][] array = new int[expectedLength][expectedLength];
+        for (int i = 0; i < expectedLength; i++) {
+            String[] stringArray = strings.get(i).split(",");
+            for (int j = 0; j < expectedLength; j++) {
+                array[i][j] = Integer.parseInt(stringArray[j]);
+            }
+        }
+        return array;
+    }
+
+    @Test
+    public void testSimple() {
+        int[][] array = readArray("matrix.txt", 80);
+        assertEquals(answer(array), 427337);
     }
 
     @Test
