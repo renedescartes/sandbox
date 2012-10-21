@@ -26,7 +26,7 @@ public class Problem70 {
 
     private static Logger logger = Logger.getLogger(Problem70.class.getName());
 
-    public static Tuple<Long, Double> exploreSerial(long start, long max) {
+    public static Tuple<Long, Double> exploreSerial(long batchNum, long start, long max) {
         double phiRatio = Double.MAX_VALUE;
         long answer = 0;
         for (long i = start; i < max; i++) {
@@ -34,12 +34,13 @@ public class Problem70 {
             if (isPermute(i, phi)) {
                 double ratio = (double) i / (double) phi;
                 if (ratio < phiRatio) {
-                    logger.info("Number [" + i + "] and phi[" + phi + "] preferred over answer[" + answer + "] with ratio [" + phiRatio + "]");
+                    logger.fine("Batch [" + batchNum + "] Number [" + i + "] and phi[" + phi + "] preferred over answer[" + answer + "] with ratio [" + phiRatio + "]");
                     phiRatio = ratio;
                     answer = i;
                 }
             }
         }
+        logger.info("Batch [" + batchNum + "] completed");
         return new Tuple<>(answer, phiRatio);
     }
 
@@ -48,12 +49,13 @@ public class Problem70 {
         long numberOfBatches = (n / batchSize) + (n % batchSize == 0 ? 0 : 1);
         List<ListenableFuture<Tuple<Long, Double>>> jobs = new ArrayList<>();
         for (long b = 0; b < numberOfBatches; b++) {
+            final long batchNum = b;
             final long start = Math.max((b * batchSize) + 1, 2);
             final long end = batchSize * (b + 1);
             ListenableFuture<Tuple<Long, Double>> job = service.submit(new Callable<Tuple<Long, Double>>() {
                 @Override
                 public Tuple<Long, Double> call() throws Exception {
-                    return exploreSerial(start, end);
+                    return exploreSerial(batchNum, start, end);
                 }
             });
             jobs.add(job);
@@ -87,6 +89,6 @@ public class Problem70 {
 
     @Test
     public void testSimple() {
-        assertEquals(exploreParallel(10000000, 10000), 75841);
+        assertEquals(exploreParallel(10000000, 100000), 75841);
     }
 }
