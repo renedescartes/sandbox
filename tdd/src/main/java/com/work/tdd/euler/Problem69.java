@@ -28,18 +28,18 @@ import static org.testng.Assert.assertEquals;
 public class Problem69 {
     private static final Logger logger = Logger.getLogger(Problem45.class.getName());
 
-    private static final Object[] factors = new Object[1000001];
+    private static final Object[] factors = new Object[10000001];
 
     @SuppressWarnings("unchecked")
     public static Set<Long> cachedPrimeFactors(Long n) {
-        if(factors[n.intValue()] == null) {
+        if (factors[n.intValue()] == null) {
             factors[n.intValue()] = fastPrimeFactors(n);
         }
         return (Set<Long>) factors[n.intValue()];
     }
 
     public static Set<Long> fastPrimeFactors(Long n) {
-        if(n == 1) {
+        if (n == 1) {
             return Collections.emptySet();
         }
         if (n % 2 == 0) {
@@ -66,7 +66,7 @@ public class Problem69 {
         Set<Long> factors = cachedPrimeFactors(n);
         Fraction fraction = longFraction(n);
         Fraction one = longFraction(1);
-        for(Long l : factors) {
+        for (Long l : factors) {
             fraction = fraction.multiply(one.subtract(longFraction(l).reciprocal()));
         }
         Preconditions.checkState(fraction.denominator().longValue() == 1L, "The denominator is not 1");
@@ -76,15 +76,15 @@ public class Problem69 {
     public static Tuple<Long, Double> explore(long start, long n) {
         double bestRatio = 0;
         long answer = 0;
-        for(long i = start; i <= n; i++) {
+        for (long i = start; i <= n; i++) {
             Long phi = phi(i);
-            double phiRatio = (double)i/(double)phi;
-            if(phiRatio > bestRatio) {
+            double phiRatio = (double) i / (double) phi;
+            if (phiRatio > bestRatio) {
                 logger.fine("Prefer [" + i + "] with phiRatio [" + phiRatio + "] over [" + answer + "] with phiRatio [" + bestRatio + "]");
                 bestRatio = phiRatio;
                 answer = i;
             }
-            if(i % 10000 == 0) {
+            if (i % 10000 == 0) {
                 logger.info("i = " + i + " phi = " + phi);
             }
         }
@@ -93,9 +93,9 @@ public class Problem69 {
 
     public static Tuple<Long, Double> exploreParallel(final long n, long batchSize) {
         ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
-        long numberOfBatches = (n/batchSize) + (n % batchSize == 0 ? 0 : 1);
+        long numberOfBatches = (n / batchSize) + (n % batchSize == 0 ? 0 : 1);
         List<ListenableFuture<Tuple<Long, Double>>> jobs = new ArrayList<>();
-        for(long b = 0; b < numberOfBatches; b++) {
+        for (long b = 0; b < numberOfBatches; b++) {
             final long start = Math.max((b * batchSize) + 1, 2);
             final long end = batchSize * (b + 1);
             ListenableFuture<Tuple<Long, Double>> job = service.submit(new Callable<Tuple<Long, Double>>() {
@@ -109,7 +109,7 @@ public class Problem69 {
         List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, futureTransform()));
         logger.info("Finished [" + values.size() + "] jobs");
         Collections.sort(values, new Tuple(1, 2).yComparator());
-        return values.get(values.size()-1);
+        return values.get(values.size() - 1);
     }
 
     private static Function<? super Future<Tuple<Long, Double>>, Tuple<Long, Double>> futureTransform() {
