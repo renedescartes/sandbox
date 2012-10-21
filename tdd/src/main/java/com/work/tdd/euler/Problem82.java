@@ -27,6 +27,14 @@ public class Problem82 {
                 }
             }
         }
+        /** Second scan to check from bottom*/
+        for (int row = 0; row < array.length - 1; row++) {
+            for (int column = 1; column < array[row].length; column++) {
+                long downSum = sumArray[row + 1][column] + array[row][column];
+                long leftSum = sumArray[row][column - 1] + array[row][column];
+                sumArray[row][column] = min(leftSum, min(downSum, sumArray[row][column]));
+            }
+        }
         return sumArray;
     }
 
@@ -74,6 +82,6 @@ public class Problem82 {
                 {805, 732, 524, 37, 331}
         };
         printArray(minimalSum(array));
-        assertEquals(answer(array), 992);
+        assertEquals(answer(array), 994);
     }
 }
