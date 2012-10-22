@@ -1,25 +1,38 @@
 package com.work.tdd.euler;
 
-import com.google.common.collect.DiscreteDomains;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ranges;
-import com.work.tdd.euler.util.Combinations;
+import org.testng.annotations.Test;
 
-import java.util.List;
 import java.util.logging.Logger;
+
+import static org.testng.Assert.assertEquals;
 
 public class Problem76New {
 
     private static final Logger logger = Logger.getLogger(Problem76New.class.getName());
 
-    public static long f(int n, int blocks) {
-        int slots = blocks - 1;
-        if (slots == 1) {
-            return n / 2;
+    public static long perm(long k, long n) {
+        if (k > n) {
+            return 0;
         }
-        List<Integer> elements = Lists.newArrayList(Ranges.closed(1, n).asSet(DiscreteDomains.integers()));
-        Iterable<List<Integer>> permutes = Combinations.combinationIterator(elements, slots);
-        return 1;
+        if (k == n) {
+            return 1;
+        }
+        return perm(k, n - k) + perm(k + 1, n);
+    }
+
+    public static long answer(long n) {
+        return perm(1, n) - 1;
+    }
+
+    @Test
+    public void testSimple() {
+        assertEquals(answer(5), 6);
+        assertEquals(answer(6), 10);
+        assertEquals(answer(7), 14);
+        assertEquals(answer(8), 21);
+        assertEquals(answer(10), 41);
+        assertEquals(answer(12), 76);
+        assertEquals(answer(100), 76);
     }
 }
 
