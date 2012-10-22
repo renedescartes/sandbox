@@ -1,4 +1,4 @@
-package com.work.tdd.euler.util;
+package com.work.tdd.euler.util.future;
 
 import com.google.common.base.Function;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -11,20 +11,26 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FutureUtil {
 
-    public static <T> List<ListenableFuture<T>> submitParallelJobs(final int n, final int batchSize, final Callable<T> callable) {
-        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
+    private static final Logger logger = Logger.getLogger(FutureUtil.class.getName());
+
+    public static <T> List<ListenableFuture<T>> submitParallelJobs(final int n, final int batchSize, final BatchCallable<T> callable) {
+        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
         long numberOfBatches = (n / batchSize) + (n % batchSize == 0 ? 0 : 1);
+        logger.log(Level.INFO, "Number of batches [%s] batch size [%s]", new Object[]{numberOfBatches, batchSize});
         List<ListenableFuture<T>> jobs = new ArrayList<>();
-        for (long b = 0; b < numberOfBatches; b++) {
-            final long start = Math.max((b * batchSize) + 1, 2);
-            final long end = batchSize * (b + 1);
-            ListenableFuture<Tuple<Long, Double>> job = service.submit(new Callable<Tuple<Long, Double>>() {
+        for (int b = 0; b < numberOfBatches; b++) {
+            final int start = Math.max((b * batchSize) + 1, 2);
+            final int end = batchSize * (b + 1);
+            final int batchNumber = b;
+            ListenableFuture<T> job = service.submit(new Callable<T>() {
                 @Override
-                public Tuple<Long, Double> call() throws Exception {
-                    return explore(start, end);
+                public T call() throws Exception {
+                    return callable.batchCall(start, end, batchNumber);
                 }
             });
             jobs.add(job);
@@ -45,4 +51,5 @@ public class FutureUtil {
             }
         };
     }
+
 }
