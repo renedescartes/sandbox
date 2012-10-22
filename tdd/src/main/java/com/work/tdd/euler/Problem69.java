@@ -1,6 +1,5 @@
 package com.work.tdd.euler;
 
-import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -10,11 +9,9 @@ import com.work.tdd.euler.util.future.BatchCallable;
 import com.work.tdd.euler.util.future.FutureUtil;
 import org.testng.annotations.Test;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import static com.google.common.collect.Lists.transform;
@@ -99,19 +96,6 @@ public class Problem69 {
         logger.info("Finished [" + values.size() + "] jobs");
         Collections.sort(values, new Tuple(1, 2).yComparator());
         return values.get(values.size() - 1);
-    }
-
-    private static Function<? super Future<Tuple<Long, Double>>, Tuple<Long, Double>> futureTransform() {
-        return new Function<Future<Tuple<Long, Double>>, Tuple<Long, Double>>() {
-            @Override
-            public Tuple<Long, Double> apply(@Nullable Future<Tuple<Long, Double>> input) {
-                try {
-                    return input == null ? null : input.get();
-                } catch (Exception e) {
-                    throw new RuntimeException("Could not get value", e);
-                }
-            }
-        };
     }
 
     @Test
