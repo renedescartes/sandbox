@@ -126,7 +126,7 @@ public class Problem70 {
         }
         List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, futureTransform()));
         logger.info("Finished [" + values + "] jobs");
-        Collections.sort(values, new Tuple(1, 2).yComparator());
+        Collections.sort(values, Tuple.<Long, Double>yComparator());
         return values.get(values.size() - 1);
     }
 

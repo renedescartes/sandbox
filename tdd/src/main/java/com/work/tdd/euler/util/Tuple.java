@@ -5,6 +5,11 @@ import com.google.common.base.Function;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 
+/**
+ * Useful when you have to return two values from a function. Especially when you do parallel processing
+ * @param <X>
+ * @param <Y>
+ */
 public class Tuple<X extends Comparable, Y extends Comparable> {
 
     X x;
@@ -24,7 +29,7 @@ public class Tuple<X extends Comparable, Y extends Comparable> {
         return y;
     }
 
-    public <X extends Comparable, Y extends Comparable> Comparator<Tuple<X, Y>> yComparator() {
+    public static <X extends Comparable, Y extends Comparable> Comparator<? super Tuple<X, Y>> yComparator() {
         return new Comparator<Tuple<X, Y>>() {
             @Override
             public int compare(Tuple<X, Y> o1, Tuple<X, Y> o2) {
