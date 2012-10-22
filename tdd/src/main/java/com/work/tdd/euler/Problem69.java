@@ -4,19 +4,16 @@ import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.work.tdd.euler.util.Tuple;
 import com.work.tdd.euler.util.fraction.Fraction;
+import com.work.tdd.euler.util.future.BatchCallable;
+import com.work.tdd.euler.util.future.FutureUtil;
 import org.testng.annotations.Test;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
@@ -92,20 +89,12 @@ public class Problem69 {
     }
 
     public static Tuple<Long, Double> exploreParallel(final long n, long batchSize) {
-        ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
-        long numberOfBatches = (n / batchSize) + (n % batchSize == 0 ? 0 : 1);
-        List<ListenableFuture<Tuple<Long, Double>>> jobs = new ArrayList<>();
-        for (long b = 0; b < numberOfBatches; b++) {
-            final long start = Math.max((b * batchSize) + 1, 2);
-            final long end = batchSize * (b + 1);
-            ListenableFuture<Tuple<Long, Double>> job = service.submit(new Callable<Tuple<Long, Double>>() {
-                @Override
-                public Tuple<Long, Double> call() throws Exception {
-                    return explore(start, end);
-                }
-            });
-            jobs.add(job);
-        }
+        List<ListenableFuture<Tuple<Long, Double>>> jobs = FutureUtil.submitParallelJobs((int) n, (int) batchSize, new BatchCallable<Tuple<Long, Double>>() {
+            @Override
+            public Tuple<Long, Double> batchCall(int start, int end, int batchNumber) {
+                return explore(start, end);
+            }
+        });
         List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, futureTransform()));
         logger.info("Finished [" + values.size() + "] jobs");
         Collections.sort(values, new Tuple(1, 2).yComparator());
