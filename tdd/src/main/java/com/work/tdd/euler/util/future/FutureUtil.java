@@ -18,10 +18,14 @@ public class FutureUtil {
 
     private static final Logger logger = Logger.getLogger(FutureUtil.class.getName());
 
+    /**
+     * This method helps you split a problem into smaller splittable batched jobs. And provides a list of Future
+     * One could then join them together
+     */
     public static <T> List<ListenableFuture<T>> submitParallelJobs(final int n, final int batchSize, final BatchCallable<T> callable) {
         ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
         long numberOfBatches = (n / batchSize) + (n % batchSize == 0 ? 0 : 1);
-        logger.log(Level.INFO, "Number of batches [%s] batch size [%s]", new Object[]{numberOfBatches, batchSize});
+        logger.log(Level.INFO, "Number of batches {0} batch size {1}", new Object[]{numberOfBatches, batchSize});
         List<ListenableFuture<T>> jobs = new ArrayList<>();
         for (int b = 0; b < numberOfBatches; b++) {
             final int start = Math.max((b * batchSize) + 1, 2);
