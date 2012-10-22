@@ -95,7 +95,7 @@ public class Problem69 {
                 return explore(start, end);
             }
         });
-        List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, futureTransform()));
+        List<Tuple<Long, Double>> values = Lists.newArrayList(transform(jobs, FutureUtil.<Tuple<Long, Double>>futureTransform()));
         logger.info("Finished [" + values.size() + "] jobs");
         Collections.sort(values, new Tuple(1, 2).yComparator());
         return values.get(values.size() - 1);

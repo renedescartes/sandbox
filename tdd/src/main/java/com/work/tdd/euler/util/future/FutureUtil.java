@@ -42,11 +42,11 @@ public class FutureUtil {
         return jobs;
     }
 
-    public static Function<? super Future<Object>,Object> futureTransform() {
-        return new Function<Future<Object>,Object>() {
+    public static <T> Function<Future<T>,T> futureTransform() {
+        return new Function<Future<T>,T>() {
 
             @Override
-            public Object apply(@Nullable Future<Object> input) {
+            public T apply(@Nullable Future<T> input) {
                 try {
                     return input == null ? null : input.get();
                 } catch (Exception e) {
