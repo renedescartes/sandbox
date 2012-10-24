@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.logging.Logger;
 
+import static org.testng.Assert.assertEquals;
+
 class Triple implements Comparable<Triple> {
     long a, b, c;
 
@@ -71,6 +73,26 @@ public class Problem75 {
             }
         }
         return array;
+    }
+
+    public static long countSinglePrimitives(int MAX) {
+        Object[] objects = explorePrimitiveTriples(MAX);
+        long sum = 0;
+        for (int i = 0; i < objects.length; i++) {
+            @SuppressWarnings("unchecked")
+            Collection<Triple> object = (Collection<Triple>) objects[i];
+            if (object != null && object.size() == 1) {
+                logger.info("Number [" + i + "] is a solution");
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+
+    @Test
+    public void testSimple() {
+        assertEquals(countSinglePrimitives(1500000), 161667);
     }
 
     @Test
