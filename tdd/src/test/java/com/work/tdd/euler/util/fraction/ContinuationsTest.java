@@ -3,7 +3,9 @@ package com.work.tdd.euler.util.fraction;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.work.tdd.euler.util.fraction.Continuations.convergentFractions;
 import static com.work.tdd.euler.util.fraction.Continuations.sequenceNumber;
+import static com.work.tdd.euler.util.fraction.Fractions.bigIntegerFraction;
 import static org.testng.Assert.assertEquals;
 
 public class ContinuationsTest {
@@ -35,7 +37,9 @@ public class ContinuationsTest {
 
     @Test
     public void testSimple() {
-        Fraction fraction = Continuations.convergentFractions(2, 4);
-        assertEquals(fraction, Fractions.bigIntegerFraction(17, 12));
+        assertEquals(convergentFractions(2, 4), bigIntegerFraction(17, 12));
+        assertEquals(convergentFractions(2, 1), bigIntegerFraction(1, 1));
+        assertEquals(convergentFractions(2, 2), bigIntegerFraction(3, 2));
+        assertEquals(convergentFractions(2, 3), bigIntegerFraction(7, 5));
     }
 }

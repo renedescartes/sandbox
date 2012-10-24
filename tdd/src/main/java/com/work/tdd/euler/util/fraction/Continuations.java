@@ -39,11 +39,8 @@ public class Continuations {
     }
 
     public static Fraction convergentFractions(int number, int term) {
-        if (term == 1) {
-            return bigIntegerFraction(sequenceNumber(number, 0));
-        }
-        Fraction f = bigIntegerFraction(sequenceNumber(number, term - 1));
-        for (int i = term - 2; i >= 0; i--) {
+        Fraction f = bigIntegerFraction(sequenceNumber(number, term));
+        for (int i = term - 1; i >= 1; i--) {
             f = bigIntegerFraction(sequenceNumber(number, i)).add(f.reciprocal());
         }
         logger.info("Term [" + term + "] fraction [" + f + "] decimal value [" + f.decimalValue() + "]");
