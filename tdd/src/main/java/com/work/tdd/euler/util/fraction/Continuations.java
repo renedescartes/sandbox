@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ContinuedFractions {
-    private static final Logger logger = Logger.getLogger(ContinuedFractions.class.getName());
+public class Continuations {
+    private static final Logger logger = Logger.getLogger(Continuations.class.getName());
 
-    public static List<Integer> rootFunction(int n) {
+    public static List<Integer> continuedFractions(int n) {
         List<Integer> roots = new ArrayList<>();
         RootFraction f = RootFraction.forSquareRoot(n);
         if (Utility.isPerfectSquare(n)) {

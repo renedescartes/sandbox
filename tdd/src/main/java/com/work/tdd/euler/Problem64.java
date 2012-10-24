@@ -5,13 +5,13 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.work.tdd.euler.util.fraction.ContinuedFractions.rootFunction;
+import static com.work.tdd.euler.util.fraction.Continuations.continuedFractions;
 import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
 
 public class Problem64 {
     public static boolean isOddPeriod(int n) {
-        return rootFunction(n).size() % 2 == 0;
+        return continuedFractions(n).size() % 2 == 0;
     }
 
     public static int numbersWithOddPeriods(int n) {
@@ -42,7 +42,7 @@ public class Problem64 {
 
     @Test(dataProvider = "root-fraction")
     public void testBits(int n, List<Integer> roots) {
-        assertEquals(rootFunction(n), roots);
+        assertEquals(continuedFractions(n), roots);
     }
 
 }
