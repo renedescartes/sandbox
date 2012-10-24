@@ -36,7 +36,7 @@ public class Problem65 {
     }
 
     public static int digitSum(int term) {
-        return summation(digits("" + computeFraction(term).numerator()));
+        return summation(digits(computeFraction(term).numerator().toString()));
     }
 
     @Test
