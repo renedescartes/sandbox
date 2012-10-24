@@ -20,4 +20,6 @@ public interface Fraction extends Comparable<Fraction> {
 
     public Fraction reciprocal();
 
+    public String decimalValue();
+
 }

@@ -62,4 +62,9 @@ class LongFraction extends NumberFraction {
     public Fraction reciprocal() {
         return new LongFraction(denominator().longValue(), numerator().longValue()).reduce();
     }
+
+    @Override
+    public String decimalValue() {
+        return "" + (double) numerator().longValue()/ (double) denominator().longValue();
+    }
 }

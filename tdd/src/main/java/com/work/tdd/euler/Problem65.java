@@ -31,7 +31,7 @@ public class Problem65 {
         for(int i = term - 2; i >= 0; i--) {
             f = bigIntegerFraction(sequenceNumber(i)).add(f.reciprocal());
         }
-        logger.info("Term [" + term  +"] fraction [" + f  + "]");
+        logger.info("Term [" + term  +"] fraction [" + f  + "] decimal value [" + f.decimalValue() + "]");
         return f;
     }
 
@@ -42,7 +42,7 @@ public class Problem65 {
     @Test
     public void testSimple() {
         assertEquals(digitSum(10), 17);
-        assertEquals(digitSum(100), 17);
+        assertEquals(digitSum(100), 272);
     }
 
     @Test

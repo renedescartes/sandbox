@@ -2,7 +2,9 @@ package com.work.tdd.euler.util.fraction;
 
 import com.work.tdd.euler.Utility;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 class BigIntegerFraction extends NumberFraction {
 
@@ -80,5 +82,12 @@ class BigIntegerFraction extends NumberFraction {
 
     private static BigInteger lcm(BigInteger n1, BigInteger n2) {
         return n1.multiply(n2).divide(n1.gcd(n2));
+    }
+
+    @Override
+    public String decimalValue() {
+        BigDecimal b1 = new BigDecimal(getBigIntNumerator());
+        BigDecimal b2 = new BigDecimal(getBigIntDenominator());
+        return b1.divide(b2, 15, RoundingMode.DOWN).toString();
     }
 }
