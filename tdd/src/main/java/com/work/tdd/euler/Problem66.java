@@ -48,7 +48,7 @@ public class Problem66 {
     @Test
     public void testSimple() {
         assertEquals(maximumValueForDiaphontine(7), 5);
-        assertEquals(maximumValueForDiaphontine(1000), 5);
+        assertEquals(maximumValueForDiaphontine(1000), 661);
     }
 
     @Test
