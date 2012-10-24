@@ -4,15 +4,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import static com.work.tdd.euler.util.fraction.ContinuedFractions.rootFunction;
 import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
 
 public class Problem64 {
-    private static final Logger logger = Logger.getLogger(Problem64.class.getName());
-
     public static boolean isOddPeriod(int n) {
         return rootFunction(n).size() % 2 == 0;
     }
