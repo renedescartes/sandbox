@@ -34,7 +34,7 @@ abstract class NumberFraction implements Fraction {
 
     @Override
     public final String toString() {
-        return "BigIntegerFraction {" + numerator +
+        return "NumberFraction {" + numerator +
                 " / " + denominator +
                 '}';
     }
