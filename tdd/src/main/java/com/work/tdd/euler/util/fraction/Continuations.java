@@ -25,7 +25,7 @@ public class Continuations {
             f = f.minus(closest).reciprocal().normalise();
         } while (!f.isSolved());
         roots.add(roots.get(0) + f.getRealTermOfNum());
-        logger.info("Number [" + n + "] fractions " + roots);
+        logger.fine("Number [" + n + "] fractions " + roots);
         return roots;
     }
 
@@ -43,7 +43,7 @@ public class Continuations {
         for (int i = term - 1; i >= 1; i--) {
             f = bigIntegerFraction(sequenceNumber(number, i)).add(f.reciprocal());
         }
-        logger.info("Term [" + term + "] fraction [" + f + "] decimal value [" + f.decimalValue() + "]");
+        logger.fine("Term [" + term + "] fraction [" + f + "] decimal value [" + f.decimalValue() + "]");
         return f;
     }
 
