@@ -34,7 +34,7 @@ public class Continuations {
         if (termNumber <= terms.size()) {
             return terms.get(termNumber - 1);
         } else {
-            return terms.get(termNumber % (terms.size() - 1) + 1);
+            return terms.get(((termNumber - 2) % (terms.size() - 1)) + 1);
         }
     }
 
