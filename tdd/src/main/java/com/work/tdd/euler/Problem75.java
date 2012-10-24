@@ -82,7 +82,6 @@ public class Problem75 {
             @SuppressWarnings("unchecked")
             Collection<Triple> object = (Collection<Triple>) objects[i];
             if (object != null && object.size() == 1) {
-                logger.info("Number [" + i + "] is a solution");
                 sum++;
             }
         }
