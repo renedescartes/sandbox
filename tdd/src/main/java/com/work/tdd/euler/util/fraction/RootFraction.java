@@ -3,8 +3,8 @@ package com.work.tdd.euler.util.fraction;
 import com.google.common.base.Preconditions;
 
 class Term {
-    int realTerm;
-    int rootTerm;
+    final int realTerm;
+    final int rootTerm;
 
     Term(int realTerm) {
         this(realTerm, 0);
@@ -16,7 +16,7 @@ class Term {
     }
 
     Term converse() {
-        return new Term(rootTerm, -1 * realTerm);
+        return new Term(-1 * realTerm, rootTerm);
     }
 
     double closest() {
@@ -31,6 +31,10 @@ class Term {
         return !isRoot() && realTerm == 1;
     }
 
+    int realTerm() {
+        return realTerm;
+    }
+
     @Override
     public String toString() {
         return "Root(" + rootTerm + ") + (" + realTerm + ")";
@@ -38,7 +42,7 @@ class Term {
 }
 
 public class RootFraction {
-    private Term num, den;
+    private final Term num, den;
 
     RootFraction(Term num, Term den) {
         this.num = num;
@@ -48,7 +52,7 @@ public class RootFraction {
     public RootFraction normalise() {
         Preconditions.checkState(den.isRoot(), "Denominator should be root");
         Preconditions.checkState(!num.isRoot(), "Numerator should not be root");
-        int f = (den.rootTerm * den.rootTerm - den.realTerm * den.realTerm) / num.realTerm;
+        int f = (den.rootTerm - den.realTerm * den.realTerm) / num.realTerm;
         return new RootFraction(den.converse(), new Term(f));
     }
 
@@ -72,6 +76,10 @@ public class RootFraction {
 
     public RootFraction reciprocal() {
         return new RootFraction(den, num);
+    }
+
+    public int getRealTermOfNum() {
+        return num.realTerm();
     }
 
     @Override
