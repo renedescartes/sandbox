@@ -3,12 +3,15 @@ package com.work.tdd.euler;
 import com.work.tdd.euler.util.fraction.Fraction;
 import org.testng.annotations.Test;
 
+import java.util.logging.Logger;
+
 import static com.work.tdd.euler.Utility.digits;
 import static com.work.tdd.euler.Utility.summation;
-import static com.work.tdd.euler.util.fraction.Fractions.longFraction;
+import static com.work.tdd.euler.util.fraction.Fractions.bigIntegerFraction;
 import static org.testng.Assert.assertEquals;
 
 public class Problem65 {
+    private static final Logger logger = Logger.getLogger(Problem65.class.getName());
 
     public static int sequenceNumber(int index) {
         if(index == 0) {
@@ -22,12 +25,13 @@ public class Problem65 {
 
     public static Fraction computeFraction(int term) {
         if(term == 1) {
-            return longFraction(sequenceNumber(0));
+            return bigIntegerFraction(sequenceNumber(0));
         }
-        Fraction f = longFraction(sequenceNumber(term - 1));
+        Fraction f = bigIntegerFraction(sequenceNumber(term - 1));
         for(int i = term - 2; i >= 0; i--) {
-            f = longFraction(sequenceNumber(i)).add(f.reciprocal());
+            f = bigIntegerFraction(sequenceNumber(i)).add(f.reciprocal());
         }
+        logger.info("Term [" + term  +"] fraction [" + f  + "]");
         return f;
     }
 
@@ -45,7 +49,7 @@ public class Problem65 {
     public void testBits() {
         int count = 1;
         while(count <= 20) {
-            System.out.println(computeFraction(count++));
+            computeFraction(count++);
         }
     }
 }

@@ -17,6 +17,6 @@ public class Fractions {
     }
 
     public static Fraction bigIntegerFraction(long num) {
-        return longFraction(num, 1);
+        return bigIntegerFraction(num, 1);
     }
 }

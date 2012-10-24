@@ -40,7 +40,7 @@ class BigIntegerFraction extends NumberFraction {
         BigInteger den = lcm(getBigIntDenominator(), bf.getBigIntDenominator());
         BigInteger num1 = ((BigIntegerFraction) equivalent(den)).getBigIntNumerator();
         BigInteger num2 = ((BigIntegerFraction) f.equivalent(den)).getBigIntNumerator();
-        BigInteger num = num1.multiply(num2);
+        BigInteger num = num1.add(num2);
         return new BigIntegerFraction(num, den).reduce();
     }
 
