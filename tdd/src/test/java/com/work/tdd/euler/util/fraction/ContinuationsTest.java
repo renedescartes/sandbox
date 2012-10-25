@@ -42,4 +42,9 @@ public class ContinuationsTest {
         assertEquals(convergentFractions(2, 2), bigIntegerFraction(3, 2));
         assertEquals(convergentFractions(2, 3), bigIntegerFraction(7, 5));
     }
+
+    @Test
+    public void testSquareRoot() {
+        assertEquals(Continuations.squareRoot(2, 12), "1.232323");
+    }
 }
