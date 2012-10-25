@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.work.tdd.euler.util.NumberUtil.isPerfectSquare;
 import static com.work.tdd.euler.util.NumberUtil.splitIntoDigits;
 import static com.work.tdd.euler.util.fraction.Fractions.bigIntegerFraction;
 
@@ -55,6 +56,9 @@ public class Continuations {
      * Refer http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Digit-by-digit_calculation
      */
     public static BigDecimal squareRoot(int number, int numberOfDigits) {
+        if (isPerfectSquare(number)) {
+            return BigDecimal.valueOf(Math.sqrt(number));
+        }
         List<Integer> splits = splitIntoDigits(number, 2);
         StringBuilder b = new StringBuilder("0");
         BigInteger remainder = BigInteger.ZERO;

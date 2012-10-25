@@ -27,4 +27,9 @@ public class NumberUtil {
         }
         return digits;
     }
+
+    public static boolean isPerfectSquare(Number number) {
+        long sqrt = (long) Math.sqrt(number.longValue());
+        return sqrt * sqrt == number.longValue();
+    }
 }

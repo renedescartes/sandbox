@@ -3,6 +3,8 @@ package com.work.tdd.euler.util.fraction;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+
 import static com.work.tdd.euler.util.fraction.Continuations.convergentFractions;
 import static com.work.tdd.euler.util.fraction.Continuations.sequenceNumber;
 import static com.work.tdd.euler.util.fraction.Fractions.bigIntegerFraction;
@@ -45,7 +47,7 @@ public class ContinuationsTest {
 
     @Test
     public void testSquareRoot() {
-        assertEquals(Continuations.squareRoot(2, 12).toString(), "1.414213562373");
-        assertEquals(Continuations.squareRoot(9, 12).toString(), "3");
+        assertEquals(Continuations.squareRoot(2, 12), new BigDecimal("1.414213562373"));
+        assertEquals(Continuations.squareRoot(9, 12).intValue(), 3);
     }
 }
