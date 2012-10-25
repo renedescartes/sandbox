@@ -2,6 +2,7 @@ package com.work.tdd.euler.util;
 
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
@@ -15,5 +16,6 @@ public class NumberUtilTest {
         assertEquals(NumberUtil.splitIntoDigits(45, 2), Arrays.asList(45));
         assertEquals(NumberUtil.splitIntoDigits(453123, 2), Arrays.asList(45, 31, 23));
         assertEquals(NumberUtil.splitIntoDigits(53123, 2), Arrays.asList(5, 31, 23));
+        assertEquals(new BigDecimal("2.3455467").precision() - 1, 7);
     }
 }

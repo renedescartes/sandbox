@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.work.tdd.euler.util.NumberUtil.splitIntoDigits;
 import static com.work.tdd.euler.util.fraction.Fractions.bigIntegerFraction;
 
 public class Continuations {
@@ -51,7 +52,9 @@ public class Continuations {
      * This does not use convergent fractions it just uses plain computations
      */
     public static String squareRoot(int number, int numberOfDigits) {
+        List<Integer> splits = splitIntoDigits(number, 2);
+        StringBuilder b = new StringBuilder();
 
-        return null;
+        return b.toString();
     }
 }
