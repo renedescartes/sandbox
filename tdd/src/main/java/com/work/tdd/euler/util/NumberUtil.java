@@ -32,4 +32,12 @@ public class NumberUtil {
         long sqrt = (long) Math.sqrt(number.longValue());
         return sqrt * sqrt == number.longValue();
     }
+
+    public static long summation(List<? extends Number> array) {
+        long sum = 0;
+        for (Number n : array) {
+            sum += n.longValue();
+        }
+        return sum;
+    }
 }
