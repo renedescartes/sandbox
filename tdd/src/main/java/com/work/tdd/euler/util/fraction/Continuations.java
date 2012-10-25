@@ -47,4 +47,11 @@ public class Continuations {
         return f;
     }
 
+    /**
+     * This does not use convergent fractions it just uses plain computations
+     */
+    public static String squareRoot(int number, int numberOfDigits) {
+
+        return null;
+    }
 }
