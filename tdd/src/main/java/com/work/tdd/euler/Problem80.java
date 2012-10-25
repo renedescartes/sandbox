@@ -1,5 +1,6 @@
 package com.work.tdd.euler;
 
+import com.work.tdd.euler.util.NumberUtil;
 import com.work.tdd.euler.util.fraction.Continuations;
 import org.testng.annotations.Test;
 
@@ -29,8 +30,9 @@ public class Problem80 {
 
     @Test
     public void testBits() {
+        assertEquals(NumberUtil.summation(digits(new BigInteger("4142135623730950488016887242096980785696718753769480731766797379907324784621070388503875343276415727"))), 481);
         assertEquals(summationOfDigits(2, 100), 475);
-        assertEquals(answer(100, 100), 234);
+        assertEquals(answer(100, 100), 40932);
     }
 
 
