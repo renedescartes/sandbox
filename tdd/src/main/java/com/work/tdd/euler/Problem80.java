@@ -17,7 +17,9 @@ public class Problem80 {
     public long summationOfDigits(int n, int digits) {
         String str = Continuations.squareRoot(n, digits).toString().replaceAll("\\.", "");
         String fractionalString = str.substring(0, Math.min(str.length(), 100));
-        return summation(digits(new BigInteger(fractionalString)));
+        long summation = summation(digits(new BigInteger(fractionalString)));
+        logger.info("Number = " + n + " summation = " + summation + " fractionLength " + fractionalString.length() + " fraction " + fractionalString);
+        return summation;
     }
 
     public long answer(int MAX, int digits) {
