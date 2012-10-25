@@ -48,7 +48,7 @@ class BigIntegerFraction extends NumberFraction {
 
     @Override
     public int compareTo(Fraction o) {
-        if(!(o instanceof BigIntegerFraction)) {
+        if (!(o instanceof BigIntegerFraction)) {
             throw new IllegalStateException("Cant compare to other fractions");
         }
         Long lcm = Utility.lcm(denominator().longValue(), o.denominator().longValue());
@@ -88,6 +88,6 @@ class BigIntegerFraction extends NumberFraction {
     public String decimalValue() {
         BigDecimal b1 = new BigDecimal(getBigIntNumerator());
         BigDecimal b2 = new BigDecimal(getBigIntDenominator());
-        return b1.divide(b2, 15, RoundingMode.DOWN).toString();
+        return b1.divide(b2, 150, RoundingMode.DOWN).toString();
     }
 }
