@@ -45,6 +45,6 @@ public class ContinuationsTest {
 
     @Test
     public void testSquareRoot() {
-        assertEquals(Continuations.squareRoot(2, 12), "1.232323");
+        assertEquals(Continuations.squareRoot(2, 12), "1.414213562373");
     }
 }
