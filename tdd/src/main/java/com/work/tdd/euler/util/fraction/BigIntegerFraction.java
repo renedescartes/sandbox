@@ -79,8 +79,8 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
         }
         BigIntegerFraction o = (BigIntegerFraction) other;
         Long lcm = Utility.lcm(denominator().longValue(), o.denominator().longValue());
-        Comparable value1 = (Comparable) equivalent(lcm).numerator();
-        Comparable value2 = (Comparable) o.equivalent(lcm).numerator();
+        BigInteger value1 = (BigInteger) equivalent(lcm).numerator();
+        BigInteger value2 = (BigInteger) o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
     }
 }

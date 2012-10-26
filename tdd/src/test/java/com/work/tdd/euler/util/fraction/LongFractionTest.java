@@ -26,6 +26,7 @@ public class LongFractionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testCompareAndEquivalent() {
         assertTrue(f1by3.compareTo(f1by2) < 0);
         assertTrue(f1by2.compareTo(f1by3) > 0);

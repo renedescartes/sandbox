@@ -104,7 +104,7 @@ public class Problem69 {
         assertEquals(480, phi(2310));
         assertEquals(960, phi(4620));
         assertEquals(1920, phi(9240));
-        assertEquals(new Tuple(2310L, 4.8125), explore(2, 10000));
+        assertEquals(new Tuple<>(2310L, 4.8125), explore(2, 10000));
         assertEquals(4.8125, exploreParallel(10000, 100).getY());
     }
 

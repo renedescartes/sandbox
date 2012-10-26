@@ -64,8 +64,8 @@ class LongFraction extends NumberFraction<Long> {
         }
         LongFraction o = (LongFraction) other;
         Long lcm = Utility.lcm(denominator(), o.denominator());
-        Comparable value1 = (Comparable) equivalent(lcm).numerator();
-        Comparable value2 = (Comparable) o.equivalent(lcm).numerator();
+        Long value1 = (Long) equivalent(lcm).numerator();
+        Long value2 = (Long) o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
     }
 }
