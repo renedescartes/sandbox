@@ -3,10 +3,10 @@ package com.work.tdd.euler.util;
 import com.google.common.collect.Lists;
 import org.testng.annotations.Test;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
 
 public class PermutationsTest {
@@ -15,22 +15,17 @@ public class PermutationsTest {
 
     @Test
     public void testSimple() {
-        List<BigInteger> permutes = Lists.newArrayList(Permutations.permutationIterator(new BigInteger("123")));
-        for(BigInteger b : permutes) {
+        List<List<Integer>> permutes = Lists.newArrayList(Permutations.permutationIterator(asList(1, 2, 3)));
+        for (List<Integer> b : permutes) {
             logger.info(b.toString());
         }
         assertEquals(6, permutes.size());
 
-        permutes = Lists.newArrayList(Permutations.permutationIterator(new BigInteger("12345")));
-        for(BigInteger b : permutes) {
+        permutes = Lists.newArrayList(Permutations.permutationIterator(asList(1, 2, 3, 4, 5)));
+        for (List<Integer> b : permutes) {
             logger.info(b.toString());
         }
         assertEquals(120, permutes.size());
 
-        permutes = Lists.newArrayList(Permutations.permutationIterator(new BigInteger("1000")));
-        for(BigInteger b : permutes) {
-            logger.info(b.toString());
-        }
-        assertEquals(24, permutes.size());
     }
 }
