@@ -58,14 +58,11 @@ class LongFraction extends NumberFraction<Long> {
     }
 
     @Override
-    public int compareTo(Fraction<? extends Number> other) {
-        if (!(other instanceof LongFraction)) {
-            throw new IllegalStateException("Cant compare to other fractions");
-        }
-        LongFraction o = (LongFraction) other;
+    public int compareTo(Fraction<Long> o) {
         Long lcm = Utility.lcm(denominator(), o.denominator());
         Long value1 = equivalent(lcm).numerator();
         Long value2 = o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
     }
+
 }

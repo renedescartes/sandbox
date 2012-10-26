@@ -70,14 +70,11 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
     }
 
     @Override
-    public int compareTo(Fraction<? extends Number> other) {
-        if (!(other instanceof BigIntegerFraction)) {
-            throw new IllegalStateException("Cant compare to other fractions");
-        }
-        BigIntegerFraction o = (BigIntegerFraction) other;
+    public int compareTo(Fraction<BigInteger> o) {
         BigInteger lcm = lcm(denominator(), o.denominator());
         BigInteger value1 = equivalent(lcm).numerator();
         BigInteger value2 = o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
     }
+
 }
