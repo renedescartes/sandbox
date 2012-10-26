@@ -4,7 +4,14 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 
 public class NumberUtil {
 
@@ -39,5 +46,21 @@ public class NumberUtil {
             sum += n.longValue();
         }
         return sum;
+    }
+
+    public static List<Long> primeFactors(long n) {
+        if (n % 2 == 0) {
+            return unmodifiableList(newArrayList(concat(Arrays.asList(2L), primeFactors(n / 2))));
+        }
+        long a;
+        for (a = (long) Math.sqrt(n); a <= n; a++) {
+            if (isPerfectSquare(a * a - n)) {
+                long b = (long) Math.sqrt(a * a - n);
+                if (a + b < n) {
+                    return unmodifiableList(newArrayList(concat(primeFactors(a + b), primeFactors(a - b))));
+                }
+            }
+        }
+        return n == 1 ? Collections.<Long>emptyList() : asList(n);
     }
 }
