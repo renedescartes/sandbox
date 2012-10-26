@@ -2,7 +2,7 @@ package com.work.tdd.euler.util.fraction;
 
 import com.work.tdd.euler.Utility;
 
-class LongFraction extends NumberFraction {
+class LongFraction extends NumberFraction<Long> {
 
     public LongFraction(Long numerator, Long denominator) {
         super(numerator, denominator);
@@ -10,14 +10,14 @@ class LongFraction extends NumberFraction {
 
     @Override
     public Fraction reduce() {
-        long gcd = Utility.gcd(numerator().longValue(), denominator().longValue());
-        return gcd == 1 ? this : new LongFraction(numerator().longValue()/gcd, denominator().longValue()/gcd);
+        long gcd = Utility.gcd(numerator(), denominator());
+        return gcd == 1 ? this : new LongFraction(numerator() / gcd, denominator() / gcd);
     }
 
     @Override
     public Fraction multiply(Fraction f) {
-        LongFraction product = new LongFraction(numerator().longValue() * f.numerator().longValue(),
-                denominator().longValue() * f.denominator().longValue());
+        LongFraction product = new LongFraction(numerator() * f.numerator().longValue(),
+                denominator() * f.denominator().longValue());
         return product.reduce();
     }
 
@@ -33,38 +33,39 @@ class LongFraction extends NumberFraction {
 
     @Override
     public Fraction add(Fraction f) {
-        long den = Utility.lcm(denominator().longValue(), f.denominator().longValue());
+        long den = Utility.lcm(denominator(), f.denominator().longValue());
         long num = equivalent(den).numerator().longValue() + f.equivalent(den).numerator().longValue();
         return new LongFraction(num, den).reduce();
     }
 
     @Override
-    public int compareTo(Fraction o) {
-        if(!(o instanceof LongFraction)) {
-            throw new IllegalStateException("Cant compare to other fractions");
-        }
-        Long lcm = Utility.lcm(denominator().longValue(), o.denominator().longValue());
-        Comparable value1 = (Comparable) equivalent(lcm).numerator();
-        Comparable value2 = (Comparable) o.equivalent(lcm).numerator();
-        return value1.compareTo(value2);
-    }
-
-    @Override
     public Fraction equivalent(Number requiredDenominator) {
-        long f = requiredDenominator.longValue()/denominator().longValue();
-        return new LongFraction(numerator().longValue() * f, requiredDenominator.longValue());
+        long f = requiredDenominator.longValue() / denominator();
+        return new LongFraction(numerator() * f, requiredDenominator.longValue());
     }
 
     public Fraction negate() {
-        return new LongFraction(-1 * numerator().longValue(), denominator().longValue());
+        return new LongFraction(-1 * numerator(), denominator());
     }
 
     public Fraction reciprocal() {
-        return new LongFraction(denominator().longValue(), numerator().longValue()).reduce();
+        return new LongFraction(denominator(), numerator()).reduce();
     }
 
     @Override
     public String decimalValue() {
-        return "" + (double) numerator().longValue()/ (double) denominator().longValue();
+        return "" + (double) numerator() / (double) denominator();
+    }
+
+    @Override
+    public int compareTo(Object other) {
+        if (!(other instanceof LongFraction)) {
+            throw new IllegalStateException("Cant compare to other fractions");
+        }
+        LongFraction o = (LongFraction) other;
+        Long lcm = Utility.lcm(denominator(), o.denominator());
+        Comparable value1 = (Comparable) equivalent(lcm).numerator();
+        Comparable value2 = (Comparable) o.equivalent(lcm).numerator();
+        return value1.compareTo(value2);
     }
 }

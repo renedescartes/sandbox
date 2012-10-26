@@ -1,6 +1,6 @@
 package com.work.tdd.euler.util.fraction;
 
-public interface Fraction extends Comparable<Fraction> {
+public interface Fraction<T extends Number> extends Comparable<Fraction<? extends Number>> {
 
     public Fraction reduce();
 
@@ -12,9 +12,9 @@ public interface Fraction extends Comparable<Fraction> {
 
     public Fraction add(Fraction f);
 
-    public Number numerator();
+    public T numerator();
 
-    public Number denominator();
+    public T denominator();
 
     public Fraction equivalent(Number denominator);
 

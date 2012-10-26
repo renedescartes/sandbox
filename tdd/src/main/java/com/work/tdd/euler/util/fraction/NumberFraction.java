@@ -2,10 +2,10 @@ package com.work.tdd.euler.util.fraction;
 
 import com.google.common.base.Preconditions;
 
-abstract class NumberFraction implements Fraction {
-    private final Number numerator, denominator;
+abstract class NumberFraction<T extends Number> implements Fraction {
+    private final T numerator, denominator;
 
-    public NumberFraction(Number numerator, Number denominator) {
+    public NumberFraction(T numerator, T denominator) {
         Preconditions.checkNotNull(denominator, "Denominator cannot be zero");
         this.numerator = numerator;
         this.denominator = denominator;
@@ -40,12 +40,12 @@ abstract class NumberFraction implements Fraction {
     }
 
     @Override
-    public final Number numerator() {
+    public final T numerator() {
         return numerator;
     }
 
     @Override
-    public final Number denominator() {
+    public final T denominator() {
         return denominator;
     }
 
