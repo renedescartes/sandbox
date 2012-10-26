@@ -18,9 +18,8 @@ public class Problem68 {
     private static final Logger logger = Logger.getLogger(Problem68.class.getName());
 
     private static boolean isMagicPentagonSolution(List<Integer> ring) {
-        return isSorted(ring.subList(0, 5)) &&
-                areAllEqual(sumOfIndexes(ring, 0, 5, 6), sumOfIndexes(ring, 1, 6, 7),
-                        sumOfIndexes(ring, 2, 7, 8), sumOfIndexes(ring, 3, 8, 9), sumOfIndexes(ring, 4, 9, 5));
+        return areAllEqual(sumOfIndexes(ring, 0, 5, 6), sumOfIndexes(ring, 1, 6, 7),
+                sumOfIndexes(ring, 2, 7, 8), sumOfIndexes(ring, 3, 8, 9), sumOfIndexes(ring, 4, 9, 5));
     }
 
     private static int sumOfIndexes(List<Integer> ring, int... indices) {
@@ -35,15 +34,6 @@ public class Problem68 {
         int first = numbers[0];
         for (int number : numbers) {
             if (first != number) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isSorted(List<Integer> list) {
-        for (int i = 0; i < list.size() - 1; i++) {
-            if (list.get(i) > list.get(i + 1)) {
                 return false;
             }
         }
