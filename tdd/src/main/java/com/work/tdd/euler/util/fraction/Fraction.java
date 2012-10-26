@@ -2,23 +2,23 @@ package com.work.tdd.euler.util.fraction;
 
 public interface Fraction<T extends Number> extends Comparable<Fraction<? extends Number>> {
 
-    public Fraction reduce();
+    public Fraction<T> reduce();
 
-    public Fraction multiply(Fraction f);
+    public Fraction<T> multiply(Fraction<T> f);
 
-    public Fraction subtract(Fraction f);
+    public Fraction<T> subtract(Fraction<T> f);
 
-    public Fraction divide(Fraction f);
+    public Fraction<T> divide(Fraction<T> f);
 
-    public Fraction add(Fraction f);
+    public Fraction<T> add(Fraction<T> f);
 
     public T numerator();
 
     public T denominator();
 
-    public Fraction equivalent(T denominator);
+    public Fraction<T> equivalent(T denominator);
 
-    public Fraction reciprocal();
+    public Fraction<T> reciprocal();
 
     public String decimalValue();
 

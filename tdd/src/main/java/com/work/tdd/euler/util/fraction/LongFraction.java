@@ -9,46 +9,46 @@ class LongFraction extends NumberFraction<Long> {
     }
 
     @Override
-    public Fraction reduce() {
+    public Fraction<Long> reduce() {
         long gcd = Utility.gcd(numerator(), denominator());
         return gcd == 1 ? this : new LongFraction(numerator() / gcd, denominator() / gcd);
     }
 
     @Override
-    public Fraction multiply(Fraction f) {
-        LongFraction product = new LongFraction(numerator() * f.numerator().longValue(),
-                denominator() * f.denominator().longValue());
+    public Fraction<Long> multiply(Fraction<Long> f) {
+        LongFraction product = new LongFraction(numerator() * f.numerator(),
+                denominator() * f.denominator());
         return product.reduce();
     }
 
     @Override
-    public Fraction subtract(Fraction f) {
+    public Fraction<Long> subtract(Fraction<Long> f) {
         return add(((LongFraction) f).negate());
     }
 
     @Override
-    public Fraction divide(Fraction f) {
+    public Fraction<Long> divide(Fraction<Long> f) {
         return multiply(f.reciprocal());
     }
 
     @Override
-    public Fraction add(Fraction f) {
-        long den = Utility.lcm(denominator(), f.denominator().longValue());
-        long num = equivalent(den).numerator().longValue() + f.equivalent(den).numerator().longValue();
+    public Fraction<Long> add(Fraction<Long> f) {
+        Long den = Utility.lcm(denominator(), f.denominator());
+        Long num = equivalent(den).numerator() + f.equivalent(den).numerator();
         return new LongFraction(num, den).reduce();
     }
 
     @Override
-    public Fraction equivalent(Long requiredDenominator) {
+    public Fraction<Long> equivalent(Long requiredDenominator) {
         long f = requiredDenominator / denominator();
         return new LongFraction(numerator() * f, requiredDenominator);
     }
 
-    public Fraction negate() {
+    public Fraction<Long> negate() {
         return new LongFraction(-1 * numerator(), denominator());
     }
 
-    public Fraction reciprocal() {
+    public Fraction<Long> reciprocal() {
         return new LongFraction(denominator(), numerator()).reduce();
     }
 
@@ -64,8 +64,8 @@ class LongFraction extends NumberFraction<Long> {
         }
         LongFraction o = (LongFraction) other;
         Long lcm = Utility.lcm(denominator(), o.denominator());
-        Long value1 = (Long) equivalent(lcm).numerator();
-        Long value2 = (Long) o.equivalent(lcm).numerator();
+        Long value1 = equivalent(lcm).numerator();
+        Long value2 = o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
     }
 }

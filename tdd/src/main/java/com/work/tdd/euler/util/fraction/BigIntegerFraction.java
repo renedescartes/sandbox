@@ -11,13 +11,13 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
     }
 
     @Override
-    public Fraction reduce() {
+    public Fraction<BigInteger> reduce() {
         BigInteger gcd = numerator().gcd(denominator());
         return gcd.equals(BigInteger.ONE) ? this : new BigIntegerFraction(numerator().divide(gcd), denominator().divide(gcd));
     }
 
     @Override
-    public Fraction multiply(Fraction f) {
+    public Fraction<BigInteger> multiply(Fraction<BigInteger> f) {
         BigIntegerFraction bf = (BigIntegerFraction) f;
         BigIntegerFraction product = new BigIntegerFraction(numerator().multiply(bf.numerator()),
                 denominator().multiply(bf.denominator()));
@@ -25,36 +25,36 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
     }
 
     @Override
-    public Fraction subtract(Fraction f) {
+    public Fraction<BigInteger> subtract(Fraction<BigInteger> f) {
         return add(((BigIntegerFraction) f).negate());
     }
 
     @Override
-    public Fraction divide(Fraction f) {
+    public Fraction<BigInteger> divide(Fraction<BigInteger> f) {
         return multiply(f.reciprocal());
     }
 
     @Override
-    public Fraction add(Fraction f) {
+    public Fraction<BigInteger> add(Fraction<BigInteger> f) {
         BigIntegerFraction bf = (BigIntegerFraction) f;
         BigInteger den = lcm(denominator(), bf.denominator());
-        BigInteger num1 = ((BigIntegerFraction) equivalent(den)).numerator();
-        BigInteger num2 = ((BigIntegerFraction) f.equivalent(den)).numerator();
+        BigInteger num1 = equivalent(den).numerator();
+        BigInteger num2 = f.equivalent(den).numerator();
         BigInteger num = num1.add(num2);
         return new BigIntegerFraction(num, den).reduce();
     }
 
     @Override
-    public Fraction equivalent(BigInteger requiredDenominator) {
+    public Fraction<BigInteger> equivalent(BigInteger requiredDenominator) {
         BigInteger factor = requiredDenominator.divide(denominator());
         return new BigIntegerFraction(numerator().multiply(factor), requiredDenominator);
     }
 
-    public Fraction negate() {
+    public Fraction<BigInteger> negate() {
         return new BigIntegerFraction(numerator().negate(), denominator());
     }
 
-    public Fraction reciprocal() {
+    public Fraction<BigInteger> reciprocal() {
         return new BigIntegerFraction(denominator(), numerator()).reduce();
     }
 
@@ -76,8 +76,8 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
         }
         BigIntegerFraction o = (BigIntegerFraction) other;
         BigInteger lcm = lcm(denominator(), o.denominator());
-        BigInteger value1 = (BigInteger) equivalent(lcm).numerator();
-        BigInteger value2 = (BigInteger) o.equivalent(lcm).numerator();
+        BigInteger value1 = equivalent(lcm).numerator();
+        BigInteger value2 = o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
     }
 }

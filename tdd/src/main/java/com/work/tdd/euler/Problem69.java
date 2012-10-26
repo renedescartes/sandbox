@@ -58,13 +58,13 @@ public class Problem69 {
 
     public static long phi(long n) {
         Set<Long> factors = cachedPrimeFactors(n);
-        Fraction fraction = longFraction(n);
-        Fraction one = longFraction(1);
+        Fraction<Long> fraction = longFraction(n);
+        Fraction<Long> one = longFraction(1);
         for (Long l : factors) {
             fraction = fraction.multiply(one.subtract(longFraction(l).reciprocal()));
         }
-        Preconditions.checkState(fraction.denominator().longValue() == 1L, "The denominator is not 1");
-        return fraction.numerator().longValue();
+        Preconditions.checkState(fraction.denominator() == 1L, "The denominator is not 1");
+        return fraction.numerator();
     }
 
     public static Tuple<Long, Double> explore(long start, long n) {

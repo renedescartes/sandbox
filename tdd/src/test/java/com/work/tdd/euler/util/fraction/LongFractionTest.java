@@ -7,10 +7,10 @@ import static org.testng.Assert.*;
 
 public class LongFractionTest {
 
-    private Fraction f3by8 = longFraction(3, 8);
-    private Fraction f4by7 = longFraction(4, 7);
-    private Fraction f1by3 = longFraction(1, 3);
-    private Fraction f1by2 = longFraction(1, 2);
+    private Fraction<Long> f3by8 = longFraction(3, 8);
+    private Fraction<Long> f4by7 = longFraction(4, 7);
+    private Fraction<Long> f1by3 = longFraction(1, 3);
+    private Fraction<Long> f1by2 = longFraction(1, 2);
 
     @Test
     public void testEquals() {
@@ -31,7 +31,7 @@ public class LongFractionTest {
         assertTrue(f1by3.compareTo(f1by2) < 0);
         assertTrue(f1by2.compareTo(f1by3) > 0);
         assertTrue(f1by2.compareTo(f1by2) == 0);
-        Fraction f3by6 = f1by2.equivalent(6);
+        Fraction f3by6 = f1by2.equivalent(6L);
         assertTrue(f1by2.compareTo(f3by6) == 0);
     }
 
