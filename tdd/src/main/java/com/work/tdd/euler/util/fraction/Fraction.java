@@ -16,7 +16,7 @@ public interface Fraction<T extends Number> extends Comparable<Fraction<? extend
 
     public T denominator();
 
-    public Fraction equivalent(Number denominator);
+    public Fraction equivalent(T denominator);
 
     public Fraction reciprocal();
 

@@ -39,9 +39,9 @@ class LongFraction extends NumberFraction<Long> {
     }
 
     @Override
-    public Fraction equivalent(Number requiredDenominator) {
-        long f = requiredDenominator.longValue() / denominator();
-        return new LongFraction(numerator() * f, requiredDenominator.longValue());
+    public Fraction equivalent(Long requiredDenominator) {
+        long f = requiredDenominator / denominator();
+        return new LongFraction(numerator() * f, requiredDenominator);
     }
 
     public Fraction negate() {
@@ -58,7 +58,7 @@ class LongFraction extends NumberFraction<Long> {
     }
 
     @Override
-    public int compareTo(Object other) {
+    public int compareTo(Fraction<? extends Number> other) {
         if (!(other instanceof LongFraction)) {
             throw new IllegalStateException("Cant compare to other fractions");
         }

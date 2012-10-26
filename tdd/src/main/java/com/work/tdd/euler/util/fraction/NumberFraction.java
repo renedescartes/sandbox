@@ -2,7 +2,7 @@ package com.work.tdd.euler.util.fraction;
 
 import com.google.common.base.Preconditions;
 
-abstract class NumberFraction<T extends Number> implements Fraction {
+abstract class NumberFraction<T extends Number> implements Fraction<T> {
     private final T numerator, denominator;
 
     public NumberFraction(T numerator, T denominator) {

@@ -1,7 +1,5 @@
 package com.work.tdd.euler.util.fraction;
 
-import com.work.tdd.euler.Utility;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -47,10 +45,9 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
     }
 
     @Override
-    public Fraction equivalent(Number requiredDenominator) {
-        BigInteger den = (BigInteger) requiredDenominator;
-        BigInteger factor = den.divide(denominator());
-        return new BigIntegerFraction(numerator().multiply(factor), den);
+    public Fraction equivalent(BigInteger requiredDenominator) {
+        BigInteger factor = requiredDenominator.divide(denominator());
+        return new BigIntegerFraction(numerator().multiply(factor), requiredDenominator);
     }
 
     public Fraction negate() {
@@ -73,12 +70,12 @@ class BigIntegerFraction extends NumberFraction<BigInteger> {
     }
 
     @Override
-    public int compareTo(Object other) {
+    public int compareTo(Fraction<? extends Number> other) {
         if (!(other instanceof BigIntegerFraction)) {
             throw new IllegalStateException("Cant compare to other fractions");
         }
         BigIntegerFraction o = (BigIntegerFraction) other;
-        Long lcm = Utility.lcm(denominator().longValue(), o.denominator().longValue());
+        BigInteger lcm = lcm(denominator(), o.denominator());
         BigInteger value1 = (BigInteger) equivalent(lcm).numerator();
         BigInteger value2 = (BigInteger) o.equivalent(lcm).numerator();
         return value1.compareTo(value2);
