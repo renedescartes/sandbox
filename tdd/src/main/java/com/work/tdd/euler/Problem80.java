@@ -18,14 +18,16 @@ public class Problem80 {
         String str = Continuations.squareRoot(n, digits).toString().replaceAll("\\.", "");
         String fractionalString = str.substring(0, Math.min(str.length(), 100));
         long summation = summation(digits(new BigInteger(fractionalString)));
-        logger.info("Number = " + n + " summation = " + summation + " fractionLength " + fractionalString.length() + " fraction " + fractionalString);
+        logger.info("Number = " + n + " summation = " + summation + " fractionLength = " + fractionalString.length() + " fraction = " + fractionalString);
         return summation;
     }
 
     public long answer(int MAX, int digits) {
         long sum = 0;
         for (int i = 1; i <= MAX; i++) {
-            sum += summationOfDigits(i, digits);
+            if (!Utility.isPerfectSquare(i)) {
+                sum += summationOfDigits(i, digits);
+            }
         }
         return sum;
     }
@@ -34,7 +36,7 @@ public class Problem80 {
     public void testBits() {
         assertEquals(NumberUtil.summation(digits(new BigInteger("4142135623730950488016887242096980785696718753769480731766797379907324784621070388503875343276415727"))), 481);
         assertEquals(summationOfDigits(2, 100), 475);
-        assertEquals(answer(100, 100), 40932);
+        assertEquals(answer(100, 100), 40886);
     }
 
 
