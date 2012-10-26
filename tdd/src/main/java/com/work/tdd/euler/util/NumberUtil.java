@@ -3,10 +3,7 @@ package com.work.tdd.euler.util;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
@@ -40,7 +37,7 @@ public class NumberUtil {
         return sqrt * sqrt == number.longValue();
     }
 
-    public static long summation(List<? extends Number> array) {
+    public static long summation(Collection<? extends Number> array) {
         long sum = 0;
         for (Number n : array) {
             sum += n.longValue();
