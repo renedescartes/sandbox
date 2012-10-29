@@ -1,5 +1,6 @@
 package com.work.tdd.euler;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.DiscreteDomains;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ranges;
@@ -33,7 +34,7 @@ public class Problem68 {
     }
 
     private static Integer joinIndexes(List<Integer> ring, int... indices) {
-        StringBuffer b = new StringBuffer();
+        StringBuilder b = new StringBuilder();
         for (Integer index : indices) {
             b.append(ring.get(index));
         }
@@ -93,6 +94,7 @@ public class Problem68 {
             if (isMagicPentagonSolution(permutation)) {
                 BigInteger solution = rotateAndGetArrangement(permutation);
                 logger.info("Arrangement " + permutation + " solution [" + solution + "] best solution [" + maximumNumber + "]");
+                Preconditions.checkState(solution.toString().length() == 16 || solution.toString().length() == 17, "Only 16 or 17 digit numbers expected");
                 if (solution.toString().length() == 16 && solution.compareTo(maximumNumber) > 0) {
                     logger.info("New solution [" + solution + "]");
                     maximumNumber = solution;
@@ -104,7 +106,7 @@ public class Problem68 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer().toString(), "123123");
+        assertEquals(answer().toString(), "6531031914842725");
     }
 
     @Test
