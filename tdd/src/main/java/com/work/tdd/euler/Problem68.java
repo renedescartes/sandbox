@@ -66,7 +66,7 @@ public class Problem68 {
             rotatedRing.add(ring.get(i));
         }
         for (int i = 0; i < index; i++) {
-            rotatedRing.add(i);
+            rotatedRing.add(ring.get(i));
         }
         return rotatedRing;
     }
@@ -105,5 +105,10 @@ public class Problem68 {
     @Test
     public void testSimple() {
         assertEquals(answer().toString(), "123123");
+    }
+
+    @Test
+    public void testBits() {
+        assertEquals(rotateAndGetArrangement(Arrays.asList(2, 3, 4, 5, 1, 10, 7, 9, 6, 8)), new BigInteger("18102107379496568"));
     }
 }
