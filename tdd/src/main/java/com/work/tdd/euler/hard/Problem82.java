@@ -83,5 +83,17 @@ public class Problem82 {
         };
         printArray(minimalSum(array));
         assertEquals(answer(array), 994);
+        array = new int[][]{
+                {7, 2, 3, 4, 1, 2, 3, 1},
+                {9, 4, 2, 1, 4, 1, 4, 9},
+                {8, 7, 9, 1, 0, 1, 1, 2},
+                {6, 3, 2, 1, 4, 2, 2, 3},
+                {5, 8, 3, 1, 9, 3, 1, 2},
+                {8, 5, 4, 2, 1, 6, 9, 1},
+                {9, 2, 1, 8, 5, 1, 2, 1},
+                {5, 8, 3, 1, 9, 3, 1, 2},
+        };
+        printArray(minimalSum(array));
+        assertEquals(answer(array), 17);
     }
 }
