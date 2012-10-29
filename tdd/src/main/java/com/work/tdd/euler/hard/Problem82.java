@@ -69,7 +69,7 @@ public class Problem82 {
     @Test
     public void testSimple() {
         int[][] array = readArray("matrix.txt", 80);
-        assertEquals(answer(array), 427337);
+        assertEquals(answer(array), 264485);
     }
 
     @Test
