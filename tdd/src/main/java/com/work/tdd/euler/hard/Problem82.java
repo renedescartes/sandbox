@@ -20,17 +20,22 @@ public class Problem82 {
         }
         for (int column = 1; column < array.length; column++) {
             for (int row = 0; row < array.length; row++) {
-                sumArray[row][column] = sumArray[row][column - 1] + array[row][column];
-            }
-            int minimalIndex = minimalIndex(sumArray, column);
-            for (int rowIndex = minimalIndex + 1; rowIndex < array.length; rowIndex++) {
-                sumArray[rowIndex][column] = array[rowIndex][column] + Math.min(sumArray[rowIndex - 1][column], sumArray[rowIndex][column - 1]);
-            }
-            for (int rowIndex = minimalIndex - 1; rowIndex >= 0; rowIndex--) {
-                sumArray[rowIndex][column] = array[rowIndex][column] + Math.min(sumArray[rowIndex + 1][column], sumArray[rowIndex][column - 1]);
+                long minimalSum = Long.MAX_VALUE;
+                for (int rowIndex = 0; rowIndex < array.length; rowIndex++) {
+                    minimalSum = Math.min(minimalSum, sumArray[rowIndex][column - 1] + sumForPath(array, rowIndex, row, column));
+                }
+                sumArray[row][column] = minimalSum;
             }
         }
         return sumArray;
+    }
+
+    private static long sumForPath(int[][] array, int fromRow, int toRow, int column) {
+        long sum = 0;
+        for (int row = Math.min(fromRow, toRow); row <= Math.max(fromRow, toRow); row++) {
+            sum += array[row][column];
+        }
+        return sum;
     }
 
     public static long answer(int[][] array) {
@@ -69,7 +74,7 @@ public class Problem82 {
     @Test
     public void testSimple() {
         int[][] array = readArray("matrix.txt", 80);
-        assertEquals(answer(array), 264485);
+        assertEquals(answer(array), 260324);
     }
 
     @Test
