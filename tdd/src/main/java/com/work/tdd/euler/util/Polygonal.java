@@ -15,6 +15,10 @@ public class Polygonal {
         return isQuadraticSolvable(1, 1, -2 * x);
     }
 
+    public static long triangleTerm(long term) {
+        return (term * (term + 1)) / 2;
+    }
+
     public static boolean isSquare(long x) {
         return squareRoot(x) >= 0;
     }
@@ -97,11 +101,11 @@ public class Polygonal {
         }
         long p1 = ((-1) * b) - (long) Math.sqrt(coeff);
         long p2 = ((-1) * b) + (long) Math.sqrt(coeff);
-        if(p1 % den == 0 && p1/ den > 0) {
-            return p1/ den;
+        if (p1 % den == 0 && p1 / den > 0) {
+            return p1 / den;
         }
-        if(p2 % den == 0 && p2/ den > 0) {
-            return p2/ den;
+        if (p2 % den == 0 && p2 / den > 0) {
+            return p2 / den;
         }
         return -1;
     }
