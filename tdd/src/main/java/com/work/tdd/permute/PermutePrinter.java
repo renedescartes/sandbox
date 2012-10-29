@@ -1,6 +1,6 @@
 package com.work.tdd.permute;
 
-import com.work.tdd.euler.Utility;
+import com.work.tdd.euler.medium.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;

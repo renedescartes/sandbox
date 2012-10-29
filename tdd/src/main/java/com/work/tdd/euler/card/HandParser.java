@@ -1,7 +1,7 @@
 package com.work.tdd.euler.card;
 
 import com.google.common.base.Function;
-import com.work.tdd.euler.Utility;
+import com.work.tdd.euler.medium.Utility;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

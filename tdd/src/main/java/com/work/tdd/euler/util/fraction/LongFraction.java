@@ -1,6 +1,6 @@
 package com.work.tdd.euler.util.fraction;
 
-import com.work.tdd.euler.Utility;
+import com.work.tdd.euler.medium.Utility;
 
 class LongFraction extends NumberFraction<Long> {
 
