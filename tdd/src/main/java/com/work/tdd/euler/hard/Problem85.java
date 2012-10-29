@@ -1,17 +1,45 @@
 package com.work.tdd.euler.hard;
 
-import com.work.tdd.euler.util.Polygonal;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.logging.Logger;
+
+import static com.work.tdd.euler.util.Polygonal.approximateRoot;
 import static com.work.tdd.euler.util.Polygonal.triangleTerm;
 import static org.testng.Assert.assertEquals;
 
 public class Problem85 {
 
-    public long rectangleCount(long l, long b) {
+    private static final Logger logger = Logger.getLogger(Problem85.class.getName());
+
+    public static long rectangleCount(long l, long b) {
         return triangleTerm(l) * triangleTerm(b);
     }
+
+    public static long answer(long MAX) {
+        long maxLength = 2 * approximateRoot(1, 1, -2 * MAX);
+        long bestDifference = Long.MAX_VALUE;
+        long bestLength = -1, bestBreadth = -1;
+        for (int l = 1; l <= maxLength; l++) {
+            for (int b = 1; b <= l; b++) {
+                long currentDifference = Math.abs(MAX - rectangleCount(l, b));
+                if (currentDifference < bestDifference) {
+                    logger.info("l = " + l + " b = " + b + " difference = " + currentDifference);
+                    bestBreadth = b;
+                    bestLength = l;
+                    bestDifference = currentDifference;
+                }
+            }
+        }
+        return bestBreadth * bestLength;
+    }
+
+    @Test
+    public void testSimple() {
+        assertEquals(answer(2000000), 2772);
+    }
+
 
     @DataProvider(name = "rectangles-total-count")
     protected Object[][] rectangleTotalData() {
@@ -32,6 +60,7 @@ public class Problem85 {
 
     @Test
     public void testBits() {
-        assertEquals(Polygonal.approximateRoot(1, 1, -2 * 2000), 5);
+        assertEquals(approximateRoot(1, 1, -2 * 2000000), 2000);
+        assertEquals(triangleTerm(2000), 2001000);
     }
 }
