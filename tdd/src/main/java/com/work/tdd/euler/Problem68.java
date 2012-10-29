@@ -8,6 +8,8 @@ import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,6 +32,14 @@ public class Problem68 {
         return sum;
     }
 
+    private static Integer joinIndexes(List<Integer> ring, int... indices) {
+        StringBuffer b = new StringBuffer();
+        for (Integer index : indices) {
+            b.append(ring.get(index));
+        }
+        return Integer.parseInt(b.toString());
+    }
+
     private static boolean areAllEqual(int... numbers) {
         int first = numbers[0];
         for (int number : numbers) {
@@ -40,24 +50,39 @@ public class Problem68 {
         return true;
     }
 
-    private static BigInteger getArrangement(List<Integer> ring) {
-        return new BigInteger(StringUtils.join(new Integer[]{
-                ring.get(0),
-                ring.get(5),
-                ring.get(6),
-                ring.get(1),
-                ring.get(6),
-                ring.get(7),
-                ring.get(2),
-                ring.get(7),
-                ring.get(8),
-                ring.get(3),
-                ring.get(8),
-                ring.get(9),
-                ring.get(4),
-                ring.get(9),
-                ring.get(5),
-        }, ""));
+    private static int getLowestIndex(List<Integer> ring, int... indices) {
+        int lowestIndex = indices[0];
+        for (int i = 0; i < indices.length; i++) {
+            if (ring.get(lowestIndex) > ring.get(indices[i])) {
+                lowestIndex = indices[i];
+            }
+        }
+        return lowestIndex;
+    }
+
+    private static List<Integer> rotate(List<Integer> ring, int index) {
+        List<Integer> rotatedRing = new ArrayList<>();
+        for (int i = index; i < ring.size(); i++) {
+            rotatedRing.add(ring.get(i));
+        }
+        for (int i = 0; i < index; i++) {
+            rotatedRing.add(i);
+        }
+        return rotatedRing;
+    }
+
+    private static BigInteger rotateAndGetArrangement(List<Integer> ring) {
+        int lowestIndex = getLowestIndex(ring, 0, 1, 2, 3, 4);
+        List<Integer> legs = Arrays.asList(
+                joinIndexes(ring, 0, 5, 6),
+                joinIndexes(ring, 1, 6, 7),
+                joinIndexes(ring, 2, 7, 8),
+                joinIndexes(ring, 3, 8, 9),
+                joinIndexes(ring, 4, 9, 5)
+        );
+        List<Integer> rotatedRing = rotate(legs, lowestIndex);
+        return new BigInteger(StringUtils.join(rotatedRing, ""));
+
     }
 
     public static final BigInteger answer() {
@@ -66,9 +91,10 @@ public class Problem68 {
         BigInteger maximumNumber = BigInteger.ZERO;
         for (List<Integer> permutation : permutes) {
             if (isMagicPentagonSolution(permutation)) {
-                BigInteger solution = getArrangement(permutation);
+                BigInteger solution = rotateAndGetArrangement(permutation);
+                logger.info("Arrangement " + permutation + " solution [" + solution + "] best solution [" + maximumNumber + "]");
                 if (solution.toString().length() == 16 && solution.compareTo(maximumNumber) > 0) {
-                    logger.info("Arrangement " + permutation + " solution [" + solution + "]");
+                    logger.info("New solution [" + solution + "]");
                     maximumNumber = solution;
                 }
             }
