@@ -109,4 +109,21 @@ public class Polygonal {
         }
         return -1;
     }
+
+    /**
+     * Approximate double root
+     */
+    public static long approximateRoot(long a, long b, long c) {
+        long coeff = (b * b) - (4 * a * c);
+        long den = 2 * a;
+        double p1 = ((-1) * b) - Math.sqrt(coeff);
+        double p2 = ((-1) * b) + Math.sqrt(coeff);
+        if (p1 > 0) {
+            return (long) Math.ceil(p1 / den);
+        }
+        if (p2 > 0) {
+            return (long) Math.ceil(p2 / den);
+        }
+        return -1;
+    }
 }

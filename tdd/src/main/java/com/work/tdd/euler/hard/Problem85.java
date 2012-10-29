@@ -1,5 +1,6 @@
 package com.work.tdd.euler.hard;
 
+import com.work.tdd.euler.util.Polygonal;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -27,5 +28,10 @@ public class Problem85 {
     @Test(dataProvider = "rectangles-total-count")
     public void testTotalCount(long l, long b, long count) {
         assertEquals(rectangleCount(l, b), count);
+    }
+
+    @Test
+    public void testBits() {
+        assertEquals(Polygonal.approximateRoot(1, 1, -2 * 2000), 5);
     }
 }
