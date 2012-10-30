@@ -22,23 +22,21 @@ public class Problem86 {
 
     public long cachedNumberOfCuboids(long n) {
         if (!cache.containsKey(n)) {
-            cache.put(n, numberOfCuboids(n));
+            cache.put(n, recursiveNumberOfCuboids(n));
         }
         return cache.get(n);
     }
 
-    private Long numberOfCuboids(long n) {
-        if (n == 1) {
+    private Long recursiveNumberOfCuboids(long length) {
+        if (length == 1) {
             return 0L;
         }
-        long sum = 0;
-        for (long length = 1; length <= n; length++) {
-            for (long breadth = 1; breadth <= length; breadth++) {
-                for (long height = 1; height <= breadth; height++) {
-                    if (isIntegralCuboidShortestDistance(length, breadth, height)) {
-                        logger.fine(length + ", " + breadth + ", " + height);
-                        sum++;
-                    }
+        long sum = cachedNumberOfCuboids(length - 1);
+        for (long breadth = 1; breadth <= length; breadth++) {
+            for (long height = 1; height <= breadth; height++) {
+                if (isIntegralCuboidShortestDistance(length, breadth, height)) {
+                    logger.fine(length + ", " + breadth + ", " + height);
+                    sum++;
                 }
             }
         }
@@ -48,7 +46,7 @@ public class Problem86 {
     public long answer(long MAX) {
         long answer = 5;
         long cuboids;
-        while ((cuboids = numberOfCuboids(answer)) < MAX) {
+        while ((cuboids = cachedNumberOfCuboids(answer)) < MAX) {
             logger.info("Number [" + answer + "] Cuboids [" + cuboids + "]");
             answer++;
         }
@@ -63,6 +61,6 @@ public class Problem86 {
         assertEquals(cachedNumberOfCuboids(99), 1975);
         assertEquals(cachedNumberOfCuboids(100), 2060);
         assertEquals(answer(2000), 100);
-        assertEquals(answer(1000000), 100);
+        assertEquals(answer(1000000), 1818);
     }
 }
