@@ -17,9 +17,7 @@ public class Problem86 {
     private static Map<Long, Long> cache = new HashMap<>();
 
     private boolean isIntegralCuboidShortestDistance(long l, long b, long w) {
-        return isPerfectSquare(Math.pow(l + b, 2) + Math.pow(w, 2)) ||
-                isPerfectSquare(Math.pow(w + b, 2) + Math.pow(l, 2)) ||
-                isPerfectSquare(Math.pow(l + w, 2) + Math.pow(b, 2));
+        return isPerfectSquare(Math.pow(w + b, 2) + Math.pow(l, 2));
     }
 
     public long cachedNumberOfCuboids(long n) {
@@ -38,7 +36,7 @@ public class Problem86 {
             for (long breadth = 1; breadth <= length; breadth++) {
                 for (long height = 1; height <= breadth; height++) {
                     if (isIntegralCuboidShortestDistance(length, breadth, height)) {
-                        System.out.println(length + ", " + breadth + ", " + height);
+                        logger.info(length + ", " + breadth + ", " + height);
                         sum++;
                     }
                 }
