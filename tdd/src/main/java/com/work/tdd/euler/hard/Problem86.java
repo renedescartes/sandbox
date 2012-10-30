@@ -47,7 +47,7 @@ public class Problem86 {
         long answer = 5;
         long cuboids;
         while ((cuboids = cachedNumberOfCuboids(answer)) < MAX) {
-            logger.info("Number [" + answer + "] Cuboids [" + cuboids + "]");
+            logger.fine("Number [" + answer + "] Cuboids [" + cuboids + "]");
             answer++;
         }
         return answer;
