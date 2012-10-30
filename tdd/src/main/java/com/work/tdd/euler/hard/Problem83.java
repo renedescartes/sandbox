@@ -30,7 +30,7 @@ class DijkstraExplorer {
     private Map<Tuple<Integer, Integer>, Long> dijkstraMap() {
         Tuple<Integer, Integer> currentNode;
         while ((currentNode = findCurrentNode()) != null) {
-            logger.info("Exploring [" + currentNode + "]");
+            logger.fine("Exploring [" + currentNode + "]");
             explore(currentNode);
             visitedNodes.add(currentNode);
         }
@@ -41,7 +41,7 @@ class DijkstraExplorer {
         Tuple<Integer, Integer> tuple = null;
         Long minimalDistance = Long.MAX_VALUE;
         for (Map.Entry<Tuple<Integer, Integer>, Long> tupleEntry : tupleMap.entrySet()) {
-            if (!visitedNodes.contains(tupleEntry)) {
+            if (!visitedNodes.contains(tupleEntry.getKey())) {
                 if (!tupleEntry.getValue().equals(UNEXISTING_VALUE) && tupleEntry.getValue() < minimalDistance) {
                     minimalDistance = tupleEntry.getValue();
                     tuple = tupleEntry.getKey();
@@ -63,7 +63,7 @@ class DijkstraExplorer {
             Long proposedDistance = tupleMap.get(currentNode) + array[neighbour.getX()][neighbour.getY()];
             Long neighbourDistance = tupleMap.get(neighbour);
             neighbourDistance = neighbourDistance == -1 ? proposedDistance : Math.min(neighbourDistance, proposedDistance);
-            logger.info("Setting [" + neighbour + "] distance to be [" + neighbourDistance + "]");
+            logger.fine("Setting [" + neighbour + "] distance to be [" + neighbourDistance + "]");
             tupleMap.put(neighbour, neighbourDistance);
         }
     }
@@ -99,8 +99,6 @@ class DijkstraExplorer {
 
 public class Problem83 {
 
-    private static final Logger logger = Logger.getLogger(Problem83.class.getName());
-
     private static int[][] readArray(String resource, int expectedLength) {
         List<String> strings = Utility.readFile(resource);
         int[][] array = new int[expectedLength][expectedLength];
@@ -118,6 +116,12 @@ public class Problem83 {
     }
 
     @Test
+    public void testSimple() {
+        int[][] array = readArray("matrix.txt", 80);
+        assertEquals(answer(array), 425185);
+    }
+
+    @Test
     public void testBits() {
         int[][] array = new int[][]{
                 {131, 673, 234, 103, 18},
@@ -126,7 +130,7 @@ public class Problem83 {
                 {537, 699, 497, 121, 956},
                 {805, 732, 524, 37, 331}
         };
-        assertEquals(answer(array), 994);
+        assertEquals(answer(array), 2297);
         array = new int[][]{
                 {7, 2, 3, 4, 1, 2, 3, 1},
                 {9, 4, 2, 1, 4, 1, 4, 9},
@@ -137,7 +141,7 @@ public class Problem83 {
                 {9, 2, 1, 8, 5, 1, 2, 1},
                 {5, 8, 3, 1, 9, 3, 1, 2},
         };
-        assertEquals(answer(array), 17);
+        assertEquals(answer(array), 27);
     }
 
 }
