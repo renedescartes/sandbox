@@ -10,9 +10,11 @@ import java.util.logging.Logger;
 import static org.testng.Assert.assertEquals;
 
 class DijkstraExplorer {
+    private static final Logger logger = Logger.getLogger(DijkstraExplorer.class.getName());
     private int[][] array;
     private Map<Tuple<Integer, Integer>, Long> tupleMap;
     private Set<Tuple<Integer, Integer>> visitedNodes = new HashSet<>();
+    private static Long UNEXISTING_VALUE = -1L;
 
     private DijkstraExplorer(int[][] array) {
         this.array = array;
@@ -28,6 +30,7 @@ class DijkstraExplorer {
     private Map<Tuple<Integer, Integer>, Long> dijkstraMap() {
         Tuple<Integer, Integer> currentNode;
         while ((currentNode = findCurrentNode()) != null) {
+            logger.info("Exploring [" + currentNode + "]");
             explore(currentNode);
             visitedNodes.add(currentNode);
         }
@@ -39,7 +42,7 @@ class DijkstraExplorer {
         Long minimalDistance = Long.MAX_VALUE;
         for (Map.Entry<Tuple<Integer, Integer>, Long> tupleEntry : tupleMap.entrySet()) {
             if (!visitedNodes.contains(tupleEntry)) {
-                if (tupleEntry.getValue() < minimalDistance) {
+                if (!tupleEntry.getValue().equals(UNEXISTING_VALUE) && tupleEntry.getValue() < minimalDistance) {
                     minimalDistance = tupleEntry.getValue();
                     tuple = tupleEntry.getKey();
                 }
@@ -57,9 +60,11 @@ class DijkstraExplorer {
 
     private void exploreNeighbour(Tuple<Integer, Integer> currentNode, Tuple<Integer, Integer> neighbour) {
         if (neighbour != null && !visitedNodes.contains(neighbour)) {
-            Long currentNodeDistance = tupleMap.get(currentNode);
+            Long proposedDistance = tupleMap.get(currentNode) + array[neighbour.getX()][neighbour.getY()];
             Long neighbourDistance = tupleMap.get(neighbour);
-            tupleMap.put(neighbour, Math.min(neighbourDistance, currentNodeDistance + array[neighbour.getX()][neighbour.getY()]));
+            neighbourDistance = neighbourDistance == -1 ? proposedDistance : Math.min(neighbourDistance, proposedDistance);
+            logger.info("Setting [" + neighbour + "] distance to be [" + neighbourDistance + "]");
+            tupleMap.put(neighbour, neighbourDistance);
         }
     }
 
@@ -68,7 +73,7 @@ class DijkstraExplorer {
         Map<Tuple<Integer, Integer>, Long> map = new LinkedHashMap<>();
         for (int row = 0; row < array.length; row++) {
             for (int column = 0; column < array.length; column++) {
-                map.put(new Tuple<>(row, column), row == 0 && column == 0 ? array[0][0] : -1L);
+                map.put(new Tuple<>(row, column), row == 0 && column == 0 ? array[0][0] : UNEXISTING_VALUE);
             }
         }
         return map;
