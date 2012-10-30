@@ -36,13 +36,23 @@ public class Problem86 {
             for (long breadth = 1; breadth <= length; breadth++) {
                 for (long height = 1; height <= breadth; height++) {
                     if (isIntegralCuboidShortestDistance(length, breadth, height)) {
-                        logger.info(length + ", " + breadth + ", " + height);
+                        logger.fine(length + ", " + breadth + ", " + height);
                         sum++;
                     }
                 }
             }
         }
         return sum;
+    }
+
+    public long answer(long MAX) {
+        long answer = 5;
+        long cuboids;
+        while ((cuboids = numberOfCuboids(answer)) < MAX) {
+            logger.info("Number [" + answer + "] Cuboids [" + cuboids + "]");
+            answer++;
+        }
+        return answer;
     }
 
     @Test
@@ -52,5 +62,7 @@ public class Problem86 {
         assertFalse(isIntegralCuboidShortestDistance(3, 3, 2));
         assertEquals(cachedNumberOfCuboids(99), 1975);
         assertEquals(cachedNumberOfCuboids(100), 2060);
+        assertEquals(answer(2000), 100);
+        assertEquals(answer(1000000), 100);
     }
 }
