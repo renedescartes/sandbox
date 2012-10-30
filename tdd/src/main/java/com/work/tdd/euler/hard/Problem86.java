@@ -51,6 +51,5 @@ public class Problem86 {
         assertFalse(isIntegralCuboidShortestDistance(7, 5, 3));
         assertFalse(isIntegralCuboidShortestDistance(3, 3, 2));
         assertEquals(cachedNumberOfCuboids(99), 1975);
-
     }
 }
