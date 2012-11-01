@@ -67,4 +67,22 @@ public class Problem90 {
         assertEquals(answer(), 53);
     }
 
+    @Test
+    public void testBits() {
+        List<Integer> elements = Lists.newArrayList(Ranges.closed(0, 9).asSet(DiscreteDomains.integers()));
+        Iterable<List<Integer>> options = Combinations.combinationIterator(elements, 6);
+        List<List<Integer>> optionsList = Lists.newArrayList(options);
+        logger.info(optionsList.toString());
+        assertEquals(optionsList.size(), 210);
+
+        Iterable<List<Integer>> dice1Options = Combinations.combinationIterator(elements, 6);
+        Iterable<List<Integer>> dice2Options = Combinations.combinationIterator(elements, 6);
+        long sum = 0;
+        for (List<Integer> dice1 : dice1Options) {
+            for (List<Integer> dice2 : dice2Options) {
+                sum++;
+            }
+        }
+        assertEquals(sum, 210 * 210);
+    }
 }
