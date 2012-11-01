@@ -12,11 +12,11 @@ import static com.google.common.collect.Lists.reverse;
 
 class CombinationIterator<T> implements Iterator<List<T>> {
     private static final BigInteger TWO = new BigInteger("2");
-    BigInteger current = new BigInteger("0");
-    BigInteger next = new BigInteger("0");
-    BigInteger powerMax = new BigInteger("0");
-    final Integer c;
-    final List<T> elements;
+    private BigInteger current = new BigInteger("0");
+    private BigInteger next = new BigInteger("0");
+    private final BigInteger powerMax;
+    private final Integer c;
+    private final List<T> elements;
 
     CombinationIterator(List<T> elements, int c) {
         this.elements = reverse(elements);
@@ -32,7 +32,7 @@ class CombinationIterator<T> implements Iterator<List<T>> {
 
     @Override
     public List<T> next() {
-        if(!hasNext()) {
+        if (!hasNext()) {
             throw new IllegalStateException("Done iteration");
         }
         current = next;
@@ -46,7 +46,7 @@ class CombinationIterator<T> implements Iterator<List<T>> {
     }
 
     private static BigInteger nextFeasibleNumber(BigInteger from, int size, int c) {
-        while(numberOfOnes(toPaddedBinary((from = from.add(new BigInteger("1"))), size)) != c);
+        while (numberOfOnes(toPaddedBinary((from = from.add(new BigInteger("1"))), size)) != c) ;
         return from;
     }
 
@@ -56,7 +56,7 @@ class CombinationIterator<T> implements Iterator<List<T>> {
 
     private static String toBinary(BigInteger n) {
         StringBuilder b = new StringBuilder();
-        while(!n.equals(new BigInteger("0"))) {
+        while (!n.equals(new BigInteger("0"))) {
             BigInteger[] div = n.divideAndRemainder(TWO);
             n = div[0];
             b.append(div[1]);
@@ -66,8 +66,8 @@ class CombinationIterator<T> implements Iterator<List<T>> {
 
     private static int numberOfOnes(String binary) {
         int count = 0;
-        for(int i = 0; i < binary.length(); i++) {
-            if(binary.charAt(i) == '1') {
+        for (int i = 0; i < binary.length(); i++) {
+            if (binary.charAt(i) == '1') {
                 count++;
             }
         }
@@ -76,8 +76,8 @@ class CombinationIterator<T> implements Iterator<List<T>> {
 
     private static <T> List<T> constructCombination(List<T> elements, String binary) {
         List<T> newList = new ArrayList<>();
-        for(int i = 0; i < binary.length(); i++) {
-            if(binary.charAt(i) == '1') {
+        for (int i = 0; i < binary.length(); i++) {
+            if (binary.charAt(i) == '1') {
                 newList.add(elements.get(i));
             }
         }

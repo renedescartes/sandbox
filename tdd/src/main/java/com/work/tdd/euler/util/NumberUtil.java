@@ -2,6 +2,7 @@ package com.work.tdd.euler.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.builder.CompareToBuilder;
 
 import java.util.*;
 
@@ -59,5 +60,18 @@ public class NumberUtil {
             }
         }
         return n == 1 ? Collections.<Long>emptyList() : asList(n);
+    }
+
+    public static Comparator<? super List<Integer>> listComparator() {
+        return new Comparator<List<Integer>>() {
+            @Override
+            public int compare(List<Integer> o1, List<Integer> o2) {
+                CompareToBuilder e = new CompareToBuilder();
+                for (int i = 0; i < o1.size(); i++) {
+                    e.append(o2.get(i), o1.get(i));
+                }
+                return e.toComparison();
+            }
+        };
     }
 }
