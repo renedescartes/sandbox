@@ -25,7 +25,7 @@ public class Problem90 {
             for (List<Integer> dice2 : dice2Options) {
                 logger.fine("Checking " + dice1 + " and " + dice2);
                 if (isCompatibleOption(dice1, dice2)) {
-                    logger.info("Answer " + dice1 + " and " + dice2);
+                    logger.fine("Answer " + dice1 + " and " + dice2);
                     sum++;
                 }
             }
@@ -60,7 +60,7 @@ public class Problem90 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer(), 53);
+        assertEquals(answer(), 1217);
     }
 
     @Test
