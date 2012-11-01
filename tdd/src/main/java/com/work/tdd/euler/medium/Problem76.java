@@ -13,12 +13,10 @@ public class Problem76 {
     private static final Logger logger = Logger.getLogger(Problem76.class.getName());
 
     public static long splitSum(int n) {
-        int level = 2;
+        int level = 1;
         Set<List<Integer>> permutes = new TreeSet<>(listComparator());
-        for (int i = 1; i <= n / 2; i++) {
-            permutes.add(Arrays.asList(i, (n - i)));
-        }
-        long sum = permutes.size();
+        permutes.add(Arrays.asList(n));
+        long sum = 1;
         Set<List<Integer>> newPermutes = new TreeSet<>(listComparator());
         while (level <= n) {
             logger.info("Level [" + level + "] stepCount [" + permutes.size() + "] count [" + sum + "] options " + permutes);
