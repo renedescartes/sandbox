@@ -5,10 +5,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Ranges;
 import com.work.tdd.euler.medium.Problem76;
 import com.work.tdd.euler.util.Combinations;
-import com.work.tdd.euler.util.NumberUtil;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,14 +16,12 @@ public class Problem90 {
 
     private static final Logger logger = Logger.getLogger(Problem76.class.getName());
 
-    private static Comparator<? super List<Integer>> c = NumberUtil.listComparator();
-
     public static long answer() {
         List<Integer> elements = Lists.newArrayList(Ranges.closed(0, 9).asSet(DiscreteDomains.integers()));
         Iterable<List<Integer>> dice1Options = Combinations.combinationIterator(elements, 6);
-        Iterable<List<Integer>> dice2Options = Combinations.combinationIterator(elements, 6);
         long sum = 0;
         for (List<Integer> dice1 : dice1Options) {
+            Iterable<List<Integer>> dice2Options = Combinations.combinationIterator(elements, 6);
             for (List<Integer> dice2 : dice2Options) {
                 logger.fine("Checking " + dice1 + " and " + dice2);
                 if (isCompatibleOption(dice1, dice2)) {
@@ -34,7 +30,7 @@ public class Problem90 {
                 }
             }
         }
-        return sum;
+        return sum / 2; //as we would have accounted stuff twice
     }
 
     private static boolean isCompatibleOption(List<Integer> dice1, List<Integer> dice2) {
