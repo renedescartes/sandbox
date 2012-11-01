@@ -64,9 +64,7 @@ public class Problem76 {
 
     @Test
     public void testBits() {
-        splitSum(50);
         splitSum(10);
-        splitSum(12);
     }
 }
 
