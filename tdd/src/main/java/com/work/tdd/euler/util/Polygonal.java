@@ -2,12 +2,9 @@ package com.work.tdd.euler.util;
 
 import java.math.BigInteger;
 
-public class Polygonal {
+import static com.work.tdd.euler.util.NumberUtil.isPerfectSquare;
 
-    private static boolean isPerfectSquare(long number) {
-        long sqrt = (long) Math.sqrt(number);
-        return sqrt * sqrt == number;
-    }
+public class Polygonal {
 
     public static boolean isTriangular(long x) {
         return triangleRoot(x) >= 0;
@@ -114,6 +111,11 @@ public class Polygonal {
 
     public static BigInteger isQuadraticSolvable(BigInteger a, BigInteger b, BigInteger c) {
         BigInteger coefficient = b.pow(2).subtract(a.multiply(c).multiply(BigInteger.valueOf(4)));
+        if (!NumberUtil.isPerfectSquare(coefficient)) {
+            return BigInteger.valueOf(-1);
+        }
+        BigInteger den = a.multiply(BigInteger.valueOf(2));
+        BigInteger p1 = b.multiply(BigInteger.valueOf(-1));
         return coefficient;
     }
 
