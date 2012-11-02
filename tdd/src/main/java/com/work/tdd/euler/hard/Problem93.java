@@ -69,23 +69,23 @@ public class Problem93 {
         Map<Integer, String> outputs = new TreeMap<>();
         Integer value = operate(operate(operate(a, x, b), y, c), z, d); // 1 2 3
         if (value > 0) {
-            outputs.put(value, "( ( ( " + a + x + b + " ) " + y + c + " ) " + z + d + " ) ");
+            outputs.put(value, "( ( ( " + a + x + b + " )" + y + c + " ) " + z + d + " ) ");
         }
         value = operate(operate(a, x, b), y, operate(c, z, d)); // 1 3 2
         if (value > 0) {
-            outputs.put(value, "( ( " + a + x + b + " ) " + y + " ( " + c + z + d + " ) )");
+            outputs.put(value, "( ( " + a + x + b + " )" + y + "( " + c + z + d + " ) )");
         }
         value = operate(operate(a, x, operate(b, y, c)), z, d); // 2 1 3
         if (value > 0) {
-            outputs.put(value, "( ( " + a + x + " ( " + b + y + c + " ) ) " + z + d + " )");
+            outputs.put(value, "( ( " + a + x + "( " + b + y + c + " ) )" + z + d + ")");
         }
         value = operate(a, x, operate(operate(b, y, c), z, d)); // 2 3 1
         if (value > 0) {
-            outputs.put(value, "( " + a + x + "( ( " + b + y + c + " ) ) " + z + d + " )");
+            outputs.put(value, "( " + a + x + "( ( " + b + y + c + " )" + z + d + " ) )");
         }
         value = operate(a, x, operate(b, y, operate(c, z, d))); // 3 2 1
         if (value > 0) {
-            outputs.put(value, "( " + a + x + "( " + b + y + " (" + c + z + d + ") ) )");
+            outputs.put(value, "( " + a + x + "( " + b + y + "(" + c + z + d + ") ) )");
         }
         logger.fine("Inputs " + inputs + " operators " + operators + " answers " + outputs);
         return outputs;
