@@ -3,6 +3,7 @@ package com.work.tdd.euler.hard;
 import com.google.common.collect.Sets;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -52,6 +53,19 @@ public class Problem93 {
         ADD, SUBTRACT, MULTIPLY, DIVIDE
     }
 
+    private static List<List<Operator>> allPossibleOperatorCombinationsLengthThree() {
+        final List<List<Operator>> options = new ArrayList<>();
+        Operator[] operators = Operator.values();
+        for (Operator operator1 : operators) {
+            for (Operator operator2 : operators) {
+                for (Operator operator3 : operators) {
+                    options.add(asList(operator1, operator2, operator3));
+                }
+            }
+        }
+        return options;
+    }
+
     @Test
     public void testBits() {
         Collection<Integer> outputs = variationsPerCombinationAndOperatorSet(asList(4, 2, 3, 1), asList(MULTIPLY, ADD, SUBTRACT));
@@ -59,5 +73,7 @@ public class Problem93 {
         assertTrue(outputs.contains(19));
         assertTrue(outputs.contains(10));
         assertEquals(outputs.size(), 3);
+        List<List<Operator>> operators = allPossibleOperatorCombinationsLengthThree();
+        assertEquals(operators.size(), 64);
     }
 }
