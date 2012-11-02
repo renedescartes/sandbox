@@ -1,12 +1,12 @@
 package com.work.tdd.euler.hard;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.*;
+import com.google.common.collect.DiscreteDomains;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ranges;
 import com.work.tdd.euler.util.Permutations;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -38,7 +38,7 @@ public class Problem93 {
     }
 
     private static int successiveCountForCombination(List<Integer> combination) {
-        return countOfSuccessiveNumbers(variationsPerCombination(combination));
+        return countOfSuccessiveNumbers(variationsPerCombination(combination).keySet());
     }
 
     private static int countOfSuccessiveNumbers(Collection<Integer> integers) {
@@ -52,39 +52,43 @@ public class Problem93 {
         return -1;
     }
 
-    private static Collection<Integer> variationsPerCombination(List<Integer> combination) {
-        Collection<Integer> outputs = new TreeSet<>();
+    private static Map<Integer, String> variationsPerCombination(List<Integer> combination) {
+        Map<Integer, String> outputs = new TreeMap<>();
         Iterable<List<Integer>> permutations = Permutations.permutationIterator(combination);
         for (List<Integer> inputs : permutations) {
             for (List<Operator> operators : allPossibleOperatorCombinationsLengthThree()) {
-                outputs.addAll(variationsPerCombinationAndOperatorSet(inputs, operators));
+                outputs.putAll(variationsPerCombinationAndOperatorSet(inputs, operators));
             }
         }
         return outputs;
     }
 
-    private static Collection<Integer> variationsPerCombinationAndOperatorSet(List<Integer> inputs, List<Operator> operators) {
+    private static Map<Integer, String> variationsPerCombinationAndOperatorSet(List<Integer> inputs, List<Operator> operators) {
         int a = inputs.get(0), b = inputs.get(1), c = inputs.get(2), d = inputs.get(3);
         Operator x = operators.get(0), y = operators.get(1), z = operators.get(2);
-        Collection<Integer> answers = Collections2.filter(Sets.newHashSet(asList(
-                operate(operate(operate(a, x, b), y, c), z, d), // 1 2 3
-                operate(operate(a, x, b), y, operate(c, z, d)), // 1 3 2
-                operate(operate(a, x, operate(b, y, c)), z, d), // 2 1 3
-                operate(a, x, operate(operate(b, y, c), z, d)), // 2 3 1
-                //3 1 2 is same as 1 3 2
-                operate(a, x, operate(b, y, operate(c, z, d))) // 3 2 1
-        )), positiveNumberFilter());
-        logger.fine("Inputs " + inputs + " operators " + operators + " answers " + answers);
-        return answers;
-    }
-
-    private static Predicate<? super Integer> positiveNumberFilter() {
-        return new Predicate<Integer>() {
-            @Override
-            public boolean apply(@Nullable Integer input) {
-                return input > 0;
-            }
-        };
+        Map<Integer, String> outputs = new TreeMap<>();
+        Integer value = operate(operate(operate(a, x, b), y, c), z, d); // 1 2 3
+        if (value > 0) {
+            outputs.put(value, "( ( ( " + a + x + b + " ) " + y + c + " ) " + z + d + " ) ");
+        }
+        value = operate(operate(a, x, b), y, operate(c, z, d)); // 1 3 2
+        if (value > 0) {
+            outputs.put(value, "( ( " + a + x + b + " ) " + y + " ( " + c + z + d + " ) )");
+        }
+        value = operate(operate(a, x, operate(b, y, c)), z, d); // 2 1 3
+        if (value > 0) {
+            outputs.put(value, "( ( " + a + x + " ( " + b + y + c + " ) ) " + z + d + " )");
+        }
+        value = operate(a, x, operate(operate(b, y, c), z, d)); // 2 3 1
+        if (value > 0) {
+            outputs.put(value, "( " + a + x + "( ( " + b + y + c + " ) ) " + z + d + " )");
+        }
+        value = operate(a, x, operate(b, y, operate(c, z, d))); // 3 2 1
+        if (value > 0) {
+            outputs.put(value, "( " + a + x + "( " + b + y + " (" + c + z + d + ") ) )");
+        }
+        logger.fine("Inputs " + inputs + " operators " + operators + " answers " + outputs);
+        return outputs;
     }
 
     private static Integer operate(Integer op1, Operator operator, Integer op2) {
@@ -99,14 +103,24 @@ public class Problem93 {
             case MULTIPLY:
                 return op1 * op2;
             case DIVIDE:
-                return op2 == 0 || op1 % op2 == 0 ? Integer.MIN_VALUE : op1 / op2;
+                return op2 == 0 || op1 % op2 != 0 ? Integer.MIN_VALUE : op1 / op2;
             default:
                 return Integer.MIN_VALUE;
         }
     }
 
     public static enum Operator {
-        ADD, SUBTRACT, MULTIPLY, DIVIDE
+        ADD(" + "), SUBTRACT(" - "), MULTIPLY(" * "), DIVIDE(" / ");
+        private String s;
+
+        Operator(String s) {
+            this.s = s;
+        }
+
+        @Override
+        public String toString() {
+            return s;
+        }
     }
 
     private static List<List<Operator>> allPossibleOperatorCombinationsLengthThree() {
@@ -124,20 +138,19 @@ public class Problem93 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer(), "5689");
+        assertEquals(answer(), "1256");
     }
 
     @Test
     public void testBits() {
-        Collection<Integer> outputs = variationsPerCombinationAndOperatorSet(asList(4, 2, 3, 1), asList(MULTIPLY, ADD, SUBTRACT));
+        Collection<Integer> outputs = variationsPerCombinationAndOperatorSet(asList(4, 2, 3, 1), asList(MULTIPLY, ADD, SUBTRACT)).keySet();
         assertTrue(outputs.contains(16));
         assertTrue(outputs.contains(19));
         assertTrue(outputs.contains(10));
         assertEquals(outputs.size(), 3);
         List<List<Operator>> operators = allPossibleOperatorCombinationsLengthThree();
         assertEquals(operators.size(), 64);
-        Collection<Integer> integers = variationsPerCombination(asList(1, 2, 3, 4));
-        logger.info(integers.toString());
+        logger.info(variationsPerCombination(asList(1, 2, 3, 4)).toString());
         assertEquals(successiveCountForCombination(asList(1, 2, 3, 4)), 28);
     }
 }
