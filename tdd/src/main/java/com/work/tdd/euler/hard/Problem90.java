@@ -3,7 +3,6 @@ package com.work.tdd.euler.hard;
 import com.google.common.collect.DiscreteDomains;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ranges;
-import com.work.tdd.euler.medium.Problem76;
 import com.work.tdd.euler.util.Combinations;
 import org.testng.annotations.Test;
 
@@ -14,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 
 public class Problem90 {
 
-    private static final Logger logger = Logger.getLogger(Problem76.class.getName());
+    private static final Logger logger = Logger.getLogger(Problem90.class.getName());
 
     public static long answer() {
         List<Integer> elements = Lists.newArrayList(Ranges.closed(0, 9).asSet(DiscreteDomains.integers()));
