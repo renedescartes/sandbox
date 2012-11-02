@@ -5,13 +5,10 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static org.testng.Assert.assertEquals;
 
 public class Problem92 {
-    private static final Logger logger = Logger.getLogger(Problem94.class.getName());
-
     public static long answer(int target, int MAX) {
         int[] array = new int[MAX + 1];
         array[0] = -1;
