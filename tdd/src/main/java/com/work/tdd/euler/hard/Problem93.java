@@ -64,36 +64,40 @@ public class Problem93 {
     }
 
     private static Map<Integer, String> variationsPerCombinationAndOperatorSet(List<Integer> inputs, List<Operator> operators) {
-        int a = inputs.get(0), b = inputs.get(1), c = inputs.get(2), d = inputs.get(3);
+        double a = inputs.get(0), b = inputs.get(1), c = inputs.get(2), d = inputs.get(3);
         Operator x = operators.get(0), y = operators.get(1), z = operators.get(2);
         Map<Integer, String> outputs = new TreeMap<>();
-        Integer value = operate(operate(operate(a, x, b), y, c), z, d); // 1 2 3
-        if (value > 0) {
-            outputs.put(value, "( ( ( " + a + x + b + " )" + y + c + " ) " + z + d + " ) ");
+        Double value = operate(operate(operate(a, x, b), y, c), z, d); // 1 2 3
+        if (isPositiveInteger(value)) {
+            outputs.put(value.intValue(), "( ( ( " + a + x + b + " )" + y + c + " ) " + z + d + " ) ");
         }
         value = operate(operate(a, x, b), y, operate(c, z, d)); // 1 3 2
-        if (value > 0) {
-            outputs.put(value, "( ( " + a + x + b + " )" + y + "( " + c + z + d + " ) )");
+        if (isPositiveInteger(value)) {
+            outputs.put(value.intValue(), "( ( " + a + x + b + " )" + y + "( " + c + z + d + " ) )");
         }
         value = operate(operate(a, x, operate(b, y, c)), z, d); // 2 1 3
-        if (value > 0) {
-            outputs.put(value, "( ( " + a + x + "( " + b + y + c + " ) )" + z + d + ")");
+        if (isPositiveInteger(value)) {
+            outputs.put(value.intValue(), "( ( " + a + x + "( " + b + y + c + " ) )" + z + d + ")");
         }
         value = operate(a, x, operate(operate(b, y, c), z, d)); // 2 3 1
-        if (value > 0) {
-            outputs.put(value, "( " + a + x + "( ( " + b + y + c + " )" + z + d + " ) )");
+        if (isPositiveInteger(value)) {
+            outputs.put(value.intValue(), "( " + a + x + "( ( " + b + y + c + " )" + z + d + " ) )");
         }
         value = operate(a, x, operate(b, y, operate(c, z, d))); // 3 2 1
-        if (value > 0) {
-            outputs.put(value, "( " + a + x + "( " + b + y + "(" + c + z + d + ") ) )");
+        if (isPositiveInteger(value)) {
+            outputs.put(value.intValue(), "( " + a + x + "( " + b + y + "(" + c + z + d + ") ) )");
         }
         logger.fine("Inputs " + inputs + " operators " + operators + " answers " + outputs);
         return outputs;
     }
 
-    private static Integer operate(Integer op1, Operator operator, Integer op2) {
-        if (op1.equals(Integer.MIN_VALUE) || op2.equals(Integer.MIN_VALUE)) {
-            return Integer.MIN_VALUE;
+    private static boolean isPositiveInteger(double v) {
+        return (long) v == v && v > 0;
+    }
+
+    private static Double operate(Double op1, Operator operator, Double op2) {
+        if (op1.equals(Double.MIN_VALUE) || op2.equals(Double.MIN_VALUE)) {
+            return Double.MIN_VALUE;
         }
         switch (operator) {
             case ADD:
@@ -103,9 +107,9 @@ public class Problem93 {
             case MULTIPLY:
                 return op1 * op2;
             case DIVIDE:
-                return op2 == 0 || op1 % op2 != 0 ? Integer.MIN_VALUE : op1 / op2;
+                return op2 == 0 ? Double.MIN_VALUE : op1 / op2;
             default:
-                return Integer.MIN_VALUE;
+                return Double.MIN_VALUE;
         }
     }
 
@@ -138,7 +142,7 @@ public class Problem93 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer(), "1256");
+        assertEquals(answer(), "1258");
     }
 
     @Test
