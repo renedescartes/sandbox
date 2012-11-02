@@ -2,7 +2,9 @@ package com.work.tdd.euler.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.work.tdd.euler.util.fraction.Continuations;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -49,6 +51,16 @@ public class NumberUtil {
     public static boolean isPerfectSquare(Number number) {
         long sqrt = (long) Math.sqrt(number.longValue());
         return sqrt * sqrt == number.longValue();
+    }
+
+    public static boolean isPerfectSquare(BigInteger bigInteger) {
+        BigDecimal root = Continuations.squareRoot(bigInteger, bigInteger.toString().length());
+        try {
+            root.toBigIntegerExact();
+            return true;
+        } catch (ArithmeticException e) {
+            return false;
+        }
     }
 
     public static long summation(Collection<? extends Number> array) {

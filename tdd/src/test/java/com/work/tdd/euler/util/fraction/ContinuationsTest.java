@@ -57,6 +57,8 @@ public class ContinuationsTest {
         assertEquals(Continuations.squareRoot(new BigInteger("9"), 12).toString(), "3.0"); // only one precision
         assertEquals(Continuations.squareRoot(new BigInteger("45"), 12).toString(), "6.708203932499");
         BigInteger bigInteger = new BigInteger("243635463465").multiply(new BigInteger("243635463465"));
-        assertEquals(Continuations.squareRoot(bigInteger, 12).toString(), "243635463465.0");
+        BigDecimal root = Continuations.squareRoot(bigInteger, 12);
+        assertEquals(root.toString(), "243635463465.0");
+        assertEquals(root.precision(), 0);
     }
 }
