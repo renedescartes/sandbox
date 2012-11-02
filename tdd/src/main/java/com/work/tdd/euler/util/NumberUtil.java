@@ -3,6 +3,7 @@ package com.work.tdd.euler.util;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
+import java.math.BigInteger;
 import java.util.*;
 
 import static com.google.common.collect.Iterables.concat;
@@ -19,6 +20,19 @@ public class NumberUtil {
         while (n > 0) {
             splits.add(n % base);
             n = n / base;
+        }
+        return Lists.reverse(splits);
+    }
+
+    public static List<Integer> splitIntoDigits(BigInteger n, int digitLength) {
+        Preconditions.checkArgument(n.compareTo(BigInteger.ZERO) > 0);
+        Preconditions.checkArgument(digitLength < 10);
+        BigInteger base = BigInteger.valueOf((int) Math.pow(10, digitLength));
+        List<Integer> splits = new ArrayList<>();
+        while (n.compareTo(BigInteger.ZERO) > 0) {
+            BigInteger[] output = n.divideAndRemainder(base);
+            splits.add(output[1].intValue());
+            n = output[0];
         }
         return Lists.reverse(splits);
     }

@@ -4,6 +4,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static com.work.tdd.euler.util.fraction.Continuations.convergentFractions;
 import static com.work.tdd.euler.util.fraction.Continuations.sequenceNumber;
@@ -49,5 +50,13 @@ public class ContinuationsTest {
     public void testSquareRoot() {
         assertEquals(Continuations.squareRoot(2, 12), new BigDecimal("1.414213562373"));
         assertEquals(Continuations.squareRoot(9, 12).intValue(), 3);
+    }
+
+    @Test
+    public void testSquareRootBigInt() {
+        assertEquals(Continuations.squareRoot(new BigInteger("9"), 12).toString(), "3.0"); // only one precision
+        assertEquals(Continuations.squareRoot(new BigInteger("45"), 12).toString(), "6.708203932499");
+        BigInteger bigInteger = new BigInteger("243635463465").multiply(new BigInteger("243635463465"));
+        assertEquals(Continuations.squareRoot(bigInteger, 12).toString(), "243635463465.0");
     }
 }

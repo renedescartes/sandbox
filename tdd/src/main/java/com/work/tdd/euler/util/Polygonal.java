@@ -1,5 +1,7 @@
 package com.work.tdd.euler.util;
 
+import java.math.BigInteger;
+
 public class Polygonal {
 
     private static boolean isPerfectSquare(long number) {
@@ -94,13 +96,13 @@ public class Polygonal {
      * and return that root
      */
     public static long isQuadraticSolvable(long a, long b, long c) {
-        long coeff = (b * b) - (4 * a * c);
+        long coefficient = (b * b) - (4 * a * c);
         long den = 2 * a;
-        if (!isPerfectSquare(coeff)) {
+        if (!isPerfectSquare(coefficient)) {
             return -1;
         }
-        long p1 = ((-1) * b) - (long) Math.sqrt(coeff);
-        long p2 = ((-1) * b) + (long) Math.sqrt(coeff);
+        long p1 = ((-1) * b) - (long) Math.sqrt(coefficient);
+        long p2 = ((-1) * b) + (long) Math.sqrt(coefficient);
         if (p1 % den == 0 && p1 / den > 0) {
             return p1 / den;
         }
@@ -108,6 +110,11 @@ public class Polygonal {
             return p2 / den;
         }
         return -1;
+    }
+
+    public static BigInteger isQuadraticSolvable(BigInteger a, BigInteger b, BigInteger c) {
+        BigInteger coefficient = b.pow(2).subtract(a.multiply(c).multiply(BigInteger.valueOf(4)));
+        return coefficient;
     }
 
     /**

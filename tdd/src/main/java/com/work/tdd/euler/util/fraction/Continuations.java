@@ -1,6 +1,7 @@
 package com.work.tdd.euler.util.fraction;
 
 import com.work.tdd.euler.medium.Utility;
+import org.apache.commons.lang.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -43,7 +44,7 @@ public class Continuations {
     }
 
     public static Fraction convergentFractions(int number, int term) {
-        Fraction f = bigIntegerFraction(sequenceNumber(number, term));
+        Fraction<BigInteger> f = bigIntegerFraction(sequenceNumber(number, term));
         for (int i = term - 1; i >= 1; i--) {
             f = bigIntegerFraction(sequenceNumber(number, i)).add(f.reciprocal());
         }
@@ -55,16 +56,24 @@ public class Continuations {
      * This does not use convergent fractions it just uses plain computations
      * Refer http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Digit-by-digit_calculation
      */
-    public static BigDecimal squareRoot(int number, int numberOfDigits) {
+    public static BigDecimal squareRoot(int number, int numberOfDecimals) {
         if (isPerfectSquare(number)) {
             return BigDecimal.valueOf(Math.sqrt(number));
         }
-        List<Integer> splits = splitIntoDigits(number, 2);
+        return squareRoot(splitIntoDigits(number, 2), numberOfDecimals);
+    }
+
+    public static BigDecimal squareRoot(BigInteger number, int numberOfDecimals) {
+        return squareRoot(splitIntoDigits(number, 2), numberOfDecimals);
+    }
+
+    private static BigDecimal squareRoot(List<Integer> splits, int numberOfDecimals) {
         StringBuilder b = new StringBuilder("0");
         BigInteger remainder = BigInteger.ZERO;
         int iteration = 0;
-        while (new BigDecimal(b.toString()).precision() < numberOfDigits + 1) {
-            BigInteger c = remainder.multiply(BigInteger.valueOf(100)).add(
+        BigInteger c = null;
+        while ((new BigDecimal(b.toString()).precision() < numberOfDecimals + 1) && (ObjectUtils.notEqual(c, BigInteger.ZERO))) {
+            c = remainder.multiply(BigInteger.valueOf(100)).add(
                     (iteration < splits.size() ? BigInteger.valueOf(splits.get(iteration)) : BigInteger.ZERO));
             BigInteger p = new BigInteger(b.toString().replaceAll("\\.", ""));
             BigInteger x = BigInteger.ONE;
