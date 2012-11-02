@@ -150,7 +150,7 @@ public class Problem93 {
         assertEquals(outputs.size(), 3);
         List<List<Operator>> operators = allPossibleOperatorCombinationsLengthThree();
         assertEquals(operators.size(), 64);
-        logger.info(variationsPerCombination(asList(1, 2, 3, 4)).toString());
+        logger.info(variationsPerCombination(asList(1, 2, 5, 8)).toString());
         assertEquals(successiveCountForCombination(asList(1, 2, 3, 4)), 28);
     }
 }
