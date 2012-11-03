@@ -29,7 +29,7 @@ public class Problem100 {
 
     @Test
     public void testSimple() {
-        assertEquals(explore(BigInteger.valueOf(1_000_000_000_000L)).intValue(), 15);
+        assertEquals(explore(BigInteger.valueOf(1_000_000_000_000L)).toString(), "23");
     }
 
     @Test
