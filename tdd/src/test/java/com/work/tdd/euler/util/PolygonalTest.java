@@ -3,8 +3,9 @@ package com.work.tdd.euler.util;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import java.math.BigInteger;
+
+import static org.testng.Assert.*;
 
 public class PolygonalTest {
 
@@ -70,5 +71,11 @@ public class PolygonalTest {
                 {32, 8},
                 {39, 8},
         };
+    }
+
+    @Test
+    public void testBigIntegerFactoring() {
+        BigInteger root = Polygonal.isQuadraticSolvable(BigInteger.valueOf(2), BigInteger.valueOf(-2), BigInteger.valueOf(-420));
+        assertEquals(root.intValue(), 15);
     }
 }

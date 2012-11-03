@@ -1,5 +1,7 @@
 package com.work.tdd.euler.util;
 
+import com.work.tdd.euler.util.fraction.Continuations;
+
 import java.math.BigInteger;
 
 import static com.work.tdd.euler.util.NumberUtil.isPerfectSquare;
@@ -115,7 +117,16 @@ public class Polygonal {
             return BigInteger.valueOf(-1);
         }
         BigInteger den = a.multiply(BigInteger.valueOf(2));
-        BigInteger p1 = b.multiply(BigInteger.valueOf(-1));
+        BigInteger p1 = b.multiply(BigInteger.valueOf(-1)).subtract(Continuations.squareRoot(coefficient, 50).toBigInteger());
+        BigInteger[] values = p1.divideAndRemainder(den);
+        if (values[1].equals(BigInteger.ZERO) && values[0].compareTo(BigInteger.ZERO) > 0) {
+            return values[0];
+        }
+        BigInteger p2 = b.multiply(BigInteger.valueOf(-1)).add(Continuations.squareRoot(coefficient, 50).toBigInteger());
+        values = p2.divideAndRemainder(den);
+        if (values[1].equals(BigInteger.ZERO) && values[0].compareTo(BigInteger.ZERO) > 0) {
+            return values[0];
+        }
         return coefficient;
     }
 
