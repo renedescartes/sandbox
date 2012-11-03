@@ -27,6 +27,24 @@ public class Problem100 {
         return root;
     }
 
+    /**
+     * a = 2, b = -2
+     *
+     * @param MAX
+     * @return
+     */
+    public static BigInteger answer(long MAX) {
+        BigInteger start = BigInteger.valueOf((long) Math.sqrt(MAX));
+        while (true) {
+            BigInteger second = start.subtract(BigInteger.valueOf(4));
+            BigInteger[] division = second.divideAndRemainder(BigInteger.valueOf(8));
+            if (division[1].compareTo(BigInteger.ZERO) == 0) {
+                return computeRoot(division[0]);
+            }
+            start = start.add(BigInteger.ONE);
+        }
+    }
+
     @Test
     public void testSimple() {
         assertEquals(explore(BigInteger.valueOf(1_000_000_000_000L)).toString(), "23");
@@ -34,6 +52,6 @@ public class Problem100 {
 
     @Test
     public void testBits() {
-        assertEquals(explore(BigInteger.valueOf(19)).intValue(), 15);
+        assertEquals(answer(18).intValue(), 15);
     }
 }
