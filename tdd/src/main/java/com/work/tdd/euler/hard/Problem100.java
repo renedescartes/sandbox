@@ -1,6 +1,5 @@
 package com.work.tdd.euler.hard;
 
-import com.work.tdd.euler.util.fraction.Continuations;
 import org.testng.annotations.Test;
 
 import java.math.BigInteger;
@@ -33,32 +32,47 @@ public class Problem100 {
         return product.equals(a.multiply(a.subtract(ONE)));
     }
 
+    private static boolean isProduct(long a, long product) {
+        return product == a * (a - 1);
+    }
+
     /**
      * a = 2, b = -2
      *
      * @param MAX
      * @return
      */
-    public static BigInteger answer(long MAX) {
-        BigInteger b = BigInteger.valueOf((long) Math.sqrt(MAX));
+    public static long answer(long MAX) {
+        long b = MAX / 3;
         while (true) {
-            logger.info("Inspecting " + b);
-            BigInteger product = b.multiply(b.subtract(ONE)).multiply(BigInteger.valueOf(2));
-            BigInteger root = Continuations.squareRoot(product, 10).toBigInteger();
-            if (isProduct(root, product) || isProduct(root.subtract(ONE), product) || isProduct(root.add(ONE), product)) {
-                return b;
+            if (b % 1000 == 0) {
+                logger.info("Inspecting " + b);
             }
-            b = b.add(ONE);
+            long product = b * (b - 1) * 2;
+            long root = (long) Math.sqrt(product);
+            if (product > MAX) {
+                if (isProduct(root, product) || isProduct(root - 1, product) || isProduct(root + 1, product)) {
+                    logger.info("b = " + b + " root " + root);
+                    return b;
+                }
+            }
+            b++;
         }
     }
 
     @Test
     public void testSimple() {
-        assertEquals(answer(1_000_000_000_000L).toString(), "23");
+        assertEquals(answer(1_000_000_000_000L), "23");
     }
 
     @Test
     public void testBits() {
-        assertEquals(answer(19).intValue(), 15);
+        assertEquals(answer(19), 15);
+        BigInteger b = new BigInteger("3312555");
+        BigInteger n = new BigInteger("4684660");
+        assertEquals(b.multiply(b.subtract(ONE)).multiply(BigInteger.valueOf(2)), n.multiply(n.subtract(ONE)));
+        b = new BigInteger("3312555");
+        n = new BigInteger("4684660");
+        assertEquals(b.multiply(b.subtract(ONE)).multiply(BigInteger.valueOf(2)), n.multiply(n.subtract(ONE)));
     }
 }
