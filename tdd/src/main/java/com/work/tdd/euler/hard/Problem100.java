@@ -1,11 +1,13 @@
 package com.work.tdd.euler.hard;
 
+import com.work.tdd.euler.util.fraction.Continuations;
 import org.testng.annotations.Test;
 
 import java.math.BigInteger;
 import java.util.logging.Logger;
 
 import static com.work.tdd.euler.util.Polygonal.isQuadraticSolvable;
+import static java.math.BigInteger.ONE;
 import static org.testng.Assert.assertEquals;
 
 public class Problem100 {
@@ -14,7 +16,7 @@ public class Problem100 {
 
     private static BigInteger computeRoot(BigInteger number) {
         return isQuadraticSolvable(BigInteger.valueOf(2), BigInteger.valueOf(-2),
-                number.multiply(number.subtract(BigInteger.ONE)).multiply(BigInteger.valueOf(-1)));
+                number.multiply(number.subtract(ONE)).multiply(BigInteger.valueOf(-1)));
     }
 
     public BigInteger explore(BigInteger start) {
@@ -22,9 +24,13 @@ public class Problem100 {
         BigInteger root;
         while ((root = computeRoot(current)).compareTo(BigInteger.valueOf(-1)) == 0) {
             logger.fine("Attempting [" + current + "]");
-            current = current.add(BigInteger.ONE);
+            current = current.add(ONE);
         }
         return root;
+    }
+
+    private static boolean isProduct(BigInteger a, BigInteger product) {
+        return product.equals(a.multiply(a.subtract(ONE)));
     }
 
     /**
@@ -34,24 +40,25 @@ public class Problem100 {
      * @return
      */
     public static BigInteger answer(long MAX) {
-        BigInteger start = BigInteger.valueOf((long) Math.sqrt(MAX));
+        BigInteger b = BigInteger.valueOf((long) Math.sqrt(MAX));
         while (true) {
-            BigInteger second = start.subtract(BigInteger.valueOf(4));
-            BigInteger[] division = second.divideAndRemainder(BigInteger.valueOf(8));
-            if (division[1].compareTo(BigInteger.ZERO) == 0) {
-                return computeRoot(division[0]);
+            logger.info("Inspecting " + b);
+            BigInteger product = b.multiply(b.subtract(ONE)).multiply(BigInteger.valueOf(2));
+            BigInteger root = Continuations.squareRoot(product, 10).toBigInteger();
+            if (isProduct(root, product) || isProduct(root.subtract(ONE), product) || isProduct(root.add(ONE), product)) {
+                return b;
             }
-            start = start.add(BigInteger.ONE);
+            b = b.add(ONE);
         }
     }
 
     @Test
     public void testSimple() {
-        assertEquals(explore(BigInteger.valueOf(1_000_000_000_000L)).toString(), "23");
+        assertEquals(answer(1_000_000_000_000L).toString(), "23");
     }
 
     @Test
     public void testBits() {
-        assertEquals(answer(18).intValue(), 15);
+        assertEquals(answer(19).intValue(), 15);
     }
 }
