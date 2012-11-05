@@ -2,6 +2,7 @@ package com.work.tdd.euler.hard;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Sets;
 import com.work.tdd.euler.medium.Utility;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.charactersOf;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.work.tdd.euler.medium.Utility.digits;
 import static com.work.tdd.euler.medium.Utility.isPerfectSquare;
 import static org.testng.Assert.*;
 
@@ -71,13 +73,23 @@ public class Problem98 {
     }
 
     public static long largestNumber(Integer[] arrangement) {
-        for (long i = 999999999; i >= 100000000; i--) {
-            Long convert = convert(i, arrangement);
-            if (isPerfectSquare(i) && isPerfectSquare(convert)) {
-                return Math.max(i, convert);
+        long start = (long) Math.sqrt(999999999);
+        long end = (long) Math.sqrt(100000000);
+        for (long i = start; i >= end; i--) {
+            Long square = i * i;
+            if (distinctDigits(square)) {
+                logger.info("i = " + i + " square " + square);
+                Long convert = convert(square, arrangement);
+                if (isPerfectSquare(convert)) {
+                    return Math.max(square, convert);
+                }
             }
         }
         return 0;
+    }
+
+    private static boolean distinctDigits(Long n) {
+        return n.toString().length() == Sets.newHashSet(digits(n)).size();
     }
 
     @Test
