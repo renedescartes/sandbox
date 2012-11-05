@@ -1,7 +1,6 @@
 package com.work.tdd.euler.util.fraction;
 
 import com.work.tdd.euler.medium.Utility;
-import org.apache.commons.lang.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -72,7 +71,7 @@ public class Continuations {
         BigInteger remainder = BigInteger.ZERO;
         int iteration = 0;
         BigInteger c = null;
-        while ((new BigDecimal(b.toString()).precision() < numberOfDecimals + 1) && (ObjectUtils.notEqual(c, BigInteger.ZERO))) {
+        while (new BigDecimal(b.toString()).precision() < numberOfDecimals + 1) {
             c = remainder.multiply(BigInteger.valueOf(100)).add(
                     (iteration < splits.size() ? BigInteger.valueOf(splits.get(iteration)) : BigInteger.ZERO));
             BigInteger p = new BigInteger(b.toString().replaceAll("\\.", ""));
