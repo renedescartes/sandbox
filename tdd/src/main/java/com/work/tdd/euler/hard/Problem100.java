@@ -19,9 +19,9 @@ public class Problem100 {
      * @return
      */
     public static void answer(long MAX) {
-        BigInteger start = BigInteger.ONE;
         BigInteger two = BigInteger.valueOf(2);
-        BigInteger factor = two;
+        BigInteger factor = BigInteger.valueOf(MAX / 2);
+        BigInteger start = factor.multiply(factor.subtract(BigInteger.ONE)).divide(two);
         while (factor.longValue() < MAX) {
             logger.fine("Inspecting " + start + " and factor " + factor);
             BigInteger multiply = start.multiply(two);
