@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.logging.Logger;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Problem88 {
@@ -19,27 +20,42 @@ public class Problem88 {
                 return current;
             }
         }
-        throw new RuntimeException("Cannot find minimal number");
+        return -1;
     }
 
     @Test
     public void testSimple() {
         assertTrue(canBeSplit(12, 12, 6));
-        //assertEquals(kthMinimalNumber(6), 12);
+        assertEquals(kthMinimalNumber(6), 12);
+        assertEquals(kthMinimalNumber(7), 12);
+        assertEquals(kthMinimalNumber(8), 12);
+        assertEquals(kthMinimalNumber(9), 15);
+        assertEquals(kthMinimalNumber(10), 16);
+        assertEquals(kthMinimalNumber(11), 16);
+        assertEquals(kthMinimalNumber(12), 16);
     }
 
-    private static boolean canBeSplit(int productOfTerms, int sumOfTerms, int numberOfTerms) {
-        logger.info("productOfTerms = " + productOfTerms + " sumOfTerms [" + sumOfTerms + "] numberOfTerms [" + numberOfTerms + "]");
-        if (productOfTerms == 1) {
-            return sumOfTerms == 0 && numberOfTerms == 0;
+    private static boolean canBeSplit(int product, int sum, int numberOfTerms) {
+        logger.info("product = [" + product + "] sum [" + sum + "] numberOfTerms [" + numberOfTerms + "]");
+        //case of all 1s
+        if (product == 1) {
+            return sum == numberOfTerms;
         }
-        if (numberOfTerms == 0 || sumOfTerms <= 0) {
+        if (numberOfTerms == 1) {
+            return sum == product;
+        }
+        if (sum <= 0 || product <= 0 || sum < numberOfTerms) {
             return false;
         }
-        Integer[] divisors = cachedDivisors(productOfTerms);
-        for (Integer divisor : divisors) {
-            if (canBeSplit(productOfTerms / divisor, sumOfTerms - divisor, numberOfTerms - 1)) {
-                return true;
+        Integer[] divisors = cachedDivisors(product);
+        for (int numberOfOnes = numberOfTerms - 1; numberOfOnes >= 1; numberOfOnes--) {
+            for (Integer divisor : divisors) {
+                int newProduct = product / divisor;
+                int newSum = sum - numberOfOnes - divisor;
+                int newNumberOfTerms = numberOfTerms - numberOfOnes - 1;
+                if (divisor != 1 && canBeSplit(newProduct, newSum, newNumberOfTerms)) {
+                    return true;
+                }
             }
         }
         return false;
