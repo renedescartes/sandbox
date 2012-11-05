@@ -14,6 +14,8 @@ import static com.google.common.collect.Lists.charactersOf;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.work.tdd.euler.medium.Utility.digits;
 import static com.work.tdd.euler.medium.Utility.isPerfectSquare;
+import static com.work.tdd.euler.util.NumberUtil.largestWithNDigits;
+import static com.work.tdd.euler.util.NumberUtil.smallestWithNDigits;
 import static org.testng.Assert.*;
 
 public class Problem98 {
@@ -60,8 +62,8 @@ public class Problem98 {
     }
 
     public static long largestNumber(Integer[] arrangement) {
-        long start = (long) Math.sqrt(999999999);
-        long end = (long) Math.sqrt(100000000);
+        long start = largestWithNDigits(arrangement.length);
+        long end = smallestWithNDigits(arrangement.length);
         for (long i = start; i >= end; i--) {
             Long square = i * i;
             if (distinctDigits(square)) {

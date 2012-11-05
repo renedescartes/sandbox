@@ -14,6 +14,13 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
 public class NumberUtil {
+    public static Long largestWithNDigits(int n) {
+        return (long) Math.pow(10, n + 1) - 1;
+    }
+
+    public static Long smallestWithNDigits(int n) {
+        return (long) Math.pow(10, n - 1);
+    }
 
     public static List<Integer> splitIntoDigits(int n, int digitLength) {
         Preconditions.checkArgument(n > 0);
