@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.charactersOf;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.work.tdd.euler.medium.Utility.isPerfectSquare;
 import static org.testng.Assert.*;
 
 public class Problem98 {
@@ -70,7 +71,18 @@ public class Problem98 {
     }
 
     public static long largestNumber(Integer[] arrangement) {
+        for (long i = 999999999; i >= 100000000; i--) {
+            Long convert = convert(i, arrangement);
+            if (isPerfectSquare(i) && isPerfectSquare(convert)) {
+                return Math.max(i, convert);
+            }
+        }
         return 0;
+    }
+
+    @Test
+    public void testSimple() {
+        assertEquals(largestNumber(new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}), 24);
     }
 
     @Test
