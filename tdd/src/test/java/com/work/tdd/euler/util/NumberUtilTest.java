@@ -35,5 +35,6 @@ public class NumberUtilTest {
     public void testSquareRoot() {
         assertTrue(NumberUtil.isPerfectSquare(new BigInteger("256")));
         assertFalse(NumberUtil.isPerfectSquare(new BigInteger("259")));
+        assertFalse(NumberUtil.isPerfectSquare(new BigInteger("10081")));
     }
 }
