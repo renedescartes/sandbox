@@ -1,7 +1,9 @@
 package com.work.tdd.euler.hard;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.work.tdd.euler.medium.Utility;
+import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
 import javax.annotation.Nullable;
@@ -11,8 +13,7 @@ import java.util.logging.Logger;
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.charactersOf;
 import static com.google.common.collect.Lists.newArrayList;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class Problem98 {
     private static final Logger logger = Logger.getLogger(Problem98.class.getName());
@@ -58,8 +59,23 @@ public class Problem98 {
         };
     }
 
+    private static Long convert(Long number, Integer[] arrangement) {
+        Preconditions.checkArgument(number.toString().length() == arrangement.length);
+        Integer[] originalDigits = Utility.digits(number);
+        Integer[] newDigits = new Integer[originalDigits.length];
+        for (int i = 0; i < arrangement.length; i++) {
+            newDigits[i] = originalDigits[arrangement[i]];
+        }
+        return Long.valueOf(StringUtils.join(newDigits, ""));
+    }
+
+    public static long largestNumber(Integer[] arrangement) {
+        return 0;
+    }
+
     @Test
     public void testBits() {
+        assertEquals(convert(712347432L, new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}).longValue(), 327432741);
         Collection<String> anagrams = explore();
         assertTrue(anagrams.contains("\"INTRODUCE\""));
         assertTrue(anagrams.contains("\"REDUCTION\""));
