@@ -153,6 +153,7 @@ public class Problem93 {
         assertTrue(outputs.contains(10));
         assertEquals(outputs.size(), 3);
         List<List<Operator>> operators = allPossibleOperatorCombinationsLengthThree();
+        logger.info(operators.toString());
         assertEquals(operators.size(), 64);
         logger.info(variationsPerCombination(asList(1, 2, 5, 8)).toString());
         assertEquals(successiveCountForCombination(asList(1, 2, 3, 4)), 28);
