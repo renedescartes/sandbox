@@ -40,10 +40,11 @@ public class Problem98 {
     }
 
     public static long largestNumber(Integer[] arrangement) {
-        long start = largestWithNDigits(arrangement.length);
-        long end = smallestWithNDigits(arrangement.length);
+        long start = (long) Math.sqrt(largestWithNDigits(arrangement.length));
+        long end = (long) Math.sqrt(smallestWithNDigits(arrangement.length));
         for (long i = start; i >= end; i--) {
             Long square = i * i;
+            logger.fine("i = " + i + " square " + square);
             if (distinctDigits(square)) {
                 logger.info("i = " + i + " square " + square);
                 Long convert = convert(square, arrangement);
@@ -61,8 +62,12 @@ public class Problem98 {
     }
 
     @Test
-    public void testBits() {
+    public void testLongestNumber() {
         assertEquals(largestNumber(new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}), -1);
+    }
+
+    @Test
+    public void testBits() {
         assertEquals(anagramRepresentation("INTRODUCE", "REDUCTION"), new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1});
         assertEquals(convert(712347432L, new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}).longValue(), 327432741);
         Collection<Tuple<String, String>> anagrams = explore("words.txt");

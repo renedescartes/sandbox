@@ -15,7 +15,7 @@ import static java.util.Collections.unmodifiableList;
 
 public class NumberUtil {
     public static Long largestWithNDigits(int n) {
-        return (long) Math.pow(10, n + 1) - 1;
+        return (long) Math.pow(10, n) - 1;
     }
 
     public static Long smallestWithNDigits(int n) {
