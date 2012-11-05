@@ -62,6 +62,7 @@ public class Problem98 {
 
     @Test
     public void testBits() {
+        assertEquals(largestNumber(new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}), -1);
         assertEquals(anagramRepresentation("INTRODUCE", "REDUCTION"), new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1});
         assertEquals(convert(712347432L, new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}).longValue(), 327432741);
         Collection<Tuple<String, String>> anagrams = explore("words.txt");
@@ -83,7 +84,7 @@ public class Problem98 {
         List<Tuple<String, String>> tuples = new ArrayList<>();
         for (String s1 : inputs) {
             for (String s2 : inputs) {
-                if (!s1.equals(s2) && isAnagram(s1, s2)) {
+                if (s1.compareTo(s2) < 0 && isAnagram(s1, s2)) {
                     tuples.add(new Tuple<>(s1.replaceAll("\"", ""), s2.replaceAll("\"", "")));
                 }
             }
