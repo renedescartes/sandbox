@@ -23,7 +23,9 @@ public class Problem100 {
         BigInteger factor = BigInteger.valueOf(MAX / 2);
         BigInteger start = factor.multiply(factor.subtract(BigInteger.ONE)).divide(two);
         while (factor.longValue() < MAX) {
-            logger.fine("Inspecting " + start + " and factor " + factor);
+            if (factor.mod(BigInteger.valueOf(100000)).intValue() == 0) {
+                logger.info("Inspecting " + start + " and factor " + factor);
+            }
             BigInteger multiply = start.multiply(two);
             if (isTriangular(multiply)) {
                 logger.info("Sets are [" + triangleRoot(start).add(BigInteger.ONE) + "] and [" + triangleRoot(multiply).add(BigInteger.ONE) + "]");
