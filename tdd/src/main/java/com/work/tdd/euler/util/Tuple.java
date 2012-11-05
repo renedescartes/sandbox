@@ -1,12 +1,14 @@
 package com.work.tdd.euler.util;
 
 import com.google.common.base.Function;
+import org.apache.commons.lang.builder.CompareToBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 
 /**
  * Useful when you have to return two values from a function. Especially when you do parallel processing
+ *
  * @param <X>
  * @param <Y>
  */
@@ -34,6 +36,15 @@ public class Tuple<X extends Comparable, Y extends Comparable> {
             @Override
             public int compare(Tuple<X, Y> o1, Tuple<X, Y> o2) {
                 return o1.getY().compareTo(o2.getY());
+            }
+        };
+    }
+
+    public static <X extends Comparable, Y extends Comparable> Comparator<? super Tuple<X, Y>> xyComparator() {
+        return new Comparator<Tuple<X, Y>>() {
+            @Override
+            public int compare(Tuple<X, Y> o1, Tuple<X, Y> o2) {
+                return new CompareToBuilder().append(o1.getX(), o2.getX()).append(o1.getY(), o2.getY()).toComparison();
             }
         };
     }
