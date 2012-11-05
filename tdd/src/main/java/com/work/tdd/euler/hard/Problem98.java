@@ -1,11 +1,9 @@
 package com.work.tdd.euler.hard;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import com.work.tdd.euler.medium.Utility;
 import com.work.tdd.euler.util.Tuple;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
@@ -22,11 +20,21 @@ import static org.testng.Assert.*;
 public class Problem98 {
     private static final Logger logger = Logger.getLogger(Problem98.class.getName());
 
-    public static long answer() {
-        Collection<Tuple<String, String>> tuples = explore();
-        for (Tuple<String, String> tuple : tuples) {
-            logger.info("Exploring " + tuple);
-
+    public static long answer(String resource) {
+        Multimap<Integer, Tuple<String, String>> tuplesMap = mapTuples(explore(resource));
+        Collection<Integer> anagramLengths = Lists.reverse(Lists.newArrayList(tuplesMap.keySet()));
+        for (Integer anagramLength : anagramLengths) {
+            Collection<Tuple<String, String>> tuples = tuplesMap.get(anagramLength);
+            logger.info("Analysing tuples of length [" + anagramLength + "]");
+            long largestNumber = -1;
+            for (Tuple<String, String> chosenTuple : tuples) {
+                Integer[] arrangement = anagramRepresentation(chosenTuple.getX(), chosenTuple.getY());
+                largestNumber = Math.max(largestNumber, largestNumber(arrangement));
+                logger.info("Checking tuple [" + chosenTuple + "] largest number [" + largestNumber);
+            }
+            if (largestNumber > 0) {
+                return largestNumber;
+            }
         }
         return -1;
     }
@@ -49,14 +57,14 @@ public class Problem98 {
 
     @Test
     public void testSimple() {
-        assertEquals(largestNumber(new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}), 24);
+        assertEquals(answer("words.txt"), 24);
     }
 
     @Test
     public void testBits() {
         assertEquals(anagramRepresentation("INTRODUCE", "REDUCTION"), new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1});
         assertEquals(convert(712347432L, new Integer[]{3, 8, 5, 6, 7, 2, 0, 4, 1}).longValue(), 327432741);
-        Collection<Tuple<String, String>> anagrams = explore();
+        Collection<Tuple<String, String>> anagrams = explore("words.txt");
         assertTrue(anagrams.contains(new Tuple<>("INTRODUCE", "REDUCTION")));
         assertTrue(isAnagram("CARE", "RACE"));
         assertFalse(isAnagram("CARER", "RACE"));
@@ -70,8 +78,8 @@ public class Problem98 {
         return Arrays.equals(c1.toArray(), c2.toArray());
     }
 
-    private static Collection<Tuple<String, String>> explore() {
-        String[] inputs = Utility.readFile("words.txt").get(0).split(",");
+    private static Collection<Tuple<String, String>> explore(String resource) {
+        String[] inputs = Utility.readFile(resource).get(0).split(",");
         List<Tuple<String, String>> tuples = new ArrayList<>();
         for (String s1 : inputs) {
             for (String s2 : inputs) {
@@ -80,18 +88,16 @@ public class Problem98 {
                 }
             }
         }
-        Collections.sort(tuples, sizeComparator());
         logger.info("Tuples " + tuples);
         return reverse(tuples);
     }
 
-    private static Comparator<Tuple<String, String>> sizeComparator() {
-        return new Comparator<Tuple<String, String>>() {
-            @Override
-            public int compare(Tuple<String, String> o1, Tuple<String, String> o2) {
-                return ObjectUtils.compare(o1.getX().length(), o2.getX().length());
-            }
-        };
+    private static ListMultimap<Integer, Tuple<String, String>> mapTuples(Collection<Tuple<String, String>> tuples) {
+        ListMultimap<Integer, Tuple<String, String>> map = ArrayListMultimap.create();
+        for (Tuple<String, String> tuple : tuples) {
+            map.put(tuple.getX().length(), tuple);
+        }
+        return map;
     }
 
     private static Long convert(Long number, Integer[] arrangement) {
