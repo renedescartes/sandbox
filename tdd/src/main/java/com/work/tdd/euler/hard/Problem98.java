@@ -5,14 +5,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.work.tdd.euler.medium.Utility;
 import com.work.tdd.euler.util.Tuple;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
 import java.util.*;
 import java.util.logging.Logger;
 
-import static com.google.common.collect.Lists.charactersOf;
-import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.*;
 import static com.work.tdd.euler.medium.Utility.digits;
 import static com.work.tdd.euler.medium.Utility.isPerfectSquare;
 import static com.work.tdd.euler.util.NumberUtil.largestWithNDigits;
@@ -21,6 +21,15 @@ import static org.testng.Assert.*;
 
 public class Problem98 {
     private static final Logger logger = Logger.getLogger(Problem98.class.getName());
+
+    public static long answer() {
+        Collection<Tuple<String, String>> tuples = explore();
+        for (Tuple<String, String> tuple : tuples) {
+            logger.info("Exploring " + tuple);
+
+        }
+        return -1;
+    }
 
     public static long largestNumber(Integer[] arrangement) {
         long start = largestWithNDigits(arrangement.length);
@@ -63,7 +72,7 @@ public class Problem98 {
 
     private static Collection<Tuple<String, String>> explore() {
         String[] inputs = Utility.readFile("words.txt").get(0).split(",");
-        Collection<Tuple<String, String>> tuples = new ArrayList<>();
+        List<Tuple<String, String>> tuples = new ArrayList<>();
         for (String s1 : inputs) {
             for (String s2 : inputs) {
                 if (!s1.equals(s2) && isAnagram(s1, s2)) {
@@ -71,8 +80,18 @@ public class Problem98 {
                 }
             }
         }
+        Collections.sort(tuples, sizeComparator());
         logger.info("Tuples " + tuples);
-        return tuples;
+        return reverse(tuples);
+    }
+
+    private static Comparator<Tuple<String, String>> sizeComparator() {
+        return new Comparator<Tuple<String, String>>() {
+            @Override
+            public int compare(Tuple<String, String> o1, Tuple<String, String> o2) {
+                return ObjectUtils.compare(o1.getX().length(), o2.getX().length());
+            }
+        };
     }
 
     private static Long convert(Long number, Integer[] arrangement) {
@@ -96,4 +115,5 @@ public class Problem98 {
         }
         return anagram.toArray(new Integer[anagram.size()]);
     }
+
 }
