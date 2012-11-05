@@ -1,43 +1,55 @@
 package com.work.tdd.euler.hard;
 
-import com.google.common.collect.Lists;
-import com.work.tdd.euler.medium.Problem76;
+import com.work.tdd.euler.medium.Utility;
+import org.testng.annotations.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
+
+import static org.testng.Assert.assertTrue;
 
 public class Problem88 {
 
-    private static final Logger logger = Logger.getLogger(Problem76.class.getName());
+    private static final Logger logger = Logger.getLogger(Problem88.class.getName());
 
-    public static Set<Integer> productSumSets(int n) {
-        Set<Integer> listOfKs = new HashSet<>();
-        int level = 1;
-        Set<List<Integer>> permutes = new HashSet<>();
-        permutes.add(Arrays.asList(n));
-        Set<List<Integer>> newPermutes = new HashSet<>();
-        while (level <= n) {
-            logger.info("Level [" + level + "] stepCount [" + permutes.size() + "] options " + permutes);
-            for (List<Integer> digits : permutes) {
-                for (int i = 0; i < digits.size(); i++) {
-                    if (digits.get(i) != 1) {
-                        for (int j = 1; j < digits.get(i); j++) {
-                            List<Integer> newAttempt = Lists.newArrayList(digits.subList(0, i));
-                            newAttempt.add(j);
-                            newAttempt.add(digits.get(i) - j);
-                            newAttempt.addAll(digits.subList(i + 1, digits.size()));
-                            newPermutes.add(Lists.reverse(newAttempt));
-                        }
-                    }
-                }
+    private static Integer[][] divisors = new Integer[100000][];
+
+    public static int kthMinimalNumber(int k) {
+        for (int current = k; current <= 2 * k; current++) {
+            if (canBeSplit(current, current, k)) {
+                return current;
             }
-            permutes = newPermutes;
-            newPermutes = new HashSet<>();
-            level++;
         }
-        return listOfKs;
+        throw new RuntimeException("Cannot find minimal number");
     }
+
+    @Test
+    public void testSimple() {
+        assertTrue(canBeSplit(12, 12, 6));
+        //assertEquals(kthMinimalNumber(6), 12);
+    }
+
+    private static boolean canBeSplit(int productOfTerms, int sumOfTerms, int numberOfTerms) {
+        logger.info("productOfTerms = " + productOfTerms + " sumOfTerms [" + sumOfTerms + "] numberOfTerms [" + numberOfTerms + "]");
+        if (productOfTerms == 1) {
+            return sumOfTerms == 0 && numberOfTerms == 0;
+        }
+        if (numberOfTerms == 0 || sumOfTerms <= 0) {
+            return false;
+        }
+        Integer[] divisors = cachedDivisors(productOfTerms);
+        for (Integer divisor : divisors) {
+            if (canBeSplit(productOfTerms / divisor, sumOfTerms - divisor, numberOfTerms - 1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Integer[] cachedDivisors(Integer n) {
+        if (divisors[n] == null) {
+            divisors[n] = Utility.properDivisors(n);
+        }
+        return divisors[n];
+    }
+
 }
