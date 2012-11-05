@@ -30,7 +30,7 @@ public class Problem98 {
             for (Tuple<String, String> chosenTuple : tuples) {
                 Integer[] arrangement = anagramRepresentation(chosenTuple.getX(), chosenTuple.getY());
                 largestNumber = Math.max(largestNumber, largestNumber(arrangement));
-                logger.info("Checking tuple [" + chosenTuple + "] largest number [" + largestNumber);
+                logger.info("Checking tuple [" + chosenTuple + "] largest number [" + largestNumber + "]");
             }
             if (largestNumber > 0) {
                 return largestNumber;
@@ -44,11 +44,10 @@ public class Problem98 {
         long end = (long) Math.sqrt(smallestWithNDigits(arrangement.length));
         for (long i = start; i >= end; i--) {
             Long square = i * i;
-            logger.fine("i = " + i + " square " + square);
             if (distinctDigits(square)) {
-                logger.info("i = " + i + " square " + square);
+                logger.fine("i = " + i + " square " + square);
                 Long convert = convert(square, arrangement);
-                if (isPerfectSquare(convert)) {
+                if (convert.toString().length() == arrangement.length && isPerfectSquare(convert)) {
                     return Math.max(square, convert);
                 }
             }
@@ -58,7 +57,7 @@ public class Problem98 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer("words.txt"), 24);
+        assertEquals(answer("words.txt"), 18769);
     }
 
     @Test
