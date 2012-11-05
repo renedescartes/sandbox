@@ -78,4 +78,10 @@ public class PolygonalTest {
         BigInteger root = Polygonal.isQuadraticSolvable(BigInteger.valueOf(2), BigInteger.valueOf(-2), BigInteger.valueOf(-420));
         assertEquals(root.intValue(), 15);
     }
+
+    @Test
+    public void testSimple() {
+        assertEquals(Polygonal.triangleRoot(1260), -1);
+        assertEquals(Polygonal.triangleRoot(BigInteger.valueOf(1260)).longValue(), -1);
+    }
 }

@@ -12,6 +12,15 @@ public class Polygonal {
         return triangleRoot(x) >= 0;
     }
 
+    public static boolean isTriangular(BigInteger number) {
+        return triangleRoot(number).compareTo(BigInteger.ZERO) > 0;
+    }
+
+    public static BigInteger triangleRoot(BigInteger number) {
+        return isQuadraticSolvable(BigInteger.ONE, BigInteger.ONE,
+                number.multiply(BigInteger.valueOf(-2)));
+    }
+
     public static long triangleRoot(long x) {
         return isQuadraticSolvable(1, 1, -2 * x);
     }
