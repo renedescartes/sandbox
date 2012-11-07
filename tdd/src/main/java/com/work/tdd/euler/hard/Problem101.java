@@ -3,11 +3,11 @@ package com.work.tdd.euler.hard;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static com.work.tdd.euler.util.Polynomial.*;
+import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
 
 public class Problem101 {
@@ -48,8 +48,14 @@ public class Problem101 {
 
     @Test
     public void testSimple() {
-        assertEquals(answer(Arrays.asList(1L, 0L, 0L, 0L)).longValue(), 74L);
-        assertEquals(answer(Arrays.asList(1L, -1L, 1L, -1L, 1L, -1L, 1L, -1L, 1L, -1L, 1L)).longValue(), 1433323928L);
+        assertEquals(answer(asList(1L, -1L, 1L, -1L, 1L, -1L, 1L, -1L, 1L, -1L, 1L)).longValue(), 1433323928L);
+    }
+
+    @Test
+    public void testBits() {
+        assertEquals(answer(asList(1L, 0L, 0L, 0L)).longValue(), 74L);
+        findPolynomialFunction(asList(1L, 683L, 44287L, 838861L, 8138021L, 51828151L, 247165843L, 954437177L, 3138105961L));
+        firstIncorrectTerm(asList(1111L, 353L, -1334L, -1171L, 26L, 51L, -884L, -944L, -854L), asList(1L, -1L, 1L, -1L, 1L, -1L, 1L, -1L, 1L, -1L, 1L));
     }
 
 }
