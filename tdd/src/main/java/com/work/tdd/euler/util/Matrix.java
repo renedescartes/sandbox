@@ -5,18 +5,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Matrix {
 
-    public static Double[] matrixSolution(Integer[][] inputs, Integer[] outputs) {
+    public static Double[] matrixSolution(Long[][] inputs, Long[] outputs) {
         checkArgument(inputs.length == outputs.length);
         Double[] solution = new Double[outputs.length];
         long originalDeterminant = determinant(inputs);
         for (int i = 0; i < outputs.length; i++) {
-            Integer[][] replacedMatrix = replaceColumn(inputs, outputs, i);
+            Long[][] replacedMatrix = replaceColumn(inputs, outputs, i);
             solution[i] = (double) determinant(replacedMatrix) / (double) originalDeterminant;
         }
         return solution;
     }
 
-    public static long determinant(Integer[][] matrix) {
+    public static long determinant(Long[][] matrix) {
         checkNotNull(matrix);
         checkArgument(matrix.length == matrix[0].length);
         if (matrix.length == 1) {
@@ -31,8 +31,8 @@ public class Matrix {
         return determinant;
     }
 
-    private static Integer[][] subMatrix(Integer[][] matrix, int chosenRow) {
-        Integer[][] subMatrix = new Integer[matrix.length - 1][matrix.length - 1];
+    private static Long[][] subMatrix(Long[][] matrix, int chosenRow) {
+        Long[][] subMatrix = new Long[matrix.length - 1][matrix.length - 1];
         for (int row = 0; row < matrix.length; row++) {
             if (row != chosenRow) {
                 for (int column = 1; column < matrix.length; column++) {
@@ -44,8 +44,8 @@ public class Matrix {
         return subMatrix;
     }
 
-    private static Integer[][] replaceColumn(Integer[][] matrix, Integer[] newColumn, Integer targetColumn) {
-        Integer[][] replacedMatrix = new Integer[matrix.length][matrix.length];
+    private static Long[][] replaceColumn(Long[][] matrix, Long[] newColumn, Integer targetColumn) {
+        Long[][] replacedMatrix = new Long[matrix.length][matrix.length];
         for (int row = 0; row < matrix.length; row++) {
             for (int column = 0; column < matrix.length; column++) {
                 replacedMatrix[row][column] = (column == targetColumn) ? newColumn[row] : matrix[row][column];

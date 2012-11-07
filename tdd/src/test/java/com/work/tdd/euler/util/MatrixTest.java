@@ -9,34 +9,34 @@ import static org.testng.Assert.assertEquals;
 public class MatrixTest {
     @Test
     public void testBits() {
-        Integer[][] matrix = new Integer[][]{
-                {3, 0, 1},
-                {4, 1, 2},
-                {3, 2, 1},
+        Long[][] matrix = new Long[][]{
+                {3L, 0L, 1L},
+                {4L, 1L, 2L},
+                {3L, 2L, 1L},
         };
         assertEquals(determinant(matrix), -4);
-        matrix = new Integer[][]{
-                {3, 2, 0, 1},
-                {4, 0, 1, 2},
-                {3, 0, 2, 1},
-                {9, 2, 3, 1},
+        matrix = new Long[][]{
+                {3L, 2L, 0L, 1L},
+                {4L, 0L, 1L, 2L},
+                {3L, 0L, 2L, 1L},
+                {9L, 2L, 3L, 1L},
         };
         assertEquals(determinant(matrix), 24);
-        matrix = new Integer[][]{
-                {3, 2},
-                {4, 0},
+        matrix = new Long[][]{
+                {3L, 2L},
+                {4L, 0L},
         };
         assertEquals(determinant(matrix), -8);
     }
 
     @Test
     public void testMatrixSolution() {
-        Integer[][] inputs = new Integer[][]{
-                {1, 3, -2},
-                {3, 5, 6},
-                {2, 4, 3},
+        Long[][] inputs = new Long[][]{
+                {1L, 3L, -2L},
+                {3L, 5L, 6L},
+                {2L, 4L, 3L},
         };
-        Integer[] outputs = new Integer[]{5, 7, 8};
+        Long[] outputs = new Long[]{5L, 7L, 8L};
         Double[] answers = matrixSolution(inputs, outputs);
         assertEquals(answers, new Double[]{-15.0, 8.0, 2.0});
     }
