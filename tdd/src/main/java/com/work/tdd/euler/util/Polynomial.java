@@ -40,8 +40,8 @@ public class Polynomial {
         StringBuilder b = new StringBuilder("");
         for (int i = 0; i < polynomial.size(); i++) {
             int power = polynomial.size() - 1 - i;
-            String exponent = power == 0 ? "" : (power == 1 ? "n" : "n^" + power);
-            String l = polynomial.get(i) > 0 ? "+" + polynomial.get(i) : polynomial.get(i).toString();
+            String exponent = power == 0 ? "" : (power == 1 ? " n" : " n^" + power);
+            String l = polynomial.get(i) >= 0 ? " +" + polynomial.get(i) : " " + polynomial.get(i);
             b.append(l).append(exponent);
         }
         return b.toString();

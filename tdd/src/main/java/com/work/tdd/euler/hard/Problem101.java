@@ -24,7 +24,7 @@ public class Problem101 {
     public static Long answer(List<Double> polynomial) {
         List<Long> firstNTerms = firstNTerms(polynomial);
         logger.info("First N terms " + firstNTerms);
-        for (int i = 1; i < firstNTerms.size(); i++) {
+        for (int i = 1; i <= firstNTerms.size(); i++) {
             List<Long> polynomialFunction = findPolynomialFunction(firstNTerms.subList(0, i));
             logger.info("Sub list " + firstNTerms.subList(0, i) + " Polynomial function [" + prettyPrint(polynomialFunction) + "]");
         }
