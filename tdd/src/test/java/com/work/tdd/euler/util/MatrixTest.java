@@ -37,7 +37,7 @@ public class MatrixTest {
                 {2L, 4L, 3L},
         };
         Long[] outputs = new Long[]{5L, 7L, 8L};
-        Double[] answers = matrixSolution(inputs, outputs);
-        assertEquals(answers, new Double[]{-15.0, 8.0, 2.0});
+        Long[] answers = matrixSolution(inputs, outputs);
+        assertEquals(answers, new Long[]{-15L, 8L, 2L});
     }
 }

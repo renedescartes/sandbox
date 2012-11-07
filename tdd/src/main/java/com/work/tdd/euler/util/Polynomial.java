@@ -10,10 +10,10 @@ import static java.util.Arrays.asList;
 
 public class Polynomial {
 
-    public static List<Double> findPolynomialFunction(List<Long> points) {
+    public static List<Long> findPolynomialFunction(List<Long> points) {
         checkArgument(points.size() > 0);
         if (points.size() == 1) {
-            return asList((double) points.get(0));
+            return asList((long) points.get(0));
         }
         Long[][] input = new Long[points.size()][points.size()];
         for (int row = 0; row < points.size(); row++) {
@@ -21,7 +21,7 @@ public class Polynomial {
                 input[row][column] = (long) Math.pow(row + 1, points.size() - 1 - column);
             }
         }
-        List<Double> answers = asList(matrixSolution(input, points.toArray(new Long[points.size()])));
+        List<Long> answers = asList(matrixSolution(input, points.toArray(new Long[points.size()])));
         checkState(answers.size() <= points.size());
         return answers.subList(1, answers.size());
     }

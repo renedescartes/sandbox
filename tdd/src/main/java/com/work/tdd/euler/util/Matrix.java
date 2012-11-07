@@ -5,13 +5,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Matrix {
 
-    public static Double[] matrixSolution(Long[][] inputs, Long[] outputs) {
+    public static Long[] matrixSolution(Long[][] inputs, Long[] outputs) {
         checkArgument(inputs.length == outputs.length);
-        Double[] solution = new Double[outputs.length];
+        Long[] solution = new Long[outputs.length];
         long originalDeterminant = determinant(inputs);
         for (int i = 0; i < outputs.length; i++) {
             Long[][] replacedMatrix = replaceColumn(inputs, outputs, i);
-            solution[i] = (double) determinant(replacedMatrix) / (double) originalDeterminant;
+            solution[i] = determinant(replacedMatrix) / originalDeterminant;
         }
         return solution;
     }
