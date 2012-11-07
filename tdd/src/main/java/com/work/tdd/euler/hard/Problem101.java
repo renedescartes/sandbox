@@ -27,7 +27,7 @@ public class Problem101 {
         logger.info("First N terms " + firstNTerms);
         for (int i = 1; i < firstNTerms.size(); i++) {
             List<Long> polynomialFunction = findPolynomialFunction(firstNTerms.subList(0, i));
-            logger.info("Polynomial function " + polynomialFunction);
+            logger.info("Sub list " + firstNTerms.subList(0, i) + " Polynomial function " + polynomialFunction);
         }
         return 0L;
     }

@@ -23,7 +23,7 @@ public class Polynomial {
         }
         List<Long> answers = asList(matrixSolution(input, points.toArray(new Long[points.size()])));
         checkState(answers.size() <= points.size());
-        return answers.subList(1, answers.size());
+        return answers;
     }
 
     public static Long evaluatePolynomial(List<Double> polynomial, Long n) {

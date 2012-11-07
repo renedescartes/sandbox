@@ -9,7 +9,7 @@ import static org.testng.Assert.assertEquals;
 public class PolynomialTest {
     @Test
     public void testBits() {
-        assertEquals(findPolynomialFunction(asList(1L, 8L, 15L)), asList(7L, -6L));
-        assertEquals(findPolynomialFunction(asList(1L, 8L, 27L, 58L)), asList(6L, -11L, 6L));
+        assertEquals(findPolynomialFunction(asList(1L, 8L)), asList(7L, -6L));
+        assertEquals(findPolynomialFunction(asList(1L, 8L, 27L)), asList(6L, -11L, 6L));
     }
 }
