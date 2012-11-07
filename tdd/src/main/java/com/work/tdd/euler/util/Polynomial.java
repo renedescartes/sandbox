@@ -1,14 +1,12 @@
 package com.work.tdd.euler.util;
 
-import org.testng.annotations.Test;
-
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.collect.Lists.reverse;
 import static com.work.tdd.euler.util.Matrix.matrixSolution;
 import static java.util.Arrays.asList;
-import static org.testng.Assert.assertEquals;
 
 public class Polynomial {
 
@@ -28,9 +26,14 @@ public class Polynomial {
         return answers.subList(1, answers.size());
     }
 
-    @Test
-    public void testBits() {
-        assertEquals(findPolynomialFunction(asList(1L, 8L, 15L)), asList(7.0, -6.0));
-        assertEquals(findPolynomialFunction(asList(1L, 8L, 27L, 58L)), asList(6.0, -11.0, 6.0));
+    public static Long evaluatePolynomial(List<Double> polynomial, Long n) {
+        Long sum = 0L;
+        List<Double> reverse = reverse(polynomial);
+        for (int i = 0; i < reverse.size(); i++) {
+            Double d = reverse.get(i);
+            sum += d * (long) Math.pow(n, i);
+        }
+        return sum;
     }
+
 }
