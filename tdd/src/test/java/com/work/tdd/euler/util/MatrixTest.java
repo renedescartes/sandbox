@@ -22,6 +22,11 @@ public class MatrixTest {
                 {9, 2, 3, 1},
         };
         assertEquals(determinant(matrix), 24);
+        matrix = new Integer[][]{
+                {3, 2},
+                {4, 0},
+        };
+        assertEquals(determinant(matrix), -8);
     }
 
     @Test

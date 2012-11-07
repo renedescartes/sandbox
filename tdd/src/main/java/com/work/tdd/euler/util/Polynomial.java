@@ -1,18 +1,23 @@
 package com.work.tdd.euler.util;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import static com.work.tdd.euler.util.Matrix.matrixSolution;
+import static java.util.Arrays.fill;
 
 public class Polynomial {
 
-    public static List<Integer> findPolynomialFunction(List<Tuple<Integer, Integer>> points) {
+    public static List<Double> findPolynomialFunction(List<Integer> points) {
         checkArgument(points.size() > 0);
-        List<Integer> powers = new ArrayList<>();
-
-        checkState(powers.size() <= points.size() - 1);
-        return powers;
+        Integer[][] input = new Integer[points.size()][points.size()];
+        for (int i = 0; i < points.size(); i++) {
+            fill(input[i], 1);
+        }
+        Double[] answers = matrixSolution(input, points.toArray(new Integer[points.size()]));
+        checkState(answers.length <= points.size() - 1);
+        return Arrays.asList(answers);
     }
 }
