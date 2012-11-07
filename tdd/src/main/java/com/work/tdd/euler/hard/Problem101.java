@@ -7,8 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static com.work.tdd.euler.util.Polynomial.evaluatePolynomial;
-import static com.work.tdd.euler.util.Polynomial.findPolynomialFunction;
+import static com.work.tdd.euler.util.Polynomial.*;
 
 public class Problem101 {
 
@@ -27,7 +26,7 @@ public class Problem101 {
         logger.info("First N terms " + firstNTerms);
         for (int i = 1; i < firstNTerms.size(); i++) {
             List<Long> polynomialFunction = findPolynomialFunction(firstNTerms.subList(0, i));
-            logger.info("Sub list " + firstNTerms.subList(0, i) + " Polynomial function " + polynomialFunction);
+            logger.info("Sub list " + firstNTerms.subList(0, i) + " Polynomial function [" + prettyPrint(polynomialFunction) + "]");
         }
         return 0L;
     }
