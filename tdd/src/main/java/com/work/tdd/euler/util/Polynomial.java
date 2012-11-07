@@ -26,11 +26,11 @@ public class Polynomial {
         return answers;
     }
 
-    public static Long evaluatePolynomial(List<Double> polynomial, Long n) {
+    public static Long evaluatePolynomial(List<Long> polynomial, Long n) {
         Long sum = 0L;
-        List<Double> reverse = reverse(polynomial);
+        List<Long> reverse = reverse(polynomial);
         for (int i = 0; i < reverse.size(); i++) {
-            Double d = reverse.get(i);
+            Long d = reverse.get(i);
             sum += (long) (d * Math.pow(n, i));
         }
         return sum;
