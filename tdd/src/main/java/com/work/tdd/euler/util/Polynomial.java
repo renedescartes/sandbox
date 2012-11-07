@@ -31,7 +31,7 @@ public class Polynomial {
         List<Double> reverse = reverse(polynomial);
         for (int i = 0; i < reverse.size(); i++) {
             Double d = reverse.get(i);
-            sum += d * (long) Math.pow(n, i);
+            sum += (long) (d * Math.pow(n, i));
         }
         return sum;
     }
