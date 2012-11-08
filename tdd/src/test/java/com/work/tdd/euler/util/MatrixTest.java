@@ -9,35 +9,35 @@ import static org.testng.Assert.assertEquals;
 public class MatrixTest {
     @Test
     public void testBits() {
-        Long[][] matrix = new Long[][]{
-                {3L, 0L, 1L},
-                {4L, 1L, 2L},
-                {3L, 2L, 1L},
+        Double[][] matrix = new Double[][]{
+                {3D, 0D, 1D},
+                {4D, 1D, 2D},
+                {3D, 2D, 1D},
         };
-        assertEquals(determinant(matrix), -4);
-        matrix = new Long[][]{
-                {3L, 2L, 0L, 1L},
-                {4L, 0L, 1L, 2L},
-                {3L, 0L, 2L, 1L},
-                {9L, 2L, 3L, 1L},
+        assertEquals(determinant(matrix), -4.0);
+        matrix = new Double[][]{
+                {3D, 2D, 0D, 1D},
+                {4D, 0D, 1D, 2D},
+                {3D, 0D, 2D, 1D},
+                {9D, 2D, 3D, 1D},
         };
-        assertEquals(determinant(matrix), 24);
-        matrix = new Long[][]{
-                {3L, 2L},
-                {4L, 0L},
+        assertEquals(determinant(matrix), 24.0);
+        matrix = new Double[][]{
+                {3D, 2D},
+                {4D, 0D},
         };
-        assertEquals(determinant(matrix), -8);
+        assertEquals(determinant(matrix), -8.0);
     }
 
     @Test
     public void testMatrixSolution() {
-        Long[][] inputs = new Long[][]{
-                {1L, 3L, -2L},
-                {3L, 5L, 6L},
-                {2L, 4L, 3L},
+        Double[][] inputs = new Double[][]{
+                {1D, 3D, -2D},
+                {3D, 5D, 6D},
+                {2D, 4D, 3D},
         };
-        Long[] outputs = new Long[]{5L, 7L, 8L};
-        Long[] answers = matrixSolution(inputs, outputs);
-        assertEquals(answers, new Long[]{-15L, 8L, 2L});
+        Double[] outputs = new Double[]{5D, 7D, 8D};
+        Double[] answers = matrixSolution(inputs, outputs);
+        assertEquals(answers, new Double[]{-15D, 8D, 2D});
     }
 }

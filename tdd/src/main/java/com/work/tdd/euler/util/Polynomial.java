@@ -10,38 +10,38 @@ import static java.util.Arrays.asList;
 
 public class Polynomial {
 
-    public static List<Long> findPolynomialFunction(List<Long> points) {
+    public static List<Double> findPolynomialFunction(List<Double> points) {
         checkArgument(points.size() > 0);
         if (points.size() == 1) {
-            return asList((long) points.get(0));
+            return asList((double) points.get(0));
         }
-        Long[][] input = new Long[points.size()][points.size()];
+        Double[][] input = new Double[points.size()][points.size()];
         for (int row = 0; row < points.size(); row++) {
             for (int column = 0; column < points.size(); column++) {
-                input[row][column] = (long) Math.pow(row + 1, points.size() - 1 - column);
+                input[row][column] = Math.pow(row + 1, points.size() - 1 - column);
             }
         }
-        List<Long> answers = asList(matrixSolution(input, points.toArray(new Long[points.size()])));
+        List<Double> answers = asList(matrixSolution(input, points.toArray(new Double[points.size()])));
         checkState(answers.size() <= points.size());
         return answers;
     }
 
-    public static Long evaluatePolynomial(List<Long> polynomial, Long n) {
-        Long sum = 0L;
-        List<Long> reverse = reverse(polynomial);
+    public static Double evaluatePolynomial(List<? extends Number> polynomial, Long n) {
+        Double sum = 0d;
+        List<? extends Number> reverse = reverse(polynomial);
         for (int i = 0; i < reverse.size(); i++) {
-            Long d = reverse.get(i);
-            sum += (long) (d * Math.pow(n, i));
+            double d = reverse.get(i).doubleValue();
+            sum += (d * Math.pow(n, i));
         }
         return sum;
     }
 
-    public static String prettyPrint(List<Long> polynomial) {
+    public static String prettyPrint(List<? extends Number> polynomial) {
         StringBuilder b = new StringBuilder("");
         for (int i = 0; i < polynomial.size(); i++) {
             int power = polynomial.size() - 1 - i;
             String exponent = power == 0 ? "" : (power == 1 ? " n" : " n^" + power);
-            String l = polynomial.get(i) >= 0 ? " +" + polynomial.get(i) : " " + polynomial.get(i);
+            String l = polynomial.get(i).doubleValue() >= 0 ? " +" + polynomial.get(i) : " " + polynomial.get(i);
             b.append(l).append(exponent);
         }
         return b.toString();
