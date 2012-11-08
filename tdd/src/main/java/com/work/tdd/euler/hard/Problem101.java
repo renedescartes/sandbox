@@ -53,9 +53,16 @@ public class Problem101 {
 
     @Test
     public void testBits() {
-        assertEquals(answer(asList(1D, 0D, 0D, 0D)), 74D);
-        findPolynomialFunction(asList(1D, 683D, 44287D, 838861D, 8138021D, 51828151D, 247165843D, 954437177D, 3138105961D));
+        List<Double> source = asList(1D, -1D, 1D, -1D, 1D, -1D, 1D, -1D, 1D, -1D, 1D);
+        List<Double> target = firstNTerms(source).subList(0, 9);
+        List<Double> polynomialFunction = findPolynomialFunction(target);
+        logger.info("Function " + prettyPrint(polynomialFunction));
+    }
+
+    @Test
+    public void testTrivial() {
         firstIncorrectTerm(asList(1111D, 353D, -1334D, -1171D, 26D, 51D, -884D, -944D, -854D), asList(1D, -1D, 1D, -1D, 1D, -1D, 1D, -1D, 1D, -1D, 1D));
+        assertEquals(answer(asList(1D, 0D, 0D, 0D)), 74D);
     }
 
 }
