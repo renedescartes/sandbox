@@ -1,5 +1,6 @@
 package com.work.tdd.euler.util;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -37,11 +38,12 @@ public class Polynomial {
     }
 
     public static String prettyPrint(List<? extends Number> polynomial) {
+        DecimalFormat twoDigit = new DecimalFormat("#,##0.00");
         StringBuilder b = new StringBuilder("");
         for (int i = 0; i < polynomial.size(); i++) {
             int power = polynomial.size() - 1 - i;
             String exponent = power == 0 ? "" : (power == 1 ? " n" : " n^" + power);
-            String l = polynomial.get(i).doubleValue() >= 0 ? " +" + polynomial.get(i) : " " + polynomial.get(i);
+            String l = polynomial.get(i).doubleValue() >= 0 ? " +" + twoDigit.format(polynomial.get(i)) : " " + twoDigit.format(polynomial.get(i));
             b.append(l).append(exponent);
         }
         return b.toString();
